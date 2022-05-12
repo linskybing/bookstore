@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../CSS/member.css" rel="stylesheet">
+    <link href="../css/header.css" rel="stylesheet">
+    <title>會員管理</title>
+</head>
+
+<body>
+    <header>
+    </header>
+    <content>
+        <div class="user_info">
+            <form class="user">
+                <ul>
+                    <li>
+                        <div class="user_name">
+                            <h2><span id="nameinfo"></span>，您好</h2>
+                        </div>
+                    </li>
+                    <li>
+                        <label class="img_btn">
+                            <input type="file">
+                            <svg width="21" height="17" viewBox="0 0 21 17" fill="none"
+                                xmlns="http://www.w3.org/2000/svg">
+                                <path
+                                    d="M18.0557 0.85257H2.05566C0.952664 0.85257 0.0556641 1.74957 0.0556641 2.85257V14.8526C0.0556641 15.9556 0.952664 16.8526 2.05566 16.8526H18.0557C19.1587 16.8526 20.0557 15.9556 20.0557 14.8526V2.85257C20.0557 1.74957 19.1587 0.85257 18.0557 0.85257ZM4.55566 3.85257C4.95349 3.85257 5.33502 4.0106 5.61632 4.29191C5.89763 4.57321 6.05566 4.95474 6.05566 5.35257C6.05566 5.75039 5.89763 6.13193 5.61632 6.41323C5.33502 6.69453 4.95349 6.85257 4.55566 6.85257C4.15784 6.85257 3.77631 6.69453 3.495 6.41323C3.2137 6.13193 3.05566 5.75039 3.05566 5.35257C3.05566 4.95474 3.2137 4.57321 3.495 4.29191C3.77631 4.0106 4.15784 3.85257 4.55566 3.85257V3.85257ZM10.0557 13.8526H3.05566L7.05566 8.85257L8.55566 10.8526L11.5557 6.85257L17.0557 13.8526H10.0557Z"
+                                    fill="white" />
+                            </svg>
+                            <p>上傳圖片</p>
+                        </label>
+                    </li>
+                    <li>
+                        <div>
+                            <img class="membericon" src="http://localhost:8080/images/Members/" width="50" height="50">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="option">
+                            <p>帳號：</p><span id="accountinfo"></span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="option">
+                            <p>地址：</p><input id="addressinfo"></input>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="option">
+                            <p>Email：</p><span id="emailinfo"></span>
+                        </div>
+                    </li>
+
+                </ul>
+                <div class="btn">
+                    <div class="reset">
+                        <input type="reset" value="重設">
+                    </div>
+                    <div class="submit">
+                        <input type="submit" value="完成編輯">
+                    </div>
+                </div>
+            </form>
+            <form class="user_pwd">
+                <h1>密碼管理</h1>
+                <ul>
+                    <li>
+                        <div class="option">
+                            <p>輸入舊密碼</p><input type="password" id="oldpassword">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="option error" id="oldpassworde">
+
+                        </div>
+                    </li>
+                    <li>
+                        <div class="option">
+                            <p>輸入新密碼</p><input type="password" id="password">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="option error" id="passworde">
+
+                        </div>
+                    </li>
+                    <li>
+                        <div class="option">
+                            <p>確認新密碼</p><input type="password" id="passwordcheck">
+                        </div>
+                    </li>
+                    <li>
+                        <div class="option error" id="passwordchecke">
+
+                        </div>
+                    </li>
+                </ul>
+                <div class="btn">
+                    <div class="reset">
+                        <input type="reset" value="重設">
+                    </div>
+                    <div class="submit submit2">
+                        <input type="submit" value="完成編輯">
+                    </div>
+                </div>
+            </form>
+        </div>
+    </content>
+
+</body>
+<script src="../js/api/user.js"></script>
+<script src="../js/header.js"></script>
+<script src="../js/memberdata.js"></script>
+<script src="../JS/member.js" type="text/javascript"></script>
+
+
+</html>

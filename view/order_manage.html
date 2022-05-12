@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="/CSS/order_manage.css" rel="stylesheet">
+    <title>訂單管理</title>
+</head>
+
+<body>
+    <header>
+        <a href="/HTML/index.html" id="logo">
+            <img src="/image/logo.png" width="200px" height="100%">
+        </a>
+        <div class="search_bar">
+            <svg width="20" viewBox="0 0 26 26" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <path d="M22.7543 20.1092C22.1317 19.5128 21.5257 18.8993 20.9371 18.2694C20.4426 17.7669 20.1448 17.4013 20.1448 17.4013L16.4226 15.624C17.9128 13.9339 18.7352 11.7583 18.7357 9.50507C18.7357 4.37516 14.5616 0.199707 9.43034 0.199707C4.29911 0.199707 0.125 4.37516 0.125 9.50507C0.125 14.635 4.29911 18.8104 9.43034 18.8104C11.774 18.8104 13.9102 17.9331 15.5493 16.4987L17.3266 20.2209C17.3266 20.2209 17.6922 20.5186 18.1946 21.0131C18.7091 21.4957 19.3857 22.1484 20.0344 22.8304L21.8397 24.6808L22.6426 25.5395L25.4621 22.72L24.6034 21.9171C24.0996 21.4226 23.4269 20.7659 22.7543 20.1092ZM9.43034 16.1518C5.76537 16.1518 2.78367 13.1701 2.78367 9.50507C2.78367 5.84009 5.76537 2.85838 9.43034 2.85838C13.0953 2.85838 16.077 5.84009 16.077 9.50507C16.077 13.1701 13.0953 16.1518 9.43034 16.1518Z" fill="black"/>
+                </svg>
+                
+            <input type="text">
+        </div>
+        <nav class="pull-right">
+            <ul class="funtion">
+                <li><a href="/HTML/login.html">Login</a></li>
+                <li></a></li>
+                <li><a href="/HTML/register.html">Register</a></li>
+            </ul>
+        </nav>
+    </header>
+    <div class="main">
+        <div class="sidebar">
+            <ul>
+                <li><a href="#">首頁</a></li>
+                <li><a href="#">上架商品</a></li>
+                <li><a href="#">商品列表</a></li>
+                <li><a href="#">訂單</a></li>
+            </ul>
+        </div>
+        <div class="content">
+            <div class="order_manage">
+                <h1>訂單管理</h1>
+                <ul>
+                    <li>訂單編號：123456789</li>
+                    <li>訂單名稱：********</li>
+                    <li>交易狀態：未付款</li>
+                    <li>交易方式：貨到付款</li>
+                    <li>寄送地址：**市**區**路*號</li>
+                    <li>訂單日期：2020/03/03</li>
+                    <li>歸還日期：2022/03/03</li>
+                </ul>
+                <div class="delete">
+                    <input type="submit" value="刪除">
+                </div>
+                <div class="edit">
+                    <input type="submit" value="編輯">
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
