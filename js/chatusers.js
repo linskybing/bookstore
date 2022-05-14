@@ -8,7 +8,7 @@ function CreateChatroomE() {
             searchBtn.classList.toggle("active");
 
         })
-        searchBar.setAttribute('onkeydown', "UpdateUsersList()")
+        searchBar.setAttribute('onkeyup', "UpdateUsersList(" + searchBar.id + ")")
     }
 
     document.querySelector('.chaticon').addEventListener('click', function () {
@@ -38,7 +38,7 @@ async function ChatroomForUser() {
         </header>
         <div class="search">
             <span class="text">選擇使用者開始聊天</span>
-            <input type="text" placeholder="搜尋使用者">
+            <input type="text" placeholder="搜尋使用者" id="searchuser">
             <button>
                 <i class="fas fa-search"></i>
             </button>
@@ -67,7 +67,7 @@ async function ChatroomForUser() {
                 <img src="${(ele.SellerImage == null) ? '../image/membericon.png' : 'http://localhost:8080/images/Members/' + ele.SellerImage}" alt="">
                 <div class="details">
                     <span>${ele.Seller}</span>
-                    <p>${ele.Message}</p>
+                    <p>${(ele.Message == null) ? '' : ele.Message}</p>
                 </div>
             </div>
             <div class="status-dot ${(ele.SellerActive == 1) ? '' : 'offline'}"><i class="fas fa-circle"></i></div>
@@ -79,33 +79,46 @@ async function ChatroomForUser() {
     }
 }
 
-async function UpdateUsersList(search) {    
-    var data;
-    await UpdateUserChatroom(search.value).then(r => data = r);
-
-    if (data.hasOwnProperty('data')) {
-        let chatitem = document.createElement('div');
-        chatitem.classList.add('chatitem');
-        let userlist = document.createElement('div');
-        userlist.classList.add('users-list');
-        data.data.forEach(ele => {
-            let a = document.createElement('a');
-            a.id = ele.RoomId;
-            a.innerHTML = `
-            <div class="chat-content">
-                <img src="${(ele.SellerImage == null) ? '../image/membericon.png' : 'http://localhost:8080/images/Members/' + ele.SellerImage}" alt="">
-                <div class="details">
-                    <span>${ele.Seller}</span>
-                    <p>${ele.Message}</p>
-                </div>
-            </div>
-            <div class="status-dot ${(ele.SellerActive == 1) ? '' : 'offline'}"><i class="fas fa-circle"></i></div>
-            `;
-            a.setAttribute('onclick', 'EnterChatroom(' + ele.RoomId + ')');
-            userlist.appendChild(a);
-        });
-        document.querySelector('.users .users-list').innerHTML = userlist.innerHTML;
+function UpdateUsersList(search) {
+    var token = getCookie('token');
+    let searchtearm = search.value;
+    let xhr = new XMLHttpRequest();
+    xhr.open("GET", apidomain + '/chatroomc/' + searchtearm, true);
+    xhr.setRequestHeader('Authorization', token);
+    xhr.onload = () => {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+            if (xhr.status === 200) {
+                let data = xhr.response;
+                data = JSON.parse(data);
+                console.log(data);
+                if (data.hasOwnProperty('data')) {
+                    let chatitem = document.createElement('div');
+                    chatitem.classList.add('chatitem');
+                    let userlist = document.createElement('div');
+                    userlist.classList.add('users-list');
+                    data.data.forEach(ele => {
+                        let a = document.createElement('a');
+                        a.id = ele.RoomId;
+                        a.innerHTML = `
+                        <div class="chat-content">
+                            <img src="${(ele.SellerImage == null) ? '../image/membericon.png' : 'http://localhost:8080/images/Members/' + ele.SellerImage}" alt="">
+                            <div class="details">
+                                <span>${ele.Seller}</span>
+                                <p>${(ele.Message) ? '' : ele.Message}</p>
+                            </div>
+                        </div>
+                        <div class="status-dot ${(ele.SellerActive == 1) ? '' : 'offline'}"><i class="fas fa-circle"></i></div>
+                        `;
+                        a.setAttribute('onclick', 'EnterChatroom(' + ele.RoomId + ')');
+                        userlist.appendChild(a);
+                    });
+                    document.querySelector('.users .users-list').innerHTML = userlist.innerHTML;
+                }
+                CreateChatroomE();
+            }
+        }
     }
+    xhr.send();
 }
 
 function EnterChatroom(id) {
@@ -156,7 +169,7 @@ async function chatroom() {
         </header>
         <div class="search">
             <span class="text">選擇使用者開始聊天</span>
-            <input type="text" placeholder="搜尋使用者">
+            <input type="text" placeholder="搜尋使用者" id="searchuser">
             <button>
                 <i class="fas fa-search"></i>
             </button>
@@ -180,7 +193,7 @@ async function chatroom() {
                 <img src="${(ele.SellerImage == null) ? '../image/membericon.png' : 'http://localhost:8080/images/Members/' + ele.SellerImage}" alt="">
                 <div class="details">
                     <span>${ele.Seller}</span>
-                    <p>${ele.Message}</p>
+                    <p>${(ele.Message) ? '' : ele.Message}</p>
                 </div>
             </div>
             <div class="status-dot ${(ele.SellerActive == 1) ? '' : 'offline'}"><i class="fas fa-circle"></i></div>
