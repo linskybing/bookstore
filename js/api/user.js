@@ -46,6 +46,8 @@ function Register(account, password, name, email) {
                     </a>
                 </div>
                `;
+                document.querySelector('.load').style.display = 'none';
+                document.querySelector('.loadmask').style.display = 'none';
             }
 
         })
@@ -106,6 +108,28 @@ function Login(Account, Password) {
                 setCookie('Image', res.Image, 1);
                 window.location.href = 'index.html';
             }
+        })
+        .catch(e => {
+            console.error('Error:', e)
+        })
+}
+
+function Logout(Account, Password) {
+    const token = getCookie('token')
+    fetch(apidomain + '/user/logout', {
+        method: 'POST',
+        headers: {
+            'Authorization': token,
+        }
+    })
+        .then(res => res.json())
+        .then(res => {
+            clearCookie('token');
+            clearCookie('Account');
+            clearCookie('Name');
+            clearCookie('RoleId');
+            clearCookie('CartId');
+            window.location.href = "index.html";
         })
         .catch(e => {
             console.error('Error:', e)
@@ -347,15 +371,6 @@ function clearCookie(name) {
     setCookie(name, "", -1);
 }
 
-//登出
-function Logout() {
-    clearCookie('token');
-    clearCookie('Account');
-    clearCookie('Name');
-    clearCookie('RoleId');
-    clearCookie('CartId');
-    window.location.href = "index.html";
-}
 
 function getQueryVariable(variable) {
     let query = window.location.search.substring(1);

@@ -41,6 +41,8 @@ if (token != "") {
     <li id="logout"><a href="#">登出</a></li>
     </ul>
     `;
+    ChatroomForUser();
+    CreateChatroomE();
 }
 else {
     div.innerHTML = `
@@ -67,89 +69,5 @@ if (token != "") {
         Logout();
     })
 }
-
-let chatitem = document.createElement('div')
-chatitem.classList.add('chatitem');
-chatitem.innerHTML = `
-<div class="chaticon">
-<i class="fa-solid fa-comment-dots"></i>
-</div>
-<div class="wrapper">
-<section class="users">
-    <header>
-        <div class="chat-content">
-            <img src="image.png" alt="">
-            <div class="details">
-                <span>CodisadfNepal</span>
-                <p>Actvice now</p>
-            </div>
-        </div>
-        <a href="#" class="logout">Logout</a>
-    </header>
-    <div class="search">
-        <span class="text">選擇使用者開始聊天</span>
-        <input type="text" placeholder="搜尋使用者">
-        <button>
-            <i class="fas fa-search"></i>
-        </button>
-    </div>
-    <div class="users-list">
-        <a href="#">
-            <div class="chat-content">
-                <img src="image.png" alt="">
-                <div class="details">
-                    <span>Coding Nepal</span>
-                    <p>This is test message</p>
-                </div>
-            </div>
-            <div class="status-dot"><i class="fas fa-circle"></i></div>
-        </a>
-        <a href="#">
-            <div class="chat-content">
-                <img src="image.png" alt="">
-                <div class="details">
-                    <span>Coding Nepal</span>
-                    <p>This is test message</p>
-                </div>
-            </div>
-            <div class="status-dot"><i class="fas fa-circle"></i></div>
-        </a>
-        <a href="#">
-            <div class="chat-content">
-                <img src="image.png" alt="">
-                <div class="details">
-                    <span>Coding Nepal</span>
-                    <p>This is test message</p>
-                </div>
-            </div>
-            <div class="status-dot"><i class="fas fa-circle"></i></div>
-        </a>
-        <a href="#">
-            <div class="chat-content">
-                <img src="image.png" alt="">
-                <div class="details">
-                    <span>Coding Nepal</span>
-                    <p>This is test message</p>
-                </div>
-            </div>
-            <div class="status-dot"><i class="fas fa-circle"></i></div>
-        </a>
-        <a href="#">
-            <div class="chat-content">
-                <img src="image.png" alt="">
-                <div class="details">
-                    <span>Coding Nepal</span>
-                    <p>This is test message</p>
-                </div>
-            </div>
-            <div class="status-dot"><i class="fas fa-circle"></i></div>
-        </a>
-    </div>
-</section>
-</div>
-`
-
-document.querySelector('body').appendChild(chatitem);
-
 
 

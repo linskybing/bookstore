@@ -1,6 +1,6 @@
 let validmeesage = {
     account: '帳號不可為空',
-    name: '名字不可為空',
+    namea: '名字不可為空',
     password: '密碼不可為空',
     passwordcheck: '確認密碼不可為空',
     email: '電子信箱不可為空'
@@ -20,16 +20,17 @@ document.querySelector('#email').addEventListener('change', function (account) {
 
 })
 
-$send = document.querySelector('.sendbtn').addEventListener('click', function () {
+document.querySelector('.sendbtn').addEventListener('click', function () {
     let account = document.getElementById('account').value;
     let password = document.getElementById('password').value;
     let passwordcheck = document.getElementById('passwordcheck').value;
-    let name = document.getElementById('name').value;
+    let name = document.getElementById('namea').value;
     let email = document.getElementById('email').value;
 
     compare(password, passwordcheck);
     var inputs = document.querySelectorAll('.form input');
     inputs.forEach(input => {
+        input.setAttribute('onkeydown', 'checkvalidation2(' + input.id + ')');
         checkvalidation(input)
     })
     var invalid = document.querySelectorAll('.invalid');
@@ -43,10 +44,22 @@ $send = document.querySelector('.sendbtn').addEventListener('click', function ()
 
 })
 
+function checkvalidation2(e) {
+    let input = document.getElementById(e.id);
+    if (input.value != '') {
+        input.classList.remove('invalid');
+        document.getElementById(input.id + 'e').innerHTML = '';
+    }
+    else {
+        input.classList.add('invalid');
+        document.getElementById(input.id + 'e').innerHTML = validmeesage[input.id];
+    }
+}
 
 function checkvalidation(input) {
     if (input.value != '') {
         input.classList.remove('invalid');
+        document.getElementById(input.id + 'e').innerHTML = '';
     }
     else {
         input.classList.add('invalid');

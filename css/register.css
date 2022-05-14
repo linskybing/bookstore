@@ -104,7 +104,7 @@ input[type=password] {
 }
 
 .formgroup input[type=text]:focus,
-input[type=password] {
+input[type=password]:focus {
     border-bottom: 2px solid rgb(112, 187, 248);
 }
 
