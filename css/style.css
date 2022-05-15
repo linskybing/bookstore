@@ -1,11 +1,42 @@
 @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@200');
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@100;300&display=swap');
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
-    font-family: 'Poppins', sans-serif;
+    font-family: 'Poppins', 'Noto Sans TC', sans-serif;
+}
+
+.option {
+    display: flex;
+}
+
+.option .useroption {
+    width: 50%;
+    padding: 2px 0;
+    text-align: center;
+    cursor: pointer;
+    border: 1px solid #333;
+}
+
+.option .selleroption {
+    width: 50%;
+    text-align: center;
+    padding: 2px 0;
+    cursor: pointer;
+    border: 1px solid #333;
+}
+
+.option>*:hover {
+    background-color: #333;
+    color: #fff;
+}
+
+.option .active {
+    background-color: #333;
+    color: #fff;
 }
 
 .chatitem {

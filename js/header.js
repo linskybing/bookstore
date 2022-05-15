@@ -43,6 +43,7 @@ if (token != "") {
     `;
     ChatroomForUser();
     CreateChatroomE();
+    BindWrapperEvent();
 }
 else {
     div.innerHTML = `
