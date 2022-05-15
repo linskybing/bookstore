@@ -126,6 +126,7 @@ function PostMessage(id, message) {
 
 function UpdateMessgae(id, time) {
     var token = getCookie('token');
+    if(time == null) time = "0000-00-00 00:00:00";
     return fetch(apidomain + '/chatroomrrefresh/' + id + '/' + time.replace(' ', '_'), {
         method: 'GET',
         headers: {
