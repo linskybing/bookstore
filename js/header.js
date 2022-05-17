@@ -29,13 +29,13 @@ if (token != "") {
     <li class="logo"><a href="index.html"><img src="../image/logo.png"></a></li>
     <li><a href="index.html">首頁</a></li>
     <li><a href="#">公告事項</a></li>
-    <li><a href="search_result.html">商品賣場</a></li>
+    <li><a href="productlist.html">商品賣場</a></li>
     <li><a href="#">平台介紹</a></li>
     <li><a href="#">關於我們</a></li>
     </ul>
     <ul>
     <li><a href="chatroom.html">聊天室</a></li>
-    <li><a href="cart.html">購物車</a></li>
+    <li><a href="cart_2.html">購物車</a></li>
     <li><a href="report.html">問題回報</a></li>
     <li><a href="member.html">${timestring}，${Name}</a></li>
     <li id="logout"><a href="#">登出</a></li>
@@ -51,7 +51,7 @@ else {
     <li class="logo"><a href="index.html"><img src="../image/logo.png"></a></li>
     <li><a href="index.html">首頁</a></li>
     <li><a href="#">公告事項</a></li>
-    <li><a href="search_result.html">商品賣場</a></li>
+    <li><a href="productlist.html">商品賣場</a></li>
     <li><a href="#">平台介紹</a></li>
     <li><a href="#">關於我們</a></li>
     </ul>
