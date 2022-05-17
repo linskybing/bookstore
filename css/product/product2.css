@@ -1,0 +1,38 @@
+section {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    margin-top: 90px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 100px;
+    padding: 0 150px;
+    width: 100%;
+    background-color: #fbfbfb;
+}
+
+.title span {
+    padding: 50px;
+}
+
+.title span a:hover{
+    color: #ff4800;
+}
+
+
+.productblock{
+    display: flex;
+    flex-wrap: wrap;    
+}
+.product-img-block{
+    
+}
