@@ -332,7 +332,11 @@ function Uploadimg() {
         .then(res => res.json())
         .then(data => {
             console.log(data)
-            window.location.reload()
+            if (data.hasOwnProperty('data')) {
+                setCookie('Image', data.data);
+                window.location.reload()
+            }
+            
             return data
         })
         .catch(e => {
