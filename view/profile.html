@@ -14,77 +14,172 @@
 
 <body>
     <header></header>
-    <div class="container">
-        <div class="bar">
-            <ul>
-                <li>我是買家</li>
-                <div class="collapse">
-                    <ul>
-                        <li>會員中心</li>
-                        <li>交易紀錄</li>
-                        <li>商品問答紀錄</li>
-                        <li>問題回報</li>
-                    </ul>
-                </div>
-                <li>我是賣家</li>
-                <div class="collapse">
-                    <ul>
-                        <li>上架商品</li>
-                        <li>商品管理</li>
-                        <li>訂單查詢</li>
-                        <li>問題回報</li>
-                    </ul>
-                </div>
-            </ul>
+    <section>
+        <div class="title">
+            <h1>會員中心</h1>
+            <span>
+                <a href="#">首頁 </a>
+                <i class="fa-solid fa-chevron-right"></i>
+                <a href="#">會員中心</a>
+            </span>
         </div>
-        <div class="profile">
-            <div class="detail">
-                <div class="content">
-                    <div class="membericon">
-                        <div class="icon">
+        <div class="background">
+        </div>
+        <div class="membericon">
+            <div class="icon">
+                <div>
+                    <label for="filein" id="button"><i class="fa-solid fa-pen"></i></label>
+                    <input type="file" id="filein">
+                </div>
+                <img src="../image/user.png" alt="">
+            </div>
+            <div id="name" style="color: white;font-weight: bolder;">
+                <span>asdf</span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="left-sidebar">
+                <ul>
+                    <li id="member_m" class="active">
+                        會員管理
+                    </li>
+                    <li id="buyer_m">
+                        買家管理
+                        <div class="arrow"><i class="fa-solid fa-angle-right"></i></div>
+                    </li>
+                    <li class="list-item close">
+                        <div class="div_2">
+                            <ul>
+                                <li>
+                                    租借管理
+                                </li>
+                                <li>
+                                    交易紀錄
+                                </li>
+                                <li>
+                                    商品問答紀錄
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li id="seller_m">
+                        賣家管理
+                        <div class="arrow"><i class="fa-solid fa-angle-right"></i></div>
+                    </li>
+                    <li class="list-item close">
+                        <div class="div_2">
+                            <ul>
+                                <li>
+                                    商品管理
+                                </li>
+                                <li>
+                                    商品問答管理
+                                </li>
+                                <li>
+                                    訂單管理
+                                </li>
+                                <li>
+                                    存款帳戶
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="right-content">
+                <h1>個人資訊</h1>
+                <div class="personal-info">
+                    <div class="info-item lock">
+                        <span class="data-label">
+                            帳號
+                        </span>
+                        <span class="data-content" id="account">
+                            Account
+                        </span>
+                        <div class="info-icon">
                             <div>
-                                <label for="filein" id="button"><i class="fa-solid fa-pen"></i></label>
-                                <input type="file" id="filein">
+                                <i class="fa-solid fa-lock"></i>
                             </div>
-                            <img src="../image/user.png" alt="">
                         </div>
-                        <div id="name">asdf</div><span><i class="fa-solid fa-pen-to-square"></i></span>
                     </div>
-                    <div class="group" style="padding-top: 30px;">
-                        <div class="content-group">
-                            <span>帳號：</span><span id="account">帳號</span>
+                    <div class="info-item">
+                        <span class="data-label">
+                            使用者名稱
+                        </span>
+                        <span class="data-content" id="account">
+                            Account
+                        </span>
+                        <div class="info-icon">
+                            <div>
+                                <i class="fa-solid fa-angle-right"></i>
+                            </div>
                         </div>
-                        <div class="content-group">
-                            <span>密碼：</span>
-                            <span id="account">***</span>
-                            <span style="color:rgb(97, 97, 97); font-size: 16px;cursor: pointer;">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </span>
+                    </div>
+                    <div class="info-item lock">
+                        <span class="data-label">
+                            電子信箱
+                        </span>
+                        <span class="data-content" id="account">
+                            Account
+                        </span>
+                        <div class="info-icon">
+                            <div>
+                                <i class="fa-solid fa-lock"></i>
+                            </div>
                         </div>
-                        <div class="content-group">
-                            <span>電子信箱：</span><span id="account">***</span>
-                        </div>
-                        <div class="content-group">
-                            <span>角色：</span><span id="account">***</span>
-                        </div>
-                        <div class="content-group">
-                            <span>地址：</span>
-                            <span id="account">***</span>
-                            <span style="color:rgb(97, 97, 97); font-size: 16px;cursor: pointer;">
-                                <i class="fa-solid fa-pen-to-square"></i>
-                            </span>
+                    </div>
+                    <div class="info-item">
+                        <span class="data-label">
+                            地址
+                        </span>
+                        <span class="data-content" id="account">
+                            Account
+                        </span>
+                        <div class="info-icon">
+                            <div>
+                                <i class="fa-solid fa-angle-right"></i>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
         </div>
+    </section>
+    <div class="modal">
+        <div class="modal-content">
+            <div class="header">
+                <div class="close">
+                    <i class="fa-solid fa-xmark"></i>
+                </div>
+                <div class="modal-title">
+                    <h3>更新個人資訊</h3>
+                </div>
+                <div class="menu">
+                    <ul>
+                        <li>修改</li>
+                    </ul>
+                </div>
+            </div>
+            <div class="content">
+                <div class="formgroup">
+                    <label for=""></label>
+                    <input type="text">
+                </div>
+            </div>
+            <div class="footer">
+                <button class="submit">
+
+                </button>
+                <span>取消</span>
+            </div>
+        </div>
     </div>
 
 </body>
-
 <script src="../js/api/chatroom.js"></script>
 <script src="../js/api/user.js"></script>
 <script src="../js/chatusers.js"></script>
 <script src="../js/header.js"></script>
+<script src="../js/profile.js"></script>
 
 </html>

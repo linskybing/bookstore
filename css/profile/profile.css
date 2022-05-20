@@ -1,87 +1,46 @@
-.container {
-    margin-top: 80px;
-    height: 100vh;
-    width: 100%;
-    background-color: rgba(245, 243, 243, 0.438);
-}
-
-.bar {
-    position: fixed;
+body>section {
     display: flex;
     flex-direction: column;
+    justify-content: center;
+    margin-top: 90px;
+}
+
+a {
+    text-decoration: none;
+    color: black;
+}
+
+.title {
+    display: flex;
+    justify-content: space-between;
     align-items: center;
-    height: 100%;
-    width: 300px;
-    background-color: white;
-    border-right: 1px solid rgb(163, 163, 163);
+    height: 100px;
+    padding: 0 150px;
+    width: 100%;
+    background-color: #fbfbfb;
 }
 
-.bar>ul {
+.title span {
     padding: 50px;
-    list-style-type: none;
-    font-size: 24px
 }
 
-ul {
-    list-style-type: none;
-    font-size: 20px;
-}
-
-.bar>ul li {
-    cursor: pointer;
-    padding: 5px 0;
+.background {
     width: 100%;
-}
-
-.collapse li:hover {
-    background-color: rgb(233, 233, 233);
-}
-
-.collapse ul {
-    padding-left: 30px;
-}
-
-.collapse li {
-    border-radius: 25px;
-    width: 150px !important;
-}
-
-
-.profile {
-    width: calc(100% - 240 px);
-}
-
-.detail {
-    margin-left: 300px;
-    padding: 30px;
-    height: 400%;
-    width: 80%;
-}
-
-
-.detail .content {
-    margin-top: 50px;
-    background-color: white;
-    width: 100%;
-    height: 400px;
-    box-shadow: rgba(0, 0, 0, 0.1) 0px 1px 3px 0px, rgba(0, 0, 0, 0.06) 0px 1px 2px 0px;
+    height: 500px;
+    background: url('../../image/profile_background.jpg');
+    background-size: cover;
+    content: "";
+    background-color: rgba(0, 0, 0, .2);
+    background-blend-mode: multiply;
+    background-position: center center;
 }
 
 .membericon {
     display: flex;
-    align-items: center;
-}
-
-#name {
-    padding-left: 30px;
-    font-size: 25px;
-    font-weight: bold;
-}
-
-#name+span {
-    padding-left: 20px;
-    color: rgb(97, 97, 97);
-    cursor: pointer;
+    margin-left: 70px;
+    margin-top: -60px;
+    width: 100%;
+    content: "";
 }
 
 .membericon .icon {
@@ -95,7 +54,6 @@ ul {
     height: 100px;
     margin-left: 20px;
     border-radius: 100%;
-    border: 1px solid #ddd;
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
@@ -114,6 +72,7 @@ ul {
 }
 
 .membericon #button:hover {
+    background-color: rgb(206, 206, 206);
     border: 1px solid rgb(230, 230, 230);
 }
 
@@ -134,13 +93,217 @@ ul {
     border-radius: 100%;
 }
 
-.content-group {
-    display: flex;
-    align-items: center;
-    padding: 10px 150px;
+.edit {
+    padding: 0 10px;
+    cursor: pointer;
+    font-size: 12px;
 }
 
-.content-group span {
-    font-size: 20px;
-    padding: 0 10px;
+#name {
+    font-size: 25px;
+    font-weight: bolder;
+}
+
+#name>* {
+    padding: 0 5px;
+}
+
+#name {
+    margin: 0 10px;
+}
+
+.container {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    height: 800px;
+}
+
+.left-sidebar {
+
+    width: 300px;
+    content: "";
+    height: 100%;
+    padding: 40px;
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.container ul {
+    list-style-type: none;
+    color: rgb(122, 122, 122);
+}
+
+.container ul>li {
+    margin: 2px 0px;
+    padding: 15px;
+    overflow: hidden;
+}
+
+.container ul .list-item {
+    transition: all .1s ease;
+}
+
+.container ul .close {
+    margin: 0;
+    height: 0;
+    padding: 0 15px;
+}
+
+.container ul li {
+    display: flex;
+    flex-wrap: nowrap;
+    cursor: pointer;
+}
+
+.container :is(ul, .list-item) li:not(.list-item):hover {
+    background-color: #e7e7e7;
+}
+
+.container .active {
+    background-color: #d4d4d4;
+}
+
+.list-item ul {
+    width: 100%;
+}
+
+.container ul li .div_2 {
+    height: 100%;
+    width: 100%;
+    overflow: hidden;
+}
+
+.container .arrow {
+    padding: 0px 5px;
+    font-weight: 500;
+    transition: all .1s ease;
+}
+
+.rotate {
+    transform: rotate(90deg);
+}
+
+.personal-info {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 4px;
+}
+
+.info-item {
+    display: flex;
+    justify-content: space-around;
+    padding: 1.5rem 1.25rem;
+}
+
+.info-item:not(.lock) {
+    cursor: pointer;
+}
+
+.data-label,
+.data-content {
+    width: 50%;
+}
+
+
+.info-icon {
+    display: flex;
+    justify-content: flex-end;
+    width: 20%;
+}
+
+.info-icon div {
+    margin: 0;
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.info-item:not(.lock):hover .info-icon div {
+    background-color: #e5e9f2;
+}
+
+.info-item:not(:last-child) {
+    border-bottom: 1px solid #e5e9f2;
+}
+
+
+
+.right-content {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    width: calc(100% - 300px);
+    padding: 50px;
+}
+
+.right-content h1 {
+    text-align: left;
+    width: 50vw;
+    margin: 40px 2px;
+
+}
+
+.modal {
+    position: fixed;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    top: 0;
+    left: 0;
+    z-index: 1;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(17, 17, 17, 0.452);
+    content: "";
+}
+
+.modal-content {
+    display: flex;
+    flex-direction: column;
+    width: 40%;
+    height: 55%;
+    min-width: 400px;
+    min-height: 600px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 4px;
+    padding: 25px;
+    content: "";
+
+}
+
+.modal-content .header {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.modal-content .header>* {
+    width: 100%;
+}
+
+.modal-content .close{
+
+    text-align: right;
+    height: 30px;
+}
+
+.modal-content .title{
+    height: 40px;
+}
+
+.modal-content .content {
+    display: flex;
+    flex-direction: column;
+    width: 100%;
+}
+
+.modal-content .footer {
+    display: flex;
+    width: 100%;
 }

@@ -271,19 +271,25 @@ async function ChatDetail(id) {
     let active = document.querySelector('.option .active');
     let option = active.classList[0];
     if(option == 'selleroption'){
-        var room = "chatroom2()"
+        var room = "chatroom2()";
+        var img = roomchat[id][0].UserImage;
+        var name = roomchat[id][0].User;
+        var activeperson = roomchat[id][0].UserActive;
     }
     else{
-        var room = "chatroom()"
+        var room = "chatroom()";
+        var img = roomchat[id][0].SellerImage;
+        var name = roomchat[id][0].Seller;
+        var activeperson = roomchat[id][0].SellerActive;
     }
     item.innerHTML = `
     <section class="chat-area">
         <header>
             <a href="#" class="back-icon" onclick="${room}"><i class="fas fa-arrow-left"></i></a>
-            <img src="${(roomchat[id][0].SellerImage != null) ? 'http://localhost:8080/images/Members/' + roomchat[id][0].SellerImage : '../image/membericon.png'}" alt="">
+            <img src="${(img != null) ? 'http://localhost:8080/images/Members/' + img : '../image/membericon.png'}" alt="">
             <div class="details">
-                <span>${roomchat[id][0].Seller}</span>
-                <p>${(roomchat[id][0].SellerActive == 1) ? '在線中<span style="display:inline;font-size: 12px;color: #468669;padding:1px 15px;"><i class="fas fa-circle"></i></span>' : '離線<span style="display:inline;font-size: 12px;color: #ccc;padding:1px 15px;"><i class="fas fa-circle"></i></span>'}</p>
+                <span>${name}</span>
+                <p>${(activeperson == 1) ? '在線中<span style="display:inline;font-size: 12px;color: #468669;padding:1px 15px;"><i class="fas fa-circle"></i></span>' : '離線<span style="display:inline;font-size: 12px;color: #ccc;padding:1px 15px;"><i class="fas fa-circle"></i></span>'}</p>
             </div>
         </header>        
         <div class="chat-box">           
@@ -572,13 +578,13 @@ async function chatroom2() {
             a.id = ele.RoomId;
             a.innerHTML = `
             <div class="chat-content">
-                <img src="${(ele.SellerImage == null) ? '../image/membericon.png' : 'http://localhost:8080/images/Members/' + ele.SellerImage}" alt="">
+                <img src="${(ele.UserImage == null) ? '../image/membericon.png' : 'http://localhost:8080/images/Members/' + ele.UserImage}" alt="">
                 <div class="details">
-                    <span>${ele.Seller}</span>
+                    <span>${ele.User}</span>
                     <p>${(ele.Message == null) ? '' : ele.Message}</p>
                 </div>
             </div>
-            <div class="status-dot ${(ele.SellerActive == 1) ? '' : 'offline'}"><i class="fas fa-circle"></i></div>
+            <div class="status-dot ${(ele.UserActive == 1) ? '' : 'offline'}"><i class="fas fa-circle"></i></div>
             `;
             a.setAttribute('onclick', 'EnterChatroom(' + ele.RoomId + ')');
             userlist.appendChild(a);
