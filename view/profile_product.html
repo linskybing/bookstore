@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>會員中心</title>
     <link href="../css/header.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../css/profile/profile.css">
+    <link rel="stylesheet" href="../css/profile/forproduct.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
@@ -99,23 +99,23 @@
                         <li>已下架</li>
                         <li>待補貨</li>
                     </ul>
-                </div>             
+                </div>
                 <div class="product_table">
                     <div class="table_action">
                         <div class="h1"></a></div>
-                    <div class="action">
-                        <button class="insert">
-                            新增商品
-                        </button>
-                        <button class="delete">
-                            下架商品
-                        </button>
-                    </div>
+                        <div class="action">
+                            <button class="insert">
+                                新增商品
+                            </button>
+                            <button class="delete">
+                                下架商品
+                            </button>
+                        </div>
                     </div>
                     <div class="table_thead">
-                        <div class="checkbox_head"> 
+                        <div class="checkbox_head">
                             <input type="checkbox" id="p_all">
-                            <label for="p_all"><i class="fa-solid fa-check"></i></label>                           
+                            <label for="p_all"><i class="fa-solid fa-check"></i></label>
                         </div>
                         <div class="productimg_head">
                             商品圖片
@@ -125,18 +125,18 @@
                         </div>
                         <div class="productprice_head">
                             價格
-                        </div>   
+                        </div>
                         <div class="store_head">
                             剩餘庫存
-                        </div>     
+                        </div>
                         <div class="prodcut_action_head">
                             操作
-                        </div>    
+                        </div>
 
                     </div>
-                    <div class="table_content">                        
+                    <div class="table_content">
                         <div class="checkbox">
-                            <input type="checkbox" id="p_1">
+                            <input type="checkbox" id="p_1" name="product">
                             <label for="p_1"><i class="fa-solid fa-check"></i></label>
                         </div>
                         <div class="productimg">
@@ -147,43 +147,53 @@
                         </div>
                         <div class="productprice">
                             250 NT
-                        </div>   
+                        </div>
                         <div class="store">
                             25
-                        </div>     
-                        <div class="prodcut_action">
-                            <span><i class="fa-solid fa-pen-to-square"></i></span>
-                            <span><i class="fa-solid fa-trash-can"></i></span>
-                        </div>                
+                        </div>
+                        <div class="product_action">
+                            <input type="hidden" name="" id="product_id" value="1">
+                            <span id="editbtn"><i class="fa-solid fa-pen-to-square"></i></span>
+                            <span id="deletebtn"><i class="fa-solid fa-trash-can"></i></span>
+                        </div>
                     </div>
                 </div>
             </div>
         </div>
     </section>
-    <div class="modal hidden">
-        <div class="modal-content">
+    <div class="modal">
+        <div class="modal-content-2">
             <div class="header">
                 <div class="close">
                     <i class="fa-solid fa-xmark"></i>
                 </div>
                 <div class="modal-title">
-                    <h3>更新個人資訊</h3>
+                    <h3>修改商品</h3>
                 </div>
                 <div class="menu">
                     <ul>
-                        <li class="active">修改資訊</li>
-                        <li>修改密碼</li>
+                        <li class="active" id="product">商品資訊</li>
+                        <li id="rent">租借資訊</li>
+                        <li id="photo">商品圖片</li>
                     </ul>
                 </div>
             </div>
             <div class="content">
                 <div class="formgroup">
-                    <label for="editname">姓名</label>
+                    <label for="editname">商品名稱</label>
                     <input type="text" id="editname">
                 </div>
                 <div class="formgroup">
-                    <label for="editname">地址</label>
-                    <input type="text" id="editname">
+                    <label for="editprice">商品價格</label>
+                    <input type="text" id="editprice">
+                </div>
+                <div class="formgroup">
+                    <label for="store">　　庫存</label>
+                    <input type="text" id="store">
+                </div>
+                <div class="formgroup">
+                    <label for="description">商品敘述</label>
+                    <textarea id="description"></textarea>
                 </div>
             </div>
             <div class="footer">
@@ -200,6 +210,7 @@
 <script src="../js/api/user.js"></script>
 <script src="../js/chatusers.js"></script>
 <script src="../js/header.js"></script>
-<script src="../js/profile.js"></script>
+<script src="../js/profile/profile.js"></script>
+<script src="../js/profile/forproduct.js"></script>
 
 </html>

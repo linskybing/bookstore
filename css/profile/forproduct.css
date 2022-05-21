@@ -252,7 +252,7 @@ a {
     position: fixed;
     display: flex;
     justify-content: center;
-    align-items: center;
+    align-items: flex-start;
     top: 0;
     left: 0;
     z-index: 1;
@@ -268,6 +268,9 @@ a {
 
 .modal .close {
     cursor: pointer;
+    float: right;
+    width: 25px;
+    height: 25px;
 }
 
 .modal .close:hover {
@@ -287,46 +290,61 @@ a {
 
 }
 
-.modal-content .header {
+.modal-content-2 {
+    display: flex;
+    position: absolute;
+    top: 10%;
+    flex-direction: column;
+    width: 50%;
+    height: auto;
+    min-width: 600px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 4px;
+    padding: 25px;
+    content: "";
+
+}
+
+:is(.modal-content, .modal-content-2) .header {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
 
-.modal-content .header>* {
+:is(.modal-content, .modal-content-2) .header>* {
     width: 100%;
 }
 
-.modal-content .close {
+:is(.modal-content, .modal-content-2) .close {
 
     text-align: right;
     height: 30px;
 }
 
-.modal-content .modal-title {
+:is(.modal-content, .modal-content-2) .modal-title {
     height: 40px;
     margin-bottom: 10px;
 }
 
-.modal-content .header ul {
+:is(.modal-content, .modal-content-2) .header ul {
     display: flex;
     list-style-type: none;
     border-bottom: 1px solid rgb(216, 216, 216);
     margin: 2px;
 }
 
-.modal-content .header ul li {
+:is(.modal-content, .modal-content-2) .header ul li {
     padding: 2px 0px;
     margin-right: 20px;
     font-weight: 700;
     cursor: pointer;
 }
 
-.modal-content .header ul li:hover {
+:is(.modal-content, .modal-content-2) .header ul li:hover {
     color: rgb(255, 72, 0);
 }
 
-.modal-content .header ul .active {
+:is(.modal-content, .modal-content-2) .header ul .active {
     border-bottom: 3px solid rgb(255, 72, 0);
 }
 
@@ -338,46 +356,138 @@ a {
     padding: 30px 10px;
 }
 
-.modal-content .modal-content .menu {
+.modal-content-2 .content {
+    display: flex;
+    flex-direction: column;
+    align-items: space-around;
+    width: 100%;
+    padding: 10px;
+}
+
+:is(.modal-content, .modal-content-2) .modal-content .menu {
     font-weight: 700;
     color: #526484;
 }
 
-.modal-content .formgroup {
+:is(.modal-content, .modal-content-2) .formgroup {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
     margin: 15px 0px;
 }
 
-.modal-content .formgroup label {
+:is(.modal-content, .modal-content-2) .formgroup label {
     display: inline-block;
     font-weight: bolder;
     color: #344357;
-    margin-right: 5px;
+    margin-right: 10px;
 }
 
-.modal-content .content input {
+:is(.modal-content, .modal-content-2) .content input[type=text] {
     border: 1px solid #dbdfea;
     height: 35px;
     min-width: 250px;
     border-radius: 5px;
     padding-left: 5px;
     line-height: 1.1;
-    color: #727272;
+    color: #383838;
+    font-weight: bold;
     letter-spacing: 1px;
     outline: none;
 }
 
-.modal-content .content input:focus {
+.onoption input[type=checkbox] {
+    width: 0;
+    height: 0;
+}
+
+.onoption .toggle {
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 60px;
+    height: 23px;
+    padding: 1px;
+    border-radius: 25px;
+    border: 1px solid #5f5f5f;
+    padding: 2px;
+    cursor: pointer;
+}
+
+.toggle .radio {
+    position: absolute;
+    width: 18px;
+    height: 18px;
+    border-radius: 100%;
+    content: "";
+}
+
+.toggle-check {
+    animation-name: option-on;
+    animation-duration: .5s;
+    left: 60%;
+    background-color: rgb(255, 72, 0);
+}
+
+.toggle-uncheck {
+    animation-name: option-off;
+    animation-duration: .5s;
+    left: 2%;
+    background-color: #5f5f5f;
+}
+
+.toggle .default {
+    left: 2%;
+    background-color: #5f5f5f;
+}
+
+@keyframes option-on {
+    from {
+        left: 2%;
+    }
+
+    to {
+        left: 60%;
+    }
+}
+
+@keyframes option-off {
+    from {
+        left: 60%;
+    }
+
+    to {
+        left: 2%;
+    }
+}
+
+
+:is(.modal-content, .modal-content-2) .content textarea {
+    border: 1px solid #dbdfea;
+    height: 300px;
+    min-width: 500px;
+    border-radius: 5px;
+    padding-left: 5px;
+    color: #727272;
+    letter-spacing: 1px;
+    outline: none;
+    line-height: 20px;
+    padding: 5px;
+}
+
+:is(.modal-content, .modal-content-2) .content :is(input, textarea):focus {
     border: 1px solid rgb(255, 72, 0);
 }
 
-.modal-content .footer {
+:is(.modal-content, .modal-content-2) .footer {
     display: flex;
     align-items: center;
     width: 100%;
     padding: 10px;
 }
 
-.modal-content .cancel {
+:is(.modal-content, .modal-content-2) .cancel {
     margin-left: 15px;
     font-size: 14px;
     font-weight: bolder;
@@ -385,7 +495,7 @@ a {
     cursor: pointer;
 }
 
-.modal-content .footer button {
+:is(.modal-content, .modal-content-2) .footer button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -400,8 +510,23 @@ a {
     cursor: pointer;
 }
 
-.modal-content .footer button:hover {
+:is(.modal-content, .modal-content-2) .footer button:hover {
     background-color: rgb(255, 72, 0);
+}
+
+.open {
+    animation-name: modal-in;
+    animation-duration: .5s;
+}
+
+@keyframes modal-in {
+    from {
+        top: 0%;
+    }
+
+    to {
+        top: 10%;
+    }
 }
 
 /*商品管理*/
@@ -592,14 +717,14 @@ a {
 
 }
 
-.prodcut_action {
+.product_action {
     width: 10%;
     height: 100%;
     content: "";
     color: #474747;
 }
 
-.prodcut_action span {
+.product_action span {
     display: flex;
     justify-content: center;
     align-items: center;
@@ -610,7 +735,7 @@ a {
     cursor: pointer;
 }
 
-.prodcut_action span:hover {
+.product_action span:hover {
     background-color: #91919136;
 }
 
@@ -652,4 +777,14 @@ a {
 .prodcut_action_head {
     width: 10%;
     height: 100%;
+}
+
+:is(.modal) *::-webkit-scrollbar {
+    width: 10px;
+}
+
+:is(.modal) *::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background: #e2e2e2;
+    cursor: pointer;
 }
