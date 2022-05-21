@@ -128,52 +128,52 @@ a {
     box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
 }
 
-.container ul {
+.container .left-sidebar ul {
     list-style-type: none;
     color: rgb(122, 122, 122);
 }
 
-.container ul>li {
+.container .left-sidebar ul>li {
     margin: 2px 0px;
     padding: 15px;
     overflow: hidden;
 }
 
-.container ul .list-item {
+.container .left-sidebar ul .list-item {
     transition: all .1s ease;
 }
 
-.container ul .close {
+.container .left-sidebar ul .close {
     margin: 0;
     height: 0;
     padding: 0 15px;
 }
 
-.container ul li {
+.container .left-sidebar ul li {
     display: flex;
     flex-wrap: nowrap;
     cursor: pointer;
 }
 
-.container :is(ul, .list-item) li:not(.list-item):hover {
+.container .left-sidebar :is(ul, .list-item) li:not(.list-item):hover {
     background-color: #e7e7e7;
 }
 
-.container .active {
+.container .left-sidebar .active {
     background-color: #d4d4d4;
 }
 
-.list-item ul {
+.list-item .left-sidebar ul {
     width: 100%;
 }
 
-.container ul li .div_2 {
+.container .left-sidebar ul li .div_2 {
     height: 100%;
     width: 100%;
     overflow: hidden;
 }
 
-.container .arrow {
+.container .left-sidebar .arrow {
     padding: 0px 5px;
     font-weight: 500;
     transition: all .1s ease;
@@ -236,7 +236,6 @@ a {
 .right-content {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
     width: calc(100% - 300px);
     padding: 50px;
@@ -263,13 +262,24 @@ a {
     content: "";
 }
 
+.hidden {
+    display: none !important;
+}
+
+.modal .close {
+    cursor: pointer;
+}
+
+.modal .close:hover {
+    color: #344357;
+}
+
 .modal-content {
     display: flex;
     flex-direction: column;
-    width: 40%;
-    height: 55%;
+    width: 28%;
+    height: auto;
     min-width: 400px;
-    min-height: 600px;
     background-color: rgb(255, 255, 255);
     border-radius: 4px;
     padding: 25px;
@@ -287,23 +297,359 @@ a {
     width: 100%;
 }
 
-.modal-content .close{
+.modal-content .close {
 
     text-align: right;
     height: 30px;
 }
 
-.modal-content .title{
+.modal-content .modal-title {
     height: 40px;
+    margin-bottom: 10px;
+}
+
+.modal-content .header ul {
+    display: flex;
+    list-style-type: none;
+    border-bottom: 1px solid rgb(216, 216, 216);
+    margin: 2px;
+}
+
+.modal-content .header ul li {
+    padding: 2px 0px;
+    margin-right: 20px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.modal-content .header ul li:hover {
+    color: rgb(255, 72, 0);
+}
+
+.modal-content .header ul .active {
+    border-bottom: 3px solid rgb(255, 72, 0);
 }
 
 .modal-content .content {
     display: flex;
     flex-direction: column;
+    align-items: space-around;
     width: 100%;
+    padding: 30px 10px;
+}
+
+.modal-content .modal-content .menu {
+    font-weight: 700;
+    color: #526484;
+}
+
+.modal-content .formgroup {
+    margin: 15px 0px;
+}
+
+.modal-content .formgroup label {
+    display: inline-block;
+    font-weight: bolder;
+    color: #344357;
+    margin-right: 5px;
+}
+
+.modal-content .content input {
+    border: 1px solid #dbdfea;
+    height: 35px;
+    min-width: 250px;
+    border-radius: 5px;
+    padding-left: 5px;
+    line-height: 1.1;
+    color: #727272;
+    letter-spacing: 1px;
+    outline: none;
+}
+
+.modal-content .content input:focus {
+    border: 1px solid rgb(255, 72, 0);
 }
 
 .modal-content .footer {
     display: flex;
+    align-items: center;
     width: 100%;
+    padding: 10px;
+}
+
+.modal-content .cancel {
+    margin-left: 15px;
+    font-size: 14px;
+    font-weight: bolder;
+    color: #727272;
+    cursor: pointer;
+}
+
+.modal-content .footer button {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 72, 0, 0.842);
+    color: white;
+    font-size: 14px;
+    font-weight: bolder;
+    border-radius: 5px;
+    border: none;
+    width: 90px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.modal-content .footer button:hover {
+    background-color: rgb(255, 72, 0);
+}
+
+/*商品管理*/
+
+.right-content .header {
+    display: flex;
+    justify-content: space-between;
+    flex-wrap: nowrap;
+    width: 50vw;
+    margin: 20px 0;
+}
+
+:is(.right-content .header, .table_action) .h1 {
+    font-size: 24px;
+    font-weight: bolder;
+}
+
+:is(.right-content .header, .table_action) .action button {
+    width: 75px;
+    height: 30px;
+    border: none;
+    border-radius: 2px;
+    color: white;
+    font-weight: 500;
+    outline: none;
+    cursor: pointer;
+}
+
+:is(.right-content .header, .table_action) .action .insert {
+    background-color: #0066ffd5;
+}
+
+:is(.right-content .header, .table_action) .action .insert:hover {
+    background-color: #0066ff;
+}
+
+:is(.right-content .header, .table_action) .action .delete {
+    background-color: #ff0000d7;
+}
+
+:is(.right-content .header, .table_action) .action .delete:hover {
+    background-color: #ff0000;
+}
+
+
+.right-content .header .action>*:not(:last-child) {
+    margin-right: 5px;
+}
+
+.right-content .header ul {
+    display: flex;
+    list-style-type: none;
+    color: rgb(80, 80, 80);
+    font-weight: 600;
+    width: 100%;
+    border-bottom: 1px solid rgb(107, 107, 107);
+}
+
+.right-content .header ul>li {
+    margin-right: 15px;
+    padding: 5px;
+    margin-bottom: -1px;
+    cursor: pointer;
+}
+
+.right-content .header ul>li:hover {
+    color: rgb(255, 72, 0);
+}
+
+.right-content .header ul .active {
+    color: rgb(255, 72, 0);
+    border-bottom: 4px solid rgb(255, 72, 0);
+}
+
+.right-content .product_table {
+    display: flex;
+    flex-direction: column;
+    width: 50vw;
+    margin-top: 20px;
+    border: 1px solid rgba(172, 172, 172, 0.815);
+    border-radius: 5px;
+}
+
+.product_table .table_content:not(:last-child){
+    border-bottom: 1px solid rgba(172, 172, 172, 0.815);
+}
+
+.table_action {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 5px;
+    width: 100%;
+    height: 50px;
+}
+
+.right-content .table_thead {
+    display: flex;
+    flex-wrap: nowrap;
+    width: 100%;
+    height: 40px;
+    border-top: 1px solid rgba(172, 172, 172, 0.815);
+    border-bottom: 1px solid rgba(172, 172, 172, 0.815);
+}
+
+.product_table .checkbox_head{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding-left:5px;
+}
+
+.right-content .table_content {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 70px;
+    padding: 5px;
+    margin-top: 5px;
+}
+
+.right-content .product_table .checkbox {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    margin: 20px;
+}
+
+.right-content .product_table :is(.checkbox,.checkbox_head) input[type=checkbox] {
+    width: 0px;
+    height: 0px;
+}
+
+:is(.checkbox,.checkbox_head) label {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 16px;
+    height: 16px;
+    border-radius: 5px;
+    border: 1px solid rgb(160, 160, 160);
+    color: white;
+    font-size: 10px;
+    cursor: pointer;
+    content: "";
+}
+
+:is(.table_content,
+    .table_thead) * {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.productimg {
+    width: 20%;
+}
+
+.productimg img {
+    width: 60px;
+    height: auto;
+    object-fit: cover;
+    border-radius: 5px;
+}
+
+.productname {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 26%;
+    height: 100%;
+    color: rgb(122, 122, 122);
+    content: "";
+}
+
+.productprice {
+    width: 15%;
+    height: 100%;
+    content: "";
+}
+
+.store {
+    width: 20%;
+    height: 100%;
+    content: "";
+
+}
+
+.prodcut_action {
+    width: 10%;
+    height: 100%;
+    content: "";
+    color: #474747;
+}
+
+.prodcut_action span {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 25px;
+    height: 25px;
+    border-radius: 100%;
+    padding: 0px 10px;
+    cursor: pointer;
+}
+
+.prodcut_action span:hover {
+    background-color: #91919136;
+}
+
+.right-content .product_table .checkbox input[type=checkbox]:checked+label {
+    content: "";
+    background-color: rgb(245, 105, 50);
+}
+
+.checkbox_head {
+    width: 75px;
+    height: 100%;
+    content: "";
+}
+
+.table_thead {
+    font-weight: bolder;
+}
+
+.productimg_head {
+    width: 20%;
+    height: 100%;
+}
+
+.productname_head {
+    width: 25%;
+    height: 100%;
+}
+
+.productprice_head {
+    width: 15%;
+    height: 100%;
+}
+
+.store_head {
+    width: 20%;
+    height: 100%;
+}
+
+.prodcut_action_head {
+    width: 10%;
+    height: 100%;
 }
