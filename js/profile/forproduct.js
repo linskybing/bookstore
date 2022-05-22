@@ -1,4 +1,6 @@
 
+var prodcutlist;
+
 let checkbox_all = document.querySelector('.checkbox_head input');
 checkbox_all.addEventListener('click', function () {
     checkboxes = document.getElementsByName('product');
@@ -128,6 +130,7 @@ function editmodal() {
     closemodal();
     modal_content_event('.modal .modal-content-2');
     modal_rent_info();
+    modal_image_info();
 }
 
 //關閉modal
@@ -228,17 +231,100 @@ function modal_product_info() {
                 <textarea id="description"></textarea>
             </div> 
         `;
+        modal_product_event();
     })
+}
+
+//商品資訊所需事件
+function modal_product_event() {
+    let active = document.querySelector('.modal .active');
+    active.classList.remove('active');
+    let product = document.querySelector('#product');
+    product.classList.add('active');
 }
 
 //點擊商品圖片
 function modal_image_info() {
     let photo = document.getElementById('photo');
-    photo.addEventListener('click', function () { })
+    photo.addEventListener('click', function () {
+        imgcount = 1;
+        let content = document.querySelector('.modal .content');
+        content.innerHTML = `
+            <div class="formgroup">
+                <label>商品圖片</label>
+            </div>
+            <div class="formgroup type-fill">
+                <div class="img-item" id="1">
+                    <label id="label_photo_1" for="photo_1">
+                        <i class="fa-solid fa-plus"></i>
+                    </label>
+                    <input type="file" id="photo_1">
+                    <img src="" alt="" id="img_photo_1" class="hidden">
+                    <div class="hidden remove" id="remove_1">
+                        <i class="fa-solid fa-xmark"></i>
+                    </div>
+                </div>
+            </div>
+        `;
+        document.getElementById('photo_1').addEventListener('change', view_upload_image);
+        modal_image_event();
+    })
+}
+
+//商品圖片事件
+function modal_image_event() {
+    let active = document.querySelector('.modal .active');
+    active.classList.remove('active');
+    let photo = document.querySelector('#photo');
+    photo.classList.add('active');
 }
 
 //圖片即時預覽
+var imgcount = 1;
+function view_upload_image(e) {
+    id = e.target.id;
+    var x = new FileReader;
+    x.readAsDataURL(this.files[0]);
 
-function upload_image() {
+    x.onloadend = function () {
+        let img = document.querySelector('#img_photo_' + imgcount);
+        img.classList.remove('hidden');
+        document.querySelector('#label_' + id).classList.add('hidden');
+        let remove = document.querySelector('#remove_' + imgcount);
+        remove.classList.remove('hidden');
+        remove.onclick = removeimg;
+        createfileitem();
+        img.src = this.result;
+    }
+}
 
+//remove icon 
+function removeimg(e) {
+    let imgcontent = document.querySelector('.type-fill');
+    let removeitem = e.target.parentNode.parentNode;
+    if (removeitem.classList[0] == 'img-item') {
+        removeitem.remove();
+    }
+
+}
+
+//創造img_item 
+function createfileitem() {
+    imgcount += 1;
+    let div = document.createElement('div');
+    div.classList.add('img-item');
+    div.id = imgcount;
+    div.innerHTML = `
+    <label for="photo_${imgcount}" id="label_photo_${imgcount}">
+    <i class="fa-solid fa-plus"></i>
+    </label>
+    <input type="file" id="photo_${imgcount}">
+    <img src="" alt="" id="img_photo_${imgcount}" class="hidden">
+    <span class="hidden remove" id="remove_${imgcount}">
+        <i class="fa-solid fa-xmark"></i>
+    </span>
+    `;
+    document.querySelector('.type-fill').appendChild(div);
+    let image = document.getElementById('photo_' + imgcount);
+    image.addEventListener('change', view_upload_image);
 }
