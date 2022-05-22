@@ -438,7 +438,7 @@ function modal_image_info() {
         let btn = document.getElementById('submit_i')
         btn.classList.remove('hidden');
         btn.classList.add('now');
-        imgcount = 1;
+        imgcount = 0;
         let content = document.querySelector('.modal .content');
         content.innerHTML = `
             <div class="formerror">                    
@@ -446,24 +446,33 @@ function modal_image_info() {
             <div class="formgroup">
                 <label>商品圖片</label>
             </div>
-            <div class="formgroup type-fill">
-                <div class="img-item" id="1">
-                    <label id="label_photo_1" for="photo_1">
-                        <i class="fa-solid fa-plus"></i>
-                    </label>
-                    <input type="file" id="photo_1">
-                    <img src="" alt="" id="img_photo_1" class="hidden">
-                    <div class="hidden remove" id="remove_1">
-                        <i class="fa-solid fa-xmark"></i>
-                    </div>
-                </div>
+            <div class="formgroup type-fill">                
             </div>
         `;
-        document.getElementById('photo_1').addEventListener('change', view_upload_image);
+        loadallimage();
+        createfileitem();
         modal_image_event();
     })
 }
-
+//載入商品圖片
+function loadallimage() {
+    var data;
+    data = GetDataArray(nowType);
+    if (data[nowIndex].Image != null) {
+        var image = data[nowIndex].Image;
+        image.forEach(e => {
+            let div = document.createElement('div');
+            div.classList.add('img-item-2');
+            div.innerHTML = `
+            <img src="http://localhost:8080/images/Products/${e.Image}" alt="" id="img_exist_${e.Image}" class="">
+            <div class="remove" id="remove_exist_${e.ImageId}">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+            `;
+            document.querySelector('.type-fill').appendChild(div);
+        })
+    }
+}
 //商品圖片事件
 function modal_image_event() {
     let active = document.querySelector('.modal .active');
@@ -497,29 +506,35 @@ function removeimg(e) {
     let removeitem = e.target.parentNode.parentNode;
     if (removeitem.classList[0] == 'img-item') {
         removeitem.remove();
+        createfileitem();
     }
 
 }
 
 //創造img_item 
 function createfileitem() {
-    imgcount += 1;
-    let div = document.createElement('div');
-    div.classList.add('img-item');
-    div.id = imgcount;
-    div.innerHTML = `
-    <label for="photo_${imgcount}" id="label_photo_${imgcount}">
-    <i class="fa-solid fa-plus"></i>
-    </label>
-    <input type="file" id="photo_${imgcount}">
-    <img src="" alt="" id="img_photo_${imgcount}" class="hidden">
-    <span class="hidden remove" id="remove_${imgcount}">
-        <i class="fa-solid fa-xmark"></i>
-    </span>
-    `;
-    document.querySelector('.type-fill').appendChild(div);
-    let image = document.getElementById('photo_' + imgcount);
-    image.addEventListener('change', view_upload_image);
+    var count = document.querySelectorAll('.img-item , .img-item-2').length;
+    if (count < 5) {
+        imgcount += 1;
+        let div = document.createElement('div');
+        div.classList.add('img-item');
+        div.id = imgcount;
+        div.innerHTML = `
+        <label for="photo_${imgcount}" id="label_photo_${imgcount}">
+        <i class="fa-solid fa-plus"></i>
+        </label>
+        <input type="file" id="photo_${imgcount}">
+        <img src="" alt="" id="img_photo_${imgcount}" class="hidden">
+        <span class="hidden remove" id="remove_${imgcount}">
+            <i class="fa-solid fa-xmark"></i>
+        </span>
+        `;
+        document.querySelector('.type-fill').appendChild(div);
+        let image = document.getElementById('photo_' + imgcount);
+        image.addEventListener('change', view_upload_image);
+    }
+    console.log(count);
+
 }
 
 
@@ -606,6 +621,8 @@ function ClearContent() {
                     </div>
     `;
 }
+
+//上傳商品圖片
 
 
 GetOnProduct('null')

@@ -43,3 +43,27 @@ function UpdateProductInfo(data, id) {
             console.error('Error:', e)
         })
 }
+
+function Uploadpimg(id) {
+    const token = getCookie('token');
+    var input = document.querySelector('.type-fill input[type="file"]')
+    var fileinput = new FormData()
+    fileinput.append('file[]', input.files[0])
+    fetch(apidomain + '/productimage/' + id, {
+        method: 'POST',
+        headers: {
+            'Authorization': token,
+        },
+        body: fileinput
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+
+            return data
+        })
+        .catch(e => {
+            console.error('Error:', e)
+        })
+
+}
