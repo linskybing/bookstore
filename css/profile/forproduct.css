@@ -290,6 +290,35 @@ a {
 
 }
 
+.modal .content .formerror {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 100%;
+    margin: 5px 0;
+    height: 0;
+    text-align: center;
+    font-size: 18px;
+    color: white;
+    font-weight: bolder;
+    border-radius: 5px;
+}
+
+
+.modal .content .erroractive {
+    background-color: rgb(255, 0, 0);
+    height: 40px;
+}
+
+.modal .content .succece {
+    background-color: rgb(11, 136, 11);
+    height: 40px;
+}
+
+.must {
+    color: red;
+}
+
 .modal-content-2 {
     display: flex;
     position: absolute;
@@ -459,8 +488,8 @@ a {
 }
 
 .onoption input[type=checkbox] {
-    width: 0;
-    height: 0;
+    width: 0px;
+    height: 0px;
 }
 
 .onoption .toggle {
@@ -502,6 +531,11 @@ a {
 .toggle .default {
     left: 2%;
     background-color: #5f5f5f;
+}
+
+.toggle .default-2 {
+    left: 60%;
+    background-color: rgb(255, 72, 0);
 }
 
 @keyframes option-on {
