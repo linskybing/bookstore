@@ -85,6 +85,18 @@ a {
     list-style-type: none;
     font-size: 18px;
     color: #363636;
+    max-height: 600px;
+    overflow-y: scroll;
+}
+
+:is(.category) *::-webkit-scrollbar {
+    width: 10px;
+}
+
+:is(.category) *::-webkit-scrollbar-thumb {
+    border-radius: 20px;
+    background: #e2e2e2;
+    cursor: pointer;
 }
 
 .content .category li {
@@ -98,15 +110,21 @@ a {
 }
 
 .content .category li:not(.ultitle) {
+    margin-top: 10px;
     padding-top: 15px;
     padding-left: 5px;
     border-bottom: 1px solid #8d8d8d8a;
     cursor: pointer;
+
+}
+
+.content .category li:not(.ultitle):hover {
+    background-color: #eeeeee;
 }
 
 .content .ultitle {
-    font-weight: 1000;
-    font-size: 20px;
+    font-weight: 1000 !important;
+    font-size: 22px !important;
 }
 
 .num {
