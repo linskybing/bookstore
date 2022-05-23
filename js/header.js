@@ -37,7 +37,7 @@ if (token != "") {
     <li><a href="chatroom.html">聊天室</a></li>
     <li><a href="cart_2.html">購物車</a></li>
     <li><a href="report.html">問題回報</a></li>
-    <li><a href="member.html">${timestring}，${Name}</a></li>
+    <li><a href="profile.html">${timestring}，${Name}</a></li>
     <li id="logout"><a href="#">登出</a></li>
     </ul>
     `;
