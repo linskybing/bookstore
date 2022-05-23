@@ -280,6 +280,7 @@ a {
 .modal-content {
     display: flex;
     flex-direction: column;
+    top: 10%;
     width: 28%;
     height: auto;
     min-width: 400px;
@@ -391,6 +392,29 @@ a {
     align-items: space-around;
     width: 100%;
     padding: 10px;
+}
+
+.modal .message {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.modal .message .icon {
+    font-size: 50px;
+    font-weight: bolder;
+    margin: 10px 0;
+    color: red;
+}
+
+.modal .message .text {
+    font-size: 20px;
+    font-weight: bolder;
+}
+
+.modal .message .action {
+    margin-top: 20px;
 }
 
 :is(.modal-content, .modal-content-2) .modal-content .menu {
@@ -572,7 +596,7 @@ a {
     padding: 5px;
 }
 
-:is(.modal-content, .modal-content-2) .content :is(input, textarea):focus {
+:is(.modal-content, .modal-content-2) .content :is(input, textarea, .fakeinput):focus {
     border: 1px solid rgb(255, 72, 0);
 }
 
@@ -635,12 +659,12 @@ a {
     margin: 20px 0;
 }
 
-:is(.right-content .header, .table_action) .h1 {
+:is(.right-content .header, .table_action, .message) .h1 {
     font-size: 24px;
     font-weight: bolder;
 }
 
-:is(.right-content .header, .table_action) .action button {
+:is(.right-content .header, .table_action, .message) .action button {
     width: 75px;
     height: 30px;
     border: none;
@@ -651,19 +675,19 @@ a {
     cursor: pointer;
 }
 
-:is(.right-content .header, .table_action) .action .insert {
+:is(.right-content .header, .table_action, .message) .action .insert {
     background-color: #0066ffd5;
 }
 
-:is(.right-content .header, .table_action) .action .insert:hover {
+:is(.right-content .header, .table_action, .message) .action .insert:hover {
     background-color: #0066ff;
 }
 
-:is(.right-content .header, .table_action) .action .delete {
+:is(.right-content .header, .table_action, .message) .action .delete {
     background-color: #ff0000d7;
 }
 
-:is(.right-content .header, .table_action) .action .delete:hover {
+:is(.right-content .header, .table_action, .message) .action .delete:hover {
     background-color: #ff0000;
 }
 
@@ -883,4 +907,102 @@ a {
     border-radius: 20px;
     background: #e2e2e2;
     cursor: pointer;
+}
+
+.page {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    height: 40px;
+    margin: 50px 0px;
+}
+
+.page ul {
+    display: flex;
+    list-style-type: none;
+    color: rgb(59, 59, 59);
+    background-color: #e9e9e9;
+    border-radius: 25px;
+}
+
+
+.page ul li {
+    cursor: pointer;
+    padding: 5px 15px;
+}
+
+.page ul li:not(.active):hover {
+    color: #ff5e00;
+}
+
+.page ul .active {
+    width: 100%;
+    height: 100%;
+    border-radius: 25px;
+    color: white;
+    background-color: #ff5e00;
+}
+
+.no-drap {
+    cursor: no-drop !important;
+
+}
+
+.fakeinput {
+    position: relative;
+}
+
+.fakeinput input {
+    border: 1px solid #dbdfea;
+    height: 35px;
+    min-width: 250px;
+    border-radius: 5px;
+    padding-left: 5px;
+    line-height: 1.1;
+    color: #383838;
+    font-weight: bold;
+    letter-spacing: 1px;
+    outline: none;
+}
+
+.tag {
+    display: inline-block;
+    text-align: center;
+    padding: 5px;
+    margin: 0 5px;
+    height: 24px;
+    border-radius: 5px;
+    font-size: 12px;
+    color: white;
+    cursor: pointer;
+}
+
+.tagsearch {
+    position: absolute;
+    width: 100%;
+    top: 35px;
+    background-color: white;
+}
+
+.tagsearch ul {
+    list-style-type: none;
+    padding-left: 5px;
+    max-height: 135px;
+    overflow-y: scroll;
+}
+
+.tagsearch ul li {
+    font-weight: 500;
+    padding: 1px 0;
+    color: rgb(122, 122, 122);
+    cursor: pointer;
+}
+
+.tagsearch ul li:hover {
+    background-color: #e6e6e6;
+}
+
+.bodyhidden {
+    overflow: hidden;
 }

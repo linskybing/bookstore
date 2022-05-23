@@ -46,15 +46,78 @@ function UpdateProductInfo(data, id) {
 
 function Uploadpimg(id) {
     const token = getCookie('token');
-    var input = document.querySelector('.type-fill input[type="file"]')
     var fileinput = new FormData()
-    fileinput.append('file[]', input.files[0])
-    fetch(apidomain + '/productimage/' + id, {
+    var inputs = document.querySelectorAll('.type-fill input[type="file"]');
+    for (i = 0; i < inputs.length - 1; i++) {
+        fileinput.append('file[]', inputs[i].files[0], inputs[i].files[0].name);
+    }
+    return fetch(apidomain + '/productimage/' + id, {
         method: 'POST',
         headers: {
             'Authorization': token,
         },
         body: fileinput
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            return data
+        })
+        .catch(e => {
+            console.error('Error:', e)
+        })
+
+}
+
+function InsertProduct(data) {
+    const token = getCookie('token');
+    var sdata = new FormData()
+    Object.entries(data).forEach(([key, value]) => {
+        sdata.append(key, value);
+    })
+    console.log(sdata);
+    return fetch(apidomain + '/product', {
+        method: 'POST',
+        headers: {
+            'Authorization': token,
+        },
+        body: sdata
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            return data
+        })
+        .catch(e => {
+            console.error('Error:', e)
+        })
+}
+
+function DeleteProduct(id) {
+    const token = getCookie('token');
+    return fetch(apidomain + '/product/' + id, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': token,
+        },
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            return data
+        })
+        .catch(e => {
+            console.error('Error:', e)
+        })
+}
+
+function DeleteImg(id) {
+    const token = getCookie('token');
+    return fetch(apidomain + '/productimage/' + id, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': token,
+        },
     })
         .then(res => res.json())
         .then(data => {
@@ -65,5 +128,4 @@ function Uploadpimg(id) {
         .catch(e => {
             console.error('Error:', e)
         })
-
 }
