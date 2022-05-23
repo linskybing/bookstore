@@ -230,6 +230,35 @@ function UpdateAddress($addr) {
 }
 
 //更新
+function UserUpdatedata(name, address) {
+    const token = getCookie('token')
+    var formBody = []
+    var details = {
+        'Name': name,
+        'Address': address,
+    }
+    for (var property in details) {
+        var encodedKey = encodeURIComponent(property)
+        var encodedValue = encodeURIComponent(details[property])
+        formBody.push(encodedKey + "=" + encodedValue)
+    }
+    return fetch(apidomain + '/user/update', {
+        method: 'PATCH',
+        headers: {
+            'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
+            'Authorization': token,
+        },
+        body: formBody.join('&')
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            return data
+        })
+        .catch(e => {
+            console.error('Error:', e)
+        })
+}
 function UpdatePassword(oldPassword, newPassword) {
     const token = getCookie('token')
     var formBody = []
@@ -242,7 +271,7 @@ function UpdatePassword(oldPassword, newPassword) {
         var encodedValue = encodeURIComponent(details[property])
         formBody.push(encodedKey + "=" + encodedValue)
     }
-    fetch(apidomain + '/user/password', {
+    return fetch(apidomain + '/user/password', {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -319,7 +348,7 @@ function ResetPassword(password, passwordcheck, token) {
 //上傳大頭貼
 function Uploadimg() {
     const token = getCookie('token');
-    var input = document.querySelector('input[type="file"]')
+    var input = document.querySelector('#filein')
     var fileinput = new FormData()
     fileinput.append('file[]', input.files[0])
     fetch(apidomain + '/user/img', {
@@ -332,11 +361,11 @@ function Uploadimg() {
         .then(res => res.json())
         .then(data => {
             console.log(data)
+            input.value="";
             if (data.hasOwnProperty('data')) {
-                setCookie('Image', data.data);
-                window.location.reload()
+                setCookie('Image', data.data);               
             }
-            
+
             return data
         })
         .catch(e => {

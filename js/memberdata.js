@@ -8,6 +8,8 @@ async function temp() {
     var data;
     await getAccount().then(r => data = r)
     console.log(data);
+
+    document.querySelector('#name span').innerHTML = getCookie('Name');
     document.querySelector('#accountinfo').innerHTML = data.Account;
     document.querySelector('#emailinfo').innerHTML = data.Email;
     document.querySelector('#addressinfo').value = data.Address;
@@ -21,7 +23,7 @@ document.querySelector('.submit input').addEventListener('click', function (e) {
     if (address != "") {
         UpdateAddress(address);
         if (document.querySelector('input[type=file]').value != "") {
-            Uploadimg();            
+            Uploadimg();
         }
     }
     else {
