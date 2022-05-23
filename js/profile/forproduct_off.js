@@ -1,6 +1,6 @@
 
+var productofflist;
 var onIndex = 0;
-var prodcutofflist;
 var nowIndex = 0;
 var nowType = 'off';
 var tempdata = {}
@@ -14,6 +14,7 @@ let modal = document.querySelector('.modal');
 modal.addEventListener('click', function (e) {
     let element = e.target;
     if (element == modal) {
+        document.body.classList.toggle('bodyhidden');
         modal.classList.toggle('hidden');
     }
 })
@@ -21,9 +22,8 @@ modal.addEventListener('click', function (e) {
 //綁定insert按鈕
 function insertbtn() {
 
-    let insert = document.querySelector('.insert');
-
-    insert.addEventListener('click', function () {
+    var insert = document.querySelector('.table_action .insert');
+    insert.addEventListener('click', async function () {
         checkboxes = document.getElementsByName('product');
 
         checkboxes.forEach(element => {
@@ -32,7 +32,7 @@ function insertbtn() {
                 var dataobj = {
                     'State': 'on'
                 }
-                re = turnon(dataobj, element.value);
+                re = turnoff(dataobj, element.value);
                 console.log(re);
             }
         });
@@ -132,15 +132,103 @@ function displaymessage(id, type) {
 }
 //顯示modal內容
 let modal_content = document.querySelector('.modal-content-2')
+function displaymodal() {
+    modal.innerHTML = `
+    <div class="modal-content-2">
+        <div class="header">
+            <div class="close">
+                <i class="fa-solid fa-xmark"></i>
+            </div>
+            <div class="modal-title">
+                <h3>上架商品</h3>
+            </div>
+            <div class="menu">
+                <ul>
+                    <li class="active">商品資訊</li>                  
+                </ul>
+            </div>
+        </div>
+        <div class="content">
+            <div class="formerror">               
+            </div>
+            <div class="formgroup">
+                <label for="editname">商品名稱<span class="must">*</span></label>
+                <input type="text" id="editname">
+            </div>
+            <div class="formgroup">
+                <label for="editprice">商品價格<span class="must">*</span></label>
+                <input type="text" id="editprice">
+            </div>
+            <div class="formgroup">
+                <label for="store">　　庫存<span class="must">*</span></label>
+                <input type="text" id="store">
+            </div>
+            <div class="formgroup">
+                <label for="description">商品敘述<span class="must">*</span></label>
+                <textarea id="description"></textarea>
+            </div>            
+        </div>
+        <div class="footer">
+            <button class="submit">
+                上架商品
+            </button>
+            <span class="cancel">取消</span>
+        </div>
+    </div>
+    `;
+    let btn = document.querySelector('.modal .submit');
+    btn.addEventListener('click', async function () {
+        let Name = document.querySelector('#editname').value;
+        let Price = document.querySelector('#editprice').value;
+        let Inventory = document.querySelector('#store').value;
+        let Description = document.querySelector('#description').value;
+        tempdata = Object.assign(tempdata, { 'Name': Name });
+        tempdata = Object.assign(tempdata, { 'Price': Price });
+        tempdata = Object.assign(tempdata, { 'Inventory': Inventory });
+        tempdata = Object.assign(tempdata, { 'Description': Description });
+        if (validate(tempdata)) {
+            if (!checkRate(parseInt(tempdata.Price)) || !checkRate(parseInt(tempdata.Inventory))) {
+                numbererror()
+            }
+            else {
+                var data;
+                data = GetDataArray(nowType);
+                document.querySelector('.formerror').classList.remove('erroractive');
+                document.querySelector('.formerror').innerHTML = '';
+                var re;
+                await InsertProduct(tempdata).then(r => re = r);
+                if (re.hasOwnProperty('error')) {
+                    document.querySelector('.formerror').classList.add('erroractive');
+                    document.querySelector('.formerror').innerHTML = re.error;
+                }
+                else {
+                    document.querySelector('.formerror').classList.add('succece');
+                    document.querySelector('.formerror').innerHTML = re.info;
+                    GetOnProduct('null');
+                    setTimeout(() => {
+                        document.querySelector('.formerror').classList.remove('succece');
+                    }, 3000);
+                }
+            }
 
+        }
+        else {
+            document.querySelector('.formerror').classList.add('erroractive');
+            document.querySelector('.formerror').innerHTML = '必填資料不可為空';
+        }
+
+    })
+    closemodal();
+    modal_content_event('.modal .modal-content-2');
+}
 //取得資料陣列
 function GetDataArray(type) {
     var data;
     if (type == 'on') {
-        data = prodcutonlist;
+        data = productonlist;
     }
     else if (type == 'off') {
-        data = prodcutofflist;
+        data = productofflist;
     }
     else {
         data = replenishment;
@@ -148,6 +236,13 @@ function GetDataArray(type) {
     return data;
 }
 
+function deletemodal(id, type) {
+    var data;
+    data = GetDataArray(type);
+    nowIndex = id;
+    nowType = type;
+
+}
 
 //修改資訊modal
 function editmodal(id, type) {
@@ -169,6 +264,7 @@ function editmodal(id, type) {
                     <li class="active" id="product">商品資訊</li>
                     <li id="rent">租借資訊</li>
                     <li id="photo">商品圖片</li>
+                    <li id="category">商品標籤</li>
                 </ul>
             </div>
         </div>
@@ -200,6 +296,9 @@ function editmodal(id, type) {
                 更新資料
             </button>
             <button class="submit hidden" id="submit_i">
+                新增圖片
+            </button>
+            <button class="submit hidden" id="submit_c">
                 更新資料
             </button>
             <span class="cancel">取消</span>
@@ -211,6 +310,7 @@ function editmodal(id, type) {
     modal_content_event('.modal .modal-content-2');
     modal_rent_info();
     modal_image_info();
+    modal_category_info();
     sendeditdata();
 }
 
@@ -284,10 +384,59 @@ function sendeditdata() {
             }, 3000);
         }
     })
+    document.getElementById('submit_c').addEventListener('click', async function () {
+        var re;
+        var data;
+        data = GetDataArray(nowType);
+        trundatatoid();
+
+        for (i = 0; i < tmp.length; i++) {
+            await PostTag(data[nowIndex].ProductId, tmp[i]).then(r => re = r);
+            if (re && re.hasOwnProperty('Id')) {
+                delete re.ProductId;
+                if (productofflist[nowIndex].Category) {
+                    productofflist[nowIndex].Category.push(re);
+                }
+                else {
+                    productofflist[nowIndex].Category = re;
+                }
+
+            }
+        }
+        for (i = 0; i < delarray.length; i++) {
+            await DeleteTag(delarray[i]).then(r => re = r);
+
+            Object.entries(productofflist[nowIndex].Category).forEach((key, value) => {
+                if (productofflist[nowIndex].Category[value].Id == delarray[i]) {
+                    delete productofflist[nowIndex].Category[value];
+                }
+            })
+
+        }
+        tmp = [];
+        delarray = [];
+        GetOnProduct('null');
+        inittag();
+        if (re) {
+            if (re.hasOwnProperty('error')) {
+                document.querySelector('.formerror').classList.add('erroractive');
+                document.querySelector('.formerror').innerHTML = re.error;
+            }
+            else {
+                document.querySelector('.formerror').classList.add('succece');
+                document.querySelector('.formerror').innerHTML = '資料修改成功';
+                setTimeout(() => {
+                    document.querySelector('.formerror').classList.remove('succece');
+                }, 3000);
+
+            }
+        }
+
+    })
 }
 
-//上架for all
-async function turnon(dataobj, value) {
+//下嫁for all
+async function turnoff(dataobj, value) {
     var re;
     await UpdateProductInfo(dataobj, value).then(r => re = r);
     GetOnProduct('null');
@@ -342,11 +491,13 @@ function checkRate(nubmer) {
 function closemodal() {
     let close = document.querySelector('.modal .close');
     close.addEventListener('click', function () {
+        document.body.classList.toggle('bodyhidden');
         modal.classList.add('hidden');
     });
 
     let cancel = document.querySelector('.modal .cancel');
     cancel.addEventListener('click', function () {
+        document.body.classList.toggle('bodyhidden');
         modal.classList.add('hidden');
     });
 }
@@ -617,17 +768,52 @@ function createfileitem() {
 
 }
 
+//點擊商品種類管理
+function modal_category_info() {
+    let category = document.getElementById('category');
+    category.addEventListener('click', function () {
+        var data;
+        data = GetDataArray(nowType);
+        let now = document.querySelector('.now');
+        now.classList.remove('now');
+        now.classList.add('hidden');
+        let btn = document.getElementById('submit_c')
+        btn.classList.remove('hidden');
+        btn.classList.add('now');
+        let active = document.querySelector('.modal .menu .active');
+        active.classList.remove('active');
+        category.classList.add('active');
+        let content = document.querySelector('.modal .content');
+        content.innerHTML = `
+            <div class="formerror">
+            </div>
+            <div class="formgroup" style="background-color: white;">
+                <label>商品標籤</label>
+                <div class="fakeinput">                    
+                    <input type="text" id="edittag" value="">
+                    <div class="tagsearch">
+                        <ul class="searchresult">
+                        </ul>
+                    </div>
+                </div>
+            </div>
+            <div class="formgroup" id="taglist">
+            </div>          
+        `;
+        inittag();
+    });
+}
 
 //載入商品陣列
 async function GetOnProduct(search) {
     var data;
     await GetSellerProduct(nowType, search).then(r => data = r);
     if (data.hasOwnProperty('data')) {
-        prodcutofflist = data.data;
+        productofflist = data.data;
     }
     ClearContent();
-    if (prodcutofflist) {
-        prodcutofflist.forEach(element => {
+    if (productofflist) {
+        productofflist.forEach(element => {
             let div = document.createElement('div');
             div.classList.add('table_content');
             div.innerHTML = `   
@@ -656,12 +842,14 @@ async function GetOnProduct(search) {
             document.querySelector('.product_table').appendChild(div);
             let edit = document.querySelector('#editbtn_' + onIndex);
             edit.addEventListener('click', function () {
+                document.body.classList.toggle('bodyhidden');
                 modal.classList.toggle('hidden');
                 var getindex = document.getElementById('index_' + element.ProductId);
                 editmodal(getindex.value, nowType);
             })
             let deletebtn = document.querySelector('#deletebtn_' + onIndex);
             deletebtn.addEventListener('click', function () {
+                document.body.classList.toggle('bodyhidden');
                 modal.classList.toggle('hidden');
                 var getindex = document.getElementById('index_' + element.ProductId);
                 displaymessage(getindex.value, nowType);
@@ -678,10 +866,10 @@ function ClearContent() {
     document.querySelector('.product_table').innerHTML = `
     <div class="table_action" >
         <div class="h1"></a></div >
-            <div class="action">              
+            <div class="action">
                 <button class="insert">
                     上架商品
-                </button>
+                </button>               
             </div>
     </div >
     <div class="table_thead">
@@ -707,7 +895,8 @@ function ClearContent() {
     </div>
 `;
     checkall();
-    insertbtn();    
+    insertbtn();
+
 }
 
 //上傳商品圖片

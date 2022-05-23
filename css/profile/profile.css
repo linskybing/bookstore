@@ -657,7 +657,7 @@ a {
 .page {
     display: flex;
     justify-content: center;
-    align-items: center;    
+    align-items: center;
     height: 40px;
     margin: 50px 0px;
 }
@@ -687,4 +687,67 @@ a {
     border-radius: 25px;
     color: white;
     background-color: #ff5e00;
+}
+
+.no-drap {
+    cursor: no-drop !important;
+
+}
+
+.fakeinput {
+    position: relative;
+}
+
+.fakeinput input {
+    border: 1px solid #dbdfea;
+    height: 35px;
+    min-width: 250px;
+    border-radius: 5px;
+    padding-left: 5px;
+    line-height: 1.1;
+    color: #383838;
+    font-weight: bold;
+    letter-spacing: 1px;
+    outline: none;
+}
+
+.tag {
+    display: inline-block;
+    text-align: center;
+    padding: 5px;
+    margin: 0 5px;
+    height: 24px;
+    border-radius: 5px;
+    font-size: 12px;
+    color: white;
+    cursor: pointer;
+}
+
+.tagsearch {
+    position: absolute;
+    width: 100%;
+    top: 35px;
+    background-color: white;
+}
+
+.tagsearch ul {
+    list-style-type: none;
+    padding-left: 5px;
+    max-height: 135px;
+    overflow-y: scroll;
+}
+
+.tagsearch ul li {
+    font-weight: 500;
+    padding: 1px 0;
+    color: rgb(122, 122, 122);
+    cursor: pointer;
+}
+
+.tagsearch ul li:hover {
+    background-color: #e6e6e6;
+}
+
+.bodyhidden {
+    overflow: hidden;
 }

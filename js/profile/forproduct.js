@@ -21,13 +21,20 @@ modal.addEventListener('click', function (e) {
 
 //綁定insert按鈕
 function insertbtn() {
+    var insert = document.querySelector('.table_action .insert');
+    insert.addEventListener('click', async function () {
+        checkboxes = document.getElementsByName('product');
 
-    let insert = document.querySelector('.insert');
-
-    insert.addEventListener('click', function () {
-        modal.classList.toggle('hidden');
-        document.body.classList.toggle('bodyhidden');
-        displaymodal();
+        checkboxes.forEach(element => {
+            if (element.checked) {
+                var re;
+                var dataobj = {
+                    'State': 'on'
+                }
+                re = turnoff(dataobj, element.value);
+                console.log(re);
+            }
+        });
     })
 }
 
@@ -394,9 +401,58 @@ function sendeditdata() {
             }, 3000);
         }
     })
+    document.getElementById('submit_c').addEventListener('click', async function () {
+        var re;
+        var data;
+        data = GetDataArray(nowType);
+        trundatatoid();
+
+        for (i = 0; i < tmp.length; i++) {
+            await PostTag(data[nowIndex].ProductId, tmp[i]).then(r => re = r);
+            if (re && re.hasOwnProperty('Id')) {
+                delete re.ProductId;
+                if (prodcutonlist[nowIndex].Category) {
+                    prodcutonlist[nowIndex].Category.push(re);
+                }
+                else {
+                    prodcutonlist[nowIndex].Category = re;
+                }
+
+            }
+        }
+        for (i = 0; i < delarray.length; i++) {
+            await DeleteTag(delarray[i]).then(r => re = r);
+
+            Object.entries(prodcutonlist[nowIndex].Category).forEach((key, value) => {
+                if (prodcutonlist[nowIndex].Category[value].Id == delarray[i]) {
+                    delete prodcutonlist[nowIndex].Category[value];
+                }
+            })
+
+        }
+        tmp = [];
+        delarray = [];
+        GetOnProduct('null');
+        inittag();
+        if (re) {
+            if (re.hasOwnProperty('error')) {
+                document.querySelector('.formerror').classList.add('erroractive');
+                document.querySelector('.formerror').innerHTML = re.error;
+            }
+            else {
+                document.querySelector('.formerror').classList.add('succece');
+                document.querySelector('.formerror').innerHTML = '資料修改成功';
+                setTimeout(() => {
+                    document.querySelector('.formerror').classList.remove('succece');
+                }, 3000);
+
+            }
+        }
+
+    })
 }
 
-//下嫁for all
+//上架for all
 async function turnoff(dataobj, value) {
     var re;
     await UpdateProductInfo(dataobj, value).then(r => re = r);
@@ -738,7 +794,7 @@ function modal_category_info() {
         let now = document.querySelector('.now');
         now.classList.remove('now');
         now.classList.add('hidden');
-        let btn = document.getElementById('submit_p')
+        let btn = document.getElementById('submit_c')
         btn.classList.remove('hidden');
         btn.classList.add('now');
         let active = document.querySelector('.modal .menu .active');

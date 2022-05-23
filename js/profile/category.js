@@ -7,6 +7,7 @@ var searchlist;
 var delarray = [];
 var tmp = [];
 var exist = [];
+var idtable;
 getcategory();
 async function getcategory() {
     var data;
@@ -36,7 +37,7 @@ function bindfakeinput() {
 function addTag(inputvalue) {
     let taglist = document.getElementById('taglist');
     Object.entries(category).forEach((key, value) => {
-        if (category[value].Tag == inputvalue && tmp.indexOf(inputvalue) < 0) {
+        if (category[value].Tag == inputvalue && tmp.indexOf(inputvalue) < 0 && exist.indexOf(inputvalue) < 0) {
             var dom = document.createElement('div');
             dom.classList.add('tag');
             dom.style.backgroundColor = category[value].Color;
@@ -54,30 +55,55 @@ function addTag(inputvalue) {
             taglist.appendChild(dom);
         }
     })
-
 }
 
+function addTag_exist(inputvalue, id) {
+    let taglist = document.getElementById('taglist');
+    Object.entries(category).forEach((key, value) => {
+        if (category[value].Tag == inputvalue && tmp.indexOf(inputvalue) < 0) {
+            var dom = document.createElement('div');
+            dom.classList.add('tag');
+            dom.style.backgroundColor = category[value].Color;
+            dom.innerHTML = '#' + inputvalue;
+            dom.addEventListener('click', function (e) {
+                document.querySelectorAll('#taglist .tag').forEach(function (child, index) {
+                    if (child === dom) {
+                        delarray.push(id);
+                        console.log(delarray);
+                        taglist.removeChild(dom);
+                    }
+                });
+            });
+            taglist.appendChild(dom);
+        }
+    })
+}
+
+
 //findvalue
-function findcategory(search) {
+function findcategory(search, id) {
     Object.entries(category).forEach((key, value) => {
         if (category[value].Tag == search) {
-            console.log(category[value].Tag);
+            addTag_exist(search, id);
         }
     })
 }
 
 //初始化
-function inittag() {
+async function inittag() {
     insert = [];
     tmp = [];
+    delarray = [];
+    idtable = {};
+    exist = [];
+    cleartaglist();
     tagInput = document.querySelector('.modal .fakeinput');
     input = document.querySelector('.modal .fakeinput input');
     tagInput.addEventListener('click', function () {
         input.focus();
     })
-
+    getpcategory();
     bindfakeinput();
-
 }
 
 
@@ -93,7 +119,6 @@ function selectMatchItem(search) {
         }
     })
     if (searchlist.length == 0) {
-        console.log(search.length)
         searchlist = all;
     }
     if (search.length == 0) {
@@ -122,10 +147,51 @@ function searchcreate() {
 
 }
 
-function getcategory() {
+function getpcategory() {
     var data;
     data = GetDataArray(nowType);
-    data[nowType].Category
+    var c = data[nowIndex].Category;
+    if (c) {
+        c.forEach(e => {
+            if (e) {
+                exist.push(e.Tag);
+                console.log(e);
+                findcategory(e.Tag, e.Id);
+            }
+
+        });
+    }
+
 }
 
+function trundatatoid() {
+
+    for (i = 0; i < tmp.length; i++) {
+        Object.entries(category).forEach((key, value) => {
+            if (category[value].Tag == tmp[i]) {
+                tmp[i] = category[value].CategoryId;
+            }
+        })
+    }
+    console.log(tmp);
+}
+
+function cleartaglist() {
+
+    let taglist = document.getElementById('taglist');
+    if (taglist) {
+        taglist.innerHTML = ``;
+    }
+
+}
+
+function ifnotexist(search) {
+    var btn = true;
+    exist.forEach(e => {
+        if (e == search) {
+            btn = false;
+        }
+    })
+    return btn;
+}
 
