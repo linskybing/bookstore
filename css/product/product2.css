@@ -1,4 +1,4 @@
-section {
+body>section {
     display: flex;
     flex-direction: column;
     justify-content: center;
@@ -10,7 +10,7 @@ a {
     color: black;
 }
 
-section>.title {
+body>section>.title {
     display: flex;
     justify-content: space-between;
     align-items: center;
@@ -20,35 +20,43 @@ section>.title {
     background-color: #fbfbfb;
 }
 
-section>.title span {
+body>section>.title span {
     padding: 50px;
 }
 
-section>.title span a:hover {
+body>section>.title span a:hover {
     color: #ff4800;
 }
 
 
 .productblock {
     display: flex;
-    flex-wrap: nowrap;
     margin-top: 50px;
 }
 
 .product-img-block {
-    min-width: 40%;
-    padding: 0 10%;
+    display: flex;
+    flex-wrap: nowrap;
+    flex-direction: column;
+    align-items: center;
+    min-width: 45%;
+    padding: 0 2%;
     padding-bottom: 60px;
 }
 
 .product-img-block img {
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: auto;
-    width: 100%;
+    max-width: 50%;
 }
 
 .product-img-block .select {
     margin-top: 10px;
     display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
     width: 100%;
 }
 
@@ -128,7 +136,27 @@ section>.title span a:hover {
 }
 
 .purchase .addtocart:hover button {
+    background-color: #ff0000;
+}
+
+.purchase .removecart {
+    padding-right: 60px;
+}
+
+.purchase .removecart button {
+    outline: none;
+    border: none;
+    width: 150px;
+    height: 50px;
+    font-size: 14px;
+    border-radius: 25px;
+    color: white;
     background-color: #727272;
+    cursor: pointer;
+}
+
+.hidden{
+    display: none;
 }
 
 .count {
@@ -209,7 +237,7 @@ section>.title span a:hover {
 
 .review-content {
     display: flex;
-    align-items: center;
+    align-items: flex-start;
     height: 150px;
     width: 100%;
 }
@@ -231,6 +259,7 @@ section>.title span a:hover {
     display: flex;
     flex-direction: column;
     width: 75%;
+    padding-top: 10px;
     margin-left: 10px;
 }
 
@@ -301,6 +330,10 @@ section>.title span a:hover {
     color: #468669;
 }
 
+.offline-label {
+    color: #8d8d8d;
+}
+
 .seller-content .icon img {
     border-radius: 100%;
     width: 50px;
@@ -323,7 +356,7 @@ section>.title span a:hover {
 
 .product .item {
     width: 300px;
-    height: 400px;    
+    height: 400px;
     margin: 20px 40px;
 }
 
@@ -377,6 +410,19 @@ section>.title span a:hover {
     margin-top: 50px;
     margin-bottom: 20px;
     padding-left: 150px;
+}
+
+
+.tag {
+    display: inline-block;
+    text-align: center;
+    padding: 5px;
+    margin: 0 5px;
+    height: 24px;
+    border-radius: 5px;
+    font-size: 12px;
+    color: white;
+    cursor: pointer;
 }
 
 @media screen and (max-width:780px) {

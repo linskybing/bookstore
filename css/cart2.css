@@ -171,7 +171,7 @@ th {
 }
 
 .total-table table {
-    border: none;
+    border: none !important;
     text-align: center;
     font-weight: bolder;
 }

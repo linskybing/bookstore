@@ -51,6 +51,23 @@ function GetAllProductForrent() {
         })
 }
 
+function GetSingle(id) {
+    var token = getCookie('token');
+    return fetch(apidomain + '/product/' + id, {
+        method: 'GET',
+        headers: {
+            'Authorization': token,
+        }
+    })
+        .then(res => res.json())
+        .then(res => {
+            return res;
+        })
+        .catch(e => {
+            console.error('Error:', error)
+        })
+}
+
 function UpdateProductInfo(data, id) {
     const token = getCookie('token')
     var formBody = []
@@ -157,6 +174,30 @@ function DeleteImg(id) {
         .then(data => {
             console.log(data)
 
+            return data
+        })
+        .catch(e => {
+            console.error('Error:', e)
+        })
+}
+
+function AddtoCart(id, count, type) {
+    const token = getCookie('token');
+    var sdata = new FormData()
+    sdata.append('ProductId', id);
+    sdata.append('Count', count);
+    sdata.append('Type', type);
+    console.log(sdata);
+    return fetch(apidomain + '/list', {
+        method: 'POST',
+        headers: {
+            'Authorization': token,
+        },
+        body: sdata
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
             return data
         })
         .catch(e => {

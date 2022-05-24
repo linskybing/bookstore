@@ -265,18 +265,21 @@ async function ChatDetail(id) {
     if (roomchat[id] == null) {
         await GetChatrecord(id, chatpage, itemnum).then(r => data = r);
         roomchat[id] = data;
-        roomchat[id].data = roomchat[id].data.reverse();
+        if (roomchat[id].data != null) {
+            roomchat[id].data = roomchat[id].data.reverse();
+        }
+
     }
     let item = document.querySelector('.wrapper');
     let active = document.querySelector('.option .active');
     let option = active.classList[0];
-    if(option == 'selleroption'){
+    if (option == 'selleroption') {
         var room = "chatroom2()";
         var img = roomchat[id][0].UserImage;
         var name = roomchat[id][0].User;
         var activeperson = roomchat[id][0].UserActive;
     }
-    else{
+    else {
         var room = "chatroom()";
         var img = roomchat[id][0].SellerImage;
         var name = roomchat[id][0].Seller;
@@ -408,7 +411,7 @@ function InsertChat(ele) {
 async function RefreshChat() {
     let data;
     await UpdateMessgae(Roomid, time).then(r => data = r);
-    if (data.hasOwnProperty('data')) {
+    if (data.hasOwnProperty('data') && data.data != null) {
         var token = getCookie('Account');
         data = data.data.reverse();
         let box = document.querySelector('.chat-box');
@@ -416,11 +419,11 @@ async function RefreshChat() {
         data.forEach(ele => {
             let div = document.createElement('div');
             count += 1;
-            console.log(roomchat[Roomid].data.length)
-            if (ele.CreatedAt > time) {
+            if (ele.CreatedAt > time || time == null) {
                 time = ele.CreatedAt;
                 roomchat[Roomid][0].CreatedAt = ele.CreatedAt;
             }
+            if (roomchat[Roomid].data == null) roomchat[Roomid].data = [];
             roomchat[Roomid].data.push(ele);
             if (ele.Creator == token) {
                 div.classList.add('chat');

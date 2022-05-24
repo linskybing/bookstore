@@ -126,7 +126,7 @@ function PostMessage(id, message) {
 
 function UpdateMessgae(id, time) {
     var token = getCookie('token');
-    if(time == null) time = "0000-00-00 00:00:00";
+    if (time == null) time = "0000-00-00 00:00:00";
     return fetch(apidomain + '/chatroomrrefresh/' + id + '/' + time.replace(' ', '_'), {
         method: 'GET',
         headers: {
@@ -152,6 +152,27 @@ function ChatCount(id) {
     })
         .then(res => res.json())
         .then(res => {
+            return res;
+        })
+        .catch(e => {
+            console.error('Error:', error)
+        })
+}
+
+function CreateChatroom(seller) {
+    var token = getCookie('token');
+    var data = new FormData();
+    data.append('Seller', seller);
+    fetch(apidomain + '/chatroom', {
+        method: 'POST',
+        headers: {
+            'Authorization': token,
+        },
+        body: data,
+    })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res);
             return res;
         })
         .catch(e => {
