@@ -32,7 +32,7 @@ async function getcategory() {
 
 async function getproduct() {
     var data;
-    await GetAllProduct().then(r => data = r);
+    await  GetAllProductForrent().then(r => data = r);
     constlist = data.data;
     productlist = constlist;
     productcount = productlist.length;

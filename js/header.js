@@ -30,6 +30,7 @@ if (token != "") {
     <li><a href="index.html">首頁</a></li>
     <li><a href="#">公告事項</a></li>
     <li><a href="productlist.html">商品賣場</a></li>
+    <li><a href="productlist_rent.html">租借賣場</a></li>
     <li><a href="#">平台介紹</a></li>
     <li><a href="#">關於我們</a></li>
     </ul>
@@ -52,6 +53,7 @@ else {
     <li><a href="index.html">首頁</a></li>
     <li><a href="#">公告事項</a></li>
     <li><a href="productlist.html">商品賣場</a></li>
+    <li><a href="productlist_rent.html">租借賣場</a></li>
     <li><a href="#">平台介紹</a></li>
     <li><a href="#">關於我們</a></li>
     </ul>

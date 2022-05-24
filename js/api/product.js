@@ -34,6 +34,23 @@ function GetAllProduct() {
         })
 }
 
+function GetAllProductForrent() {
+    var token = getCookie('token');
+    return fetch(apidomain + '/product_rent', {
+        method: 'GET',
+        headers: {
+            'Authorization': token,
+        }
+    })
+        .then(res => res.json())
+        .then(res => {
+            return res;
+        })
+        .catch(e => {
+            console.error('Error:', error)
+        })
+}
+
 function UpdateProductInfo(data, id) {
     const token = getCookie('token')
     var formBody = []
