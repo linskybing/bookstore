@@ -22,19 +22,10 @@ modal.addEventListener('click', function (e) {
 //綁定insert按鈕
 function insertbtn() {
     var insert = document.querySelector('.table_action .insert');
-    insert.addEventListener('click', async function () {
-        checkboxes = document.getElementsByName('product');
-
-        checkboxes.forEach(element => {
-            if (element.checked) {
-                var re;
-                var dataobj = {
-                    'State': 'on'
-                }
-                re = turnoff(dataobj, element.value);
-                console.log(re);
-            }
-        });
+    insert.addEventListener('click', function () {
+        document.body.classList.toggle('bodyhidden');
+        modal.classList.toggle('hidden');
+        displaymodal();
     })
 }
 
@@ -90,7 +81,7 @@ function displaymessage(id, type) {
             </div>
             <div class="action">
                 <button class="delete">
-                    下架商品
+                    刪除商品
                 </button>
                 <span class="cancel">取消</span>
             </div>

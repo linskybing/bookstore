@@ -73,7 +73,7 @@ function displaymessage(id, type) {
             </div>
             <div class="action">
                 <button class="delete">
-                    下架商品
+                    刪除商品
                 </button>
                 <span class="cancel">取消</span>
             </div>
