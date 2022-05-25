@@ -33,14 +33,17 @@ async function getcategory() {
 async function getproduct() {
     var data;
     await GetAllProduct().then(r => data = r);
-    constlist = data.data;
-    productlist = constlist;
-    productcount = productlist.length;
-    templist = productlist;
-    templist2 = productlist;
-    tempcount = productcount;
-    sortbyprice('DESC');
-    paging();
+    if (data.hasOwnProperty('data') && data.data != null) {
+        constlist = data.data;
+        productlist = constlist;
+        productcount = productlist.length;
+        templist = productlist;
+        templist2 = productlist;
+        tempcount = productcount;
+        sortbyprice('DESC');
+        paging();
+    }
+
 }
 
 //分頁

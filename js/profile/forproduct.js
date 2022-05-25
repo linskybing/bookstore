@@ -5,8 +5,9 @@ var nowIndex = 0;
 var nowType = 'on';
 var tempdata = {}
 
-
-
+if (getCookie('Image').length > 0) {
+    document.querySelector('.membericon .icon img').src = 'http://localhost:8080/images/Members/' + getCookie('Image');
+}
 
 let modal = document.querySelector('.modal');
 

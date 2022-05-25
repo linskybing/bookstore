@@ -11,36 +11,38 @@ getcategory();
 getproduct();
 async function getcategory() {
     var data;
-    await GetTag().then(r => data = r);
+    await GetTagRent().then(r => data = r);
 
-    if (data.hasOwnProperty('data')) {
+    if (data.hasOwnProperty('data') && data.data != null) {
         category = data.data;
-    }
-    Object.entries(category).forEach((key, value) => {
-        var li = document.createElement('li');
-        li.innerHTML = `
+        Object.entries(category).forEach((key, value) => {
+            var li = document.createElement('li');
+            li.innerHTML = `
         <input id="c_${category[value].Tag}" type="hidden" value="${category[value].Tag}">
        ${category[value].Tag}<span class="num">${category[value].Count}</span>
        `;
-        li.addEventListener('click', function () {
-            let c = this.querySelector('input').value;
-            categoryselect(c);
+            li.addEventListener('click', function () {
+                let c = this.querySelector('input').value;
+                categoryselect(c);
+            })
+            document.querySelector('.category ul').appendChild(li);
         })
-        document.querySelector('.category ul').appendChild(li);
-    })
+    }
 }
 
 async function getproduct() {
     var data;
-    await  GetAllProductForrent().then(r => data = r);
-    constlist = data.data;
-    productlist = constlist;
-    productcount = productlist.length;
-    templist = productlist;
-    templist2 = productlist;
-    tempcount = productcount;
-    sortbyprice('DESC');
-    paging();
+    await GetAllProductForrent().then(r => data = r);
+    if (data.hasOwnProperty('data') && data.data != null) {
+        constlist = data.data;
+        productlist = constlist;
+        productcount = productlist.length;
+        templist = productlist;
+        templist2 = productlist;
+        tempcount = productcount;
+        sortbyprice('DESC');
+        paging();
+    }
 }
 
 //分頁

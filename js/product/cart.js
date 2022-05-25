@@ -41,6 +41,9 @@ function loadcart() {
                             <td class="product-price">
                                 ${cartlist[i].Price} NT
                             </td>
+                            <td class="product-name">
+                                ${(cartlist[i].Type == 'Buy') ? "購買" : "租借"}
+                            </td>
                             <td class="product-quantity">
                                 <div class="count">
                                     <div id="minus"><i class="fa-solid fa-arrow-down"></i></div>
@@ -82,6 +85,7 @@ function loadcart() {
                 if (a.value < Inventory) {
                     a.value = Number(a.value) + 1;
                     total += price;
+                    cartlist[id].Count += 1;
                 }
                 let subtotal = tr.querySelector('.product-subtotal');
                 let count = tr.querySelector('.count input').value;
@@ -96,6 +100,7 @@ function loadcart() {
                 if (a.value > 1) {
                     a.value -= 1;
                     total -= price;
+                    cartlist[id].Count -= 1;
                 }
                 let subtotal = tr.querySelector('.product-subtotal');
                 let count = tr.querySelector('.count input').value;
@@ -105,6 +110,7 @@ function loadcart() {
                 <div>${count * price} NT</div>
                 `;
                 counttotal();
+                console.log(cartlist);
             });
             tr.querySelector('.xmark').addEventListener('click', async function () {
                 await DeleteCartItem(cartlist[id].ProductId);
@@ -112,8 +118,8 @@ function loadcart() {
                 total -= count * price;
                 tr.remove();
                 document.getElementById(id).remove();
-                if (document.querySelectorAll('.subtotal').length == 0) {
-                    document.querySelector('.sum').remove();
+                if (document.querySelectorAll('.subtotal').length == 1) {
+                    document.querySelector('.total-table').remove();
                 }
             })
             table.appendChild(tr);
@@ -123,6 +129,18 @@ function loadcart() {
                 </div>
                 <button class="submit">前往結帳</button>
             `;
+        totaltable.querySelector('.submit').addEventListener('click', async function () {
+            for (i = 0; i < cartlist.length; i++) {
+                var data = {
+                    'Count': cartlist[i].Count,
+                }
+                var re;
+                await UpdateCart(cartlist[i].ShoppingId, data).then(r => re = r);
+                if (!re.hasOwnProperty('error')) {
+                    window.location.href = 'checkout.html';
+                }
+            }
+        })
         counttotal();
     }
 }

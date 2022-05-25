@@ -1,0 +1,153 @@
+.main {
+    width: 100%;
+    position: relative;
+    top: 70px;
+
+}
+
+.main_title {
+    height: 100px;
+    width: 100%;
+    background-color: #fbfbfb;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 100px;
+}
+
+.main_content {
+    width: 100%;
+    display: flex;
+    justify-content: center;
+}
+
+.left_content {
+    width: 40%;
+}
+
+.right_content {
+    width: 40%;
+}
+
+ul {
+    list-style: none;
+}
+
+.info_group {
+    padding: 20px;
+}
+
+.info_group input {
+    width: 80%;
+    height: 50px;
+    border-radius: 5px;
+    border: 1px solid rgba(210, 210, 210);
+    text-indent: 1em;
+}
+
+.info_group input:focus {
+    outline: none;
+}
+
+.order_info_group {
+    padding: 20px;
+    width: 100%;
+}
+
+.order_info_group ul {
+    margin-top: 30px;
+}
+
+.commodity {
+    background-color: #fff;
+    border: none;
+    height: 100px;
+}
+
+.commodity img {
+    width: 50px;
+    height: 50px;
+    border-radius: 1em;
+}
+
+.commodity span {
+    display: flex;
+    align-items: center;
+}
+
+.order_info {
+    width: 80%;
+    height: 50px;
+    border-radius: 5px;
+    margin: 5px 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 10px;
+    background-color: #fbfbfb;
+}
+
+.order_info>* {
+    padding-right: 10px;
+}
+
+.order_info img {
+    margin-right: 10px;
+}
+
+.radio_group {
+    display: flex;
+    width: 100%;
+    flex-direction: column;
+}
+
+.radio_option {
+    padding: 10px 0 0 0;
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+
+.radio_option h3 {
+    padding-left: 50px;
+}
+
+.order_info_group .submit {
+    width: 100%;
+    height: 50px;
+    border: none;
+    background-color: rgb(255, 123, 0);
+    font-size: 20px;
+    font-weight: bold;
+    color: #fff;
+    border-radius: 5px;
+    cursor: pointer;   
+}
+
+
+/*done*/
+.done {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.done_info_group {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.done_info_group ul {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.done h1,
+.done_info_group h2 {
+    padding: 20px;
+}

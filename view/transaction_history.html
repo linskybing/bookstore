@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="../css/header.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/profile/profile.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <title>交易紀錄</title>
+</head>
+
+<body>
+    <header>
+    </header>
+    <section>
+        <div class="title">
+            <h1>會員中心</h1>
+            <span>
+                <a href="#">首頁 </a>
+                <i class="fa-solid fa-chevron-right"></i>
+                <a href="#">會員中心</a>
+            </span>
+        </div>
+        <div class="background">
+        </div>
+        <div class="membericon">
+            <div class="icon">
+                <div>
+                    <label for="filein" id="button"><i class="fa-solid fa-pen"></i></label>
+                    <input type="file" id="filein">
+                </div>
+                <img src="../image/user.png" alt="">
+            </div>
+            <div id="name" style="color: white;font-weight: bolder;">
+                <span>asdf</span>
+            </div>
+        </div>
+        <div class="container">
+            <div class="left-sidebar">
+                <ul>
+                    <li id="member_m">
+                        會員管理
+                    </li>
+                    <li id="buyer_m">
+                        買家管理
+                        <div class="arrow rotate"><i class="fa-solid fa-angle-right"></i></div>
+                    </li>
+                    <li class="list-item">
+                        <div class="div_2">
+                            <ul>
+                                <li>
+                                    租借管理
+                                </li>
+                                <li class="active">
+                                    交易紀錄
+                                </li>
+                                <li>
+                                    商品問答紀錄
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                    <li id="seller_m">
+                        賣家管理
+                        <div class="arrow"><i class="fa-solid fa-angle-right"></i></div>
+                    </li>
+                    <li class="list-item close">
+                        <div class="div_2">
+                            <ul>
+                                <li>
+                                    商品管理
+                                </li>
+                                <li>
+                                    商品問答管理
+                                </li>
+                                <li>
+                                    訂單管理
+                                </li>
+                                <li>
+                                    存款帳戶
+                                </li>
+                            </ul>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="right-content">
+                <h1 style="align-self:flex-start">交易紀錄</h1>
+                <div class="personal-info-2" style="align-self:flex-start">
+                    <div class="info-item">
+                        <span class="data-label-num">
+                            編號
+                        </span>
+                        <span class="data-label-time">
+                            交易時間
+                        </span>
+                        <span class="data-label-text">
+                            交易狀態
+                        </span>
+                        <span class="data-label-text">
+                            交易方式
+                        </span>
+                        <span class="data-label-text">
+                            交易類型
+                        </span>   
+                        <span class="data-action info-action">
+                            操作
+                        </span>  
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+    <script src="../js/api/chatroom.js"></script>
+    <script src="../js/api/user.js"></script>
+    <script src="../js/api/dealrecord.js"></script>
+    <script src="../js/chatusers.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/transaction.js"></script>
+
+</body>
+
+</html>

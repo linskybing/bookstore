@@ -190,6 +190,13 @@ a {
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 4px;
 }
+.personal-info-2 {
+    display: flex;
+    flex-direction: column;
+    width: 70vw;
+    border: 1px solid rgba(0, 0, 0, 0.125);
+    border-radius: 4px;
+}
 
 .info-item {
     display: flex;
@@ -203,8 +210,41 @@ a {
 
 .data-label,
 .data-content {
+
     width: 50%;
 }
+
+.data-label-2,
+.data-content-2 {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    
+}
+.data-label-time{
+    width: 200px;
+}
+.data-label-text{
+    width: 100px;
+}
+.data-label-num{
+    width: 50px;
+}
+
+.data-action{
+    width: 200px !important;
+}
+
+
+/*
+.data-label,
+.data-content {
+    display: flex;
+    align-items: center;
+    width: 50%;
+}*/
+
+
 
 
 .info-icon {
@@ -231,6 +271,10 @@ a {
     border-bottom: 1px solid #e5e9f2;
 }
 
+.info-action {
+    display: flex;
+    width: 100px;
+}
 
 
 .right-content {
@@ -466,7 +510,7 @@ a {
     font-weight: bolder;
 }
 
-:is(.right-content .header, .table_action) .action button {
+:is(.right-content .header, .table_action, .info-action) .action button {
     width: 75px;
     height: 30px;
     border: none;
@@ -477,19 +521,19 @@ a {
     cursor: pointer;
 }
 
-:is(.right-content .header, .table_action) .action .insert {
+:is(.right-content .header, .table_action, .info-action) .action .insert {
     background-color: #0066ffd5;
 }
 
-:is(.right-content .header, .table_action) .action .insert:hover {
+:is(.right-content .header, .table_action, .info-action) .action .insert:hover {
     background-color: #0066ff;
 }
 
-:is(.right-content .header, .table_action) .action .delete {
+:is(.right-content .header, .table_action, .info-action) .action .delete {
     background-color: #ff0000d7;
 }
 
-:is(.right-content .header, .table_action) .action .delete:hover {
+:is(.right-content .header, .table_action, .info-action) .action .delete:hover {
     background-color: #ff0000;
 }
 

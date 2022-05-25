@@ -13,6 +13,21 @@ function GetTag() {
             console.error('Error:', error)
         })
 }
+function GetTagRent() {
+    return fetch(apidomain + '/categoryforrent', {
+        method: 'GET',
+        headers: {
+            'Authorization': token,
+        }
+    })
+        .then(res => res.json())
+        .then(res => {
+            return res;
+        })
+        .catch(e => {
+            console.error('Error:', error)
+        })
+}
 
 function PostTag(id, tag) {
     const token = getCookie('token');
