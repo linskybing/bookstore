@@ -140,6 +140,7 @@ body>section>.title span a:hover {
 }
 
 .purchase .removecart {
+    justify-self: flex-end;
     padding-right: 60px;
 }
 
@@ -153,10 +154,11 @@ body>section>.title span a:hover {
     color: white;
     background-color: #727272;
     cursor: pointer;
+    
 }
 
-.hidden{
-    display: none;
+.hidden {
+    display: none !important;
 }
 
 .count {

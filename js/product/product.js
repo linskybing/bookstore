@@ -143,19 +143,44 @@ function pageproduct(templist) {
                         </a>
                         <div class="detail">
                             <div class="p-title">${nowdata.Name}</div>
-                            <div class="p-category">
-                            ${nowdata.Description}
-                                <span class="cart">
-                                    <i class="fa-solid fa-cart-arrow-down"></i>
+                            <div class="p-category">            
+                                <div class="p-price">${nowdata.Price} NT</div>                
+                                <span class="cart add ${(nowdata.InCart == 0) ? '' : 'hidden'}">
+                                    <i class="fa-solid fa-cart-arrow-down"></i>                                  
+                                </span>
+                                <span class="cart2 remove ${(nowdata.InCart != 0) ? '' : 'hidden'}">                                
+                                    <i class="fa-solid fa-cart-arrow-down"></i> 
                                 </span>
                             </div>
-                            <div class="p-price">${nowdata.Price} NT</div>
+                           
                         </div>
             `;
+            let add = div.querySelector('.add');
+            let remove = div.querySelector('.remove');
+            add.addEventListener('click', async function () {
+                await AddtoCart(nowdata.ProductId, 1, 'Buy');
+
+                var incart;
+                await InCart(nowdata.ProductId).then(r => incart = r);
+                if (incart) {
+                    add.classList.toggle('hidden');
+                    remove.classList.toggle('hidden');
+                }
+            })
+            remove.addEventListener('click', async function () {
+                await DeleteCartItem(nowdata.ProductId);
+                var incart;
+                await InCart(nowdata.ProductId).then(r => incart = r);
+                if (!incart) {
+                    add.classList.toggle('hidden');
+                    remove.classList.toggle('hidden');
+                }
+            })
             productblock.appendChild(div);
         }
     }
 }
+
 
 function sortbyprice(type) {
     for (i = 0; i < templist.length; i++) {
@@ -280,4 +305,6 @@ function searchproduct(search) {
     })
     paging();
 }
+
+
 setoption()

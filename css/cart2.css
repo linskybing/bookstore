@@ -31,7 +31,8 @@ section>.title span a:hover {
 .cart {
     display: flex;
     flex-direction: column;
-    align-items: center;
+    align-items: flex-end;
+    padding-right: 20%;
     width: 100%;
 }
 
@@ -160,6 +161,10 @@ th {
 
 .total-table {
     margin-top: 50px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    align-self: flex-end;
 }
 
 .total-table table,
@@ -209,4 +214,17 @@ th {
     background-color: #ff2600;
     cursor: pointer;
     margin: 20px 80px;
+}
+
+.total-table .subtotal {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px;
+    width: 200px;
+    height: 50px;
+    border-radius: 5px;
+    background-color: #f4f4f4;
+    font-weight: bolder;
+    margin: 2px;
 }

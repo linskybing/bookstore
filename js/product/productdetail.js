@@ -168,10 +168,42 @@ function setaddandminus() {
 
 function cartbtn() {
     let a = document.querySelector('.count input')
+    let countdiv = document.querySelector('.purchase .count');
     let addcart = document.querySelector('.addtocart');
+    let removecart = document.querySelector('.removecart');
 
-    addcart.addEventListener('click', function () {
-        AddtoCart(productdata.ProductId, a.value, 'Buy');
+    if (productdata.InCart != 0) {
+        removecart.classList.remove('hidden');
+        countdiv.classList.add('hidden');
+        addcart.classList.add('hidden');
+    }
+    else {
+        removecart.classList.add('hidden');
+        countdiv.classList.remove('hidden');
+        addcart.classList.remove('hidden');
+    }
+    addcart.addEventListener('click', async function () {
+        await AddtoCart(productdata.ProductId, a.value, 'Buy');
+
+        var incart;
+        await InCart(productdata.ProductId).then(r => incart = r);
+        if (incart) {
+            removecart.classList.remove('hidden');
+            countdiv.classList.add('hidden');
+            addcart.classList.add('hidden');
+        }
+    })
+
+
+    removecart.addEventListener('click', async function () {
+        await DeleteCartItem(productdata.ProductId);
+        var incart;
+        await InCart(productdata.ProductId).then(r => incart = r);
+        if (!incart) {
+            removecart.classList.add('hidden');
+            countdiv.classList.remove('hidden');
+            addcart.classList.remove('hidden');
+        }
     })
 
 }

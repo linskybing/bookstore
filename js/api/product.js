@@ -204,3 +204,39 @@ function AddtoCart(id, count, type) {
             console.error('Error:', e)
         })
 }
+
+function InCart(id) {
+    const token = getCookie('token');
+    return fetch(apidomain + '/incart/' + id, {
+        method: 'GET',
+        headers: {
+            'Authorization': token,
+        }
+    })
+        .then(res => res.json())
+        .then(res => {
+            return res;
+        })
+        .catch(e => {
+            console.error('Error:', error)
+        })
+}
+
+function DeleteCartItem(id) {
+    const token = getCookie('token');
+    return fetch(apidomain + '/list/' + id, {
+        method: 'DELETE',
+        headers: {
+            'Authorization': token,
+        },
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+
+            return data
+        })
+        .catch(e => {
+            console.error('Error:', e)
+        })
+}
