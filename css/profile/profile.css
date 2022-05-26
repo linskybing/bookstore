@@ -190,6 +190,7 @@ a {
     border: 1px solid rgba(0, 0, 0, 0.125);
     border-radius: 4px;
 }
+
 .personal-info-2 {
     display: flex;
     flex-direction: column;
@@ -208,6 +209,16 @@ a {
     cursor: pointer;
 }
 
+.info-item-2 {
+    display: flex;
+    justify-content: space-around;
+    padding: 1.5rem 1.25rem;
+}
+
+.info-item-2:hover {
+    background-color: #ececec;
+}
+
 .data-label,
 .data-content {
 
@@ -219,19 +230,22 @@ a {
     display: flex;
     align-items: center;
     justify-content: center;
-    
+
 }
-.data-label-time{
+
+.data-label-time {
     width: 200px;
 }
-.data-label-text{
+
+.data-label-text {
     width: 100px;
 }
-.data-label-num{
+
+.data-label-num {
     width: 50px;
 }
 
-.data-action{
+.data-action {
     width: 200px !important;
 }
 
@@ -359,7 +373,7 @@ a {
     }
 
     to {
-        top: 30%;
+        top: 10%;
     }
 }
 
@@ -378,50 +392,98 @@ a {
 
 }
 
-.modal-content .header {
+:is(.modal-content, .modal-content-2) .content textarea {
+    border: 1px solid #dbdfea;
+    height: 300px;
+    min-width: 500px;
+    max-width: 500px;
+    border-radius: 5px;
+    padding-left: 5px;
+    color: #727272;
+    letter-spacing: 1px;
+    outline: none;
+    line-height: 20px;
+    padding: 5px;
+}
+
+.modal .content .erroractive {
+    background-color: rgb(255, 0, 0);
+    height: 40px;
+}
+
+.modal .content .succece {
+    background-color: rgb(11, 136, 11);
+    height: 40px;
+}
+
+.must {
+    color: red;
+}
+
+.modal-content-2 {
+    display: flex;
+    position: absolute;
+    top: 10%;
+    flex-direction: column;
+    width: 50%;
+    height: auto;
+    min-width: 600px;
+    background-color: rgb(255, 255, 255);
+    border-radius: 4px;
+    padding: 25px;
+    content: "";
+
+}
+
+.agree {
+    background-color: green;
+}
+
+
+:is(.modal-content, .modal-content-2) .header {
     display: flex;
     flex-direction: column;
     width: 100%;
 }
 
-.modal-content .header>* {
+:is(.modal-content, .modal-content-2).header>* {
     width: 100%;
 }
 
-.modal-content .close {
+:is(.modal-content, .modal-content-2) .close {
 
     text-align: right;
     height: 30px;
 }
 
-.modal-content .modal-title {
+:is(.modal-content, .modal-content-2) .modal-title {
     height: 40px;
     margin-bottom: 10px;
 }
 
-.modal-content .header ul {
+:is(.modal-content, .modal-content-2) .header ul {
     display: flex;
     list-style-type: none;
     border-bottom: 1px solid rgb(216, 216, 216);
     margin: 2px;
 }
 
-.modal-content .header ul li {
+:is(.modal-content, .modal-content-2) .header ul li {
     padding: 2px 0px;
     margin-right: 20px;
     font-weight: 700;
     cursor: pointer;
 }
 
-.modal-content .header ul li:hover {
+:is(.modal-content, .modal-content-2) .header ul li:hover {
     color: rgb(255, 72, 0);
 }
 
-.modal-content .header ul .active {
+:is(.modal-content, .modal-content-2) .header ul .active {
     border-bottom: 3px solid rgb(255, 72, 0);
 }
 
-.modal-content .content {
+:is(.modal-content, .modal-content-2) .content {
     display: flex;
     flex-direction: column;
     align-items: space-around;
@@ -429,23 +491,25 @@ a {
     padding: 30px 10px;
 }
 
-.modal-content .modal-content .menu {
+:is(.modal-content, .modal-content-2) .menu {
     font-weight: 700;
     color: #526484;
 }
 
-.modal-content .formgroup {
+:is(.modal-content, .modal-content-2) .formgroup {
+    display: flex;
+    align-items: center;
     margin: 15px 0px;
 }
 
-.modal-content .formgroup label {
+:is(.modal-content, .modal-content-2) .formgroup label {
     display: inline-block;
     font-weight: bolder;
     color: #344357;
     margin-right: 5px;
 }
 
-.modal-content .content input {
+:is(.modal-content, .modal-content-2) .content input {
     border: 1px solid #dbdfea;
     height: 35px;
     min-width: 250px;
@@ -457,18 +521,18 @@ a {
     outline: none;
 }
 
-.modal-content .content input:focus {
+:is(.modal-content, .modal-content-2) .content input:focus {
     border: 1px solid rgb(255, 72, 0);
 }
 
-.modal-content .footer {
+:is(.modal-content, .modal-content-2) .footer {
     display: flex;
     align-items: center;
     width: 100%;
     padding: 10px;
 }
 
-.modal-content .cancel {
+:is(.modal-content, .modal-content-2) .cancel {
     margin-left: 15px;
     font-size: 14px;
     font-weight: bolder;
@@ -476,7 +540,7 @@ a {
     cursor: pointer;
 }
 
-.modal-content .footer button {
+:is(.modal-content, .modal-content-2) .footer button {
     display: inline-flex;
     align-items: center;
     justify-content: center;
@@ -491,7 +555,7 @@ a {
     cursor: pointer;
 }
 
-.modal-content .footer button:hover {
+:is(.modal-content, .modal-content-2) .footer button:hover {
     background-color: rgb(255, 72, 0);
 }
 
