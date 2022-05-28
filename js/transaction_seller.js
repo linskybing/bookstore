@@ -1,4 +1,5 @@
 var list;
+
 async function listinit() {
     var data;
     await GetDealRecordS().then(r => data = r);
@@ -84,7 +85,7 @@ async function loadtransation() {
                     if (!re.hasOwnProperty('error') && re) {
                         div.querySelector('.action .insert').classList.add('hidden');
                     }
-
+                    window.location.reload();
                 })
             }
             else if (list[i].State == '寄送中') {
@@ -93,7 +94,7 @@ async function loadtransation() {
             else if (list[i].State == '已取貨') {
                 div.querySelector('.action .complete').innerHTML = `完成交易`;
                 div.querySelector('.action .complete').classList.remove('hidden');
-                div.querySelector('.action .complete').addEventListener('click',async function () {
+                div.querySelector('.action .complete').addEventListener('click', async function () {
                     var data = {
                         'State': '完成交易'
                     }
@@ -102,9 +103,10 @@ async function loadtransation() {
                     if (!re.hasOwnProperty('error') && re) {
                         div.querySelector('.action .complete').classList.add('hidden');
                     }
+                    window.location.reload();
                 })
             }
-            else if(list[i].State == '完成交易'){
+            else if (list[i].State == '完成交易') {
                 div.querySelector('.action .delete').classList.add('hidden');
             }
             document.querySelector('.personal-info-2').appendChild(div);

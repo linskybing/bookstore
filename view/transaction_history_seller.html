@@ -41,21 +41,18 @@
         <div class="container">
             <div class="left-sidebar">
                 <ul>
-                    <li id="member_m">
+                    <li id="member_m" class="active">
                         會員管理
                     </li>
                     <li id="buyer_m">
                         買家管理
                         <div class="arrow"><i class="fa-solid fa-angle-right"></i></div>
                     </li>
-                    <li class="list-item  close">
+                    <li class="list-item close">
                         <div class="div_2">
                             <ul>
                                 <li>
-                                    租借管理
-                                </li>
-                                <li>
-                                    交易紀錄
+                                    <a href="transaction_history.html">交易紀錄</a>
                                 </li>
                                 <li>
                                     商品問答紀錄
@@ -71,13 +68,15 @@
                         <div class="div_2">
                             <ul>
                                 <li>
-                                    商品管理
+                                    <a href="profile_product.html">
+                                        商品管理
+                                    </a>
                                 </li>
                                 <li>
                                     商品問答管理
                                 </li>
                                 <li class="active">
-                                    訂單管理
+                                    <a href="transaction_history_seller.html">訂單管理</a>
                                 </li>
                                 <li>
                                     存款帳戶
@@ -88,7 +87,7 @@
                 </ul>
             </div>
             <div class="right-content">
-                <h1 style="align-self:flex-start">交易紀錄</h1>
+                <h1 style="align-self:flex-start">訂單管理</h1>
                 <div class="personal-info-2" style="align-self:flex-start">
                     <div class="info-item">
                         <span class="data-label-num">
@@ -105,22 +104,23 @@
                         </span>
                         <span class="data-label-text">
                             交易類型
-                        </span>   
+                        </span>
                         <span class="data-action info-action">
                             操作
-                        </span>  
+                        </span>
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <div class="modal hidden">
-        
+
     </div>
     <script src="../js/api/chatroom.js"></script>
     <script src="../js/api/user.js"></script>
     <script src="../js/api/dealrecord.js"></script>
     <script src="../js/chatusers.js"></script>
+    <script src="../js/profile/profile_p.js"></script>
     <script src="../js/header.js"></script>
     <script src="../js/transaction_seller.js"></script>
 

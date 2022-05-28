@@ -1,6 +1,7 @@
 var list;
 var nowid;
 var nowindex;
+
 async function listinit() {
     var data;
     await GetDealRecord().then(r => data = r);
@@ -82,8 +83,11 @@ async function loadtransation() {
                     if (!re.hasOwnProperty('error') && re) {
                         div.querySelector('.action .insert').classList.add('hidden');
                     }
-
+                    window.location.reload();
                 })
+            }
+            if (list[i].State == '完成交易') {
+                div.querySelector('.action .delete').classList.add('hidden');
             }
             document.querySelector('.personal-info-2').appendChild(div);
         }
@@ -235,6 +239,7 @@ function senddata2() {
             'Customer_Agree': 1
         }
         await UpdateDealRecord(nowid, temp);
+        window.location.reload();
     })
 }
 

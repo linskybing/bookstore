@@ -5,11 +5,13 @@
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>會員中心</title>
-    <link href="../css/header.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../css/profile/forproduct.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <title>Document</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <link rel="stylesheet" href="../css/mailbox.css">
+    <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/header.css">
+    <link rel="stylesheet" href="../css/mailbox_style.css">
+
 </head>
 
 <body>
@@ -40,7 +42,7 @@
         <div class="container">
             <div class="left-sidebar">
                 <ul>
-                    <li id="member_m" class="active">
+                    <li id="member_m">
                         會員管理
                     </li>
                     <li id="buyer_m">
@@ -49,9 +51,9 @@
                     </li>
                     <li class="list-item close">
                         <div class="div_2">
-                            <ul>                                
+                            <ul>
                                 <li>
-                                    <a href="transaction_history.html">交易紀錄</a> 
+                                    <a href="transaction_history.html">交易紀錄</a>
                                 </li>
                                 <li>
                                     商品問答紀錄
@@ -66,7 +68,7 @@
                     <li class="list-item">
                         <div class="div_2">
                             <ul>
-                                <li  class="active">
+                                <li class="active">
                                     <a href="profile_product.html">
                                         商品管理
                                     </a>
@@ -75,7 +77,7 @@
                                     商品問答管理
                                 </li>
                                 <li>
-                                    <a href="transaction_history_seller.html">訂單管理</a>                                    
+                                    <a href="transaction_history_seller.html">訂單管理</a>
                                 </li>
                                 <li>
                                     存款帳戶
@@ -86,64 +88,84 @@
                 </ul>
             </div>
             <div class="right-content">
-                <div class="header">
-                    <div class="h1">商品管理</div>
-                    <div class="action">
-                        </a>
-                    </div>
-                </div>
-                <div class="header">
-                    <ul>
-                        <li><a href="profile_product.html">已上架</a></li>
-                        <li class="active">已下架</li>
-                        <li>待補貨</li>
-                    </ul>
-                </div>
-                <div class="product_table">
-                    <div class="table_action">
-                        <div class="h1"></a></div>
-                        <div class="action">
-                            <button class="insert">
-                                上架商品
-                            </button>
+                <div class="mailsidebar">
+                    <div class="mail readmark">
+                        <div class="icon">
+                            <img src="asdfasdf.png" alt="">
+                        </div>
+                        <div class="box">
+                            <div class="title">
+                                title
+                            </div>
+                            <div class="content">
+                                content
+                            </div>
                         </div>
                     </div>
-                    <div class="table_thead">
-                        <div class="checkbox_head">
-                            <input type="checkbox" id="p_all">
-                            <label for="p_all"><i class="fa-solid fa-check"></i></label>
+                </div>
+                <div class="mailcontent">
+                    <div class="action hidden">
+                        <div class="return">
+                            <i class="fa-solid fa-arrow-left"></i>
                         </div>
-                        <div class="productimg_head">
-                            商品圖片
+                    </div>
+                    <div class="title">
+                        <h2>1</h2>
+                    </div>
+                    <div class="mail-inside">
+                        <div class="mail-head">
+                            <div class="icon">
+                                <div class="image">
+                                    <img src="asdfasdf.png" alt="">
+                                </div>
+                                <div class="name">
+                                    sky
+                                </div>
+                            </div>
+                            <div class="date">
+                                2022/5/25
+                            </div>
                         </div>
-                        <div class="productname_head">
-                            商品名稱
+                        <div class="mail-inside-content">
+                            <p>Hello team,
+
+                                I am facing problem as i can not select currency on buy order page. Can you guys let me
+                                know what i
+                                am doing doing wrong? Please check attached files.
+
+                                Thank you
+                                Ishityak
+
                         </div>
-                        <div class="productprice_head">
-                            價格
+                    </div>
+                    <div class="mail-reply">
+                        <div class="reply-title">
+                            回覆
                         </div>
-                        <div class="store_head">
-                            剩餘庫存
+                        <div class="reply">
+                            <textarea id="reply-textarea"></textarea>
                         </div>
-                        <div class="prodcut_action_head">
-                            操作
+                        <div class="footer-action">
+                            <div>
+                                <button class="insert">asdf</button>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
+
+        </div>
         </div>
     </section>
     <div class="modal hidden">
 
     </div>
 
+    <script src="../js/mailbox.js"></script>
 </body>
 <script src="../js/api/chatroom.js"></script>
 <script src="../js/api/user.js"></script>
 <script src="../js/chatusers.js"></script>
 <script src="../js/header.js"></script>
-<script src="../js/profile/profile_p.js"></script>
-<script src="../js/api/product.js"></script>
-<script src="../js/profile/forproduct_off.js"></script>
 
 </html>

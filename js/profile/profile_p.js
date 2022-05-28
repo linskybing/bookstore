@@ -1,4 +1,8 @@
 
+if (getCookie('Image')) {
+   document.querySelector('.membericon .icon img').src = "http://localhost:8080/images/Members/" + getCookie('Image');
+}
+
 let buyer = document.getElementById('buyer_m')
 buyer.addEventListener('click', function () {
    var ns = buyer.nextElementSibling;
