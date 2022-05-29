@@ -1,6 +1,6 @@
-function GetDealRecord() {
+function GetDealRecord(state) {
     var token = getCookie('token');
-    return fetch(apidomain + '/dealr', {
+    return fetch(apidomain + '/dealr/' + state, {
         method: 'GET',
         headers: {
             'Authorization': token,
@@ -18,7 +18,7 @@ function GetDealRecord() {
 
 function GetDealRecordS() {
     var token = getCookie('token');
-    return fetch(apidomain + '/dealrs', {
+    return fetch(apidomain + '/dealrs/' + state, {
         method: 'GET',
         headers: {
             'Authorization': token,
@@ -34,6 +34,23 @@ function GetDealRecordS() {
 
 }
 
+function GetRecordDetail(id) {
+    var token = getCookie('token');
+    return fetch(apidomain + '/dealrsingle/' + id, {
+        method: 'GET',
+        headers: {
+            'Authorization': token,
+        }
+    })
+        .then(res => res.json())
+        .then(res => {
+            return res;
+        })
+        .catch(e => {
+            console.error('Error:', error)
+        })
+
+}
 function UpdateDealRecord(id, data) {
     const token = getCookie('token');
     var formBody = [];

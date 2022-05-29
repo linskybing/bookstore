@@ -1,6 +1,7 @@
-function GetAnnoucement() {
+
+function GetByIdReview(id) {
     var token = getCookie('token');
-    return fetch(apidomain + '/announcement', {
+    return fetch(apidomain + '/dealreviewd/' + id, {
         method: 'GET',
         headers: {
             'Authorization': token,
@@ -16,30 +17,13 @@ function GetAnnoucement() {
         })
 }
 
-function GetByIdAnnoucement(id) {
-    var token = getCookie('token');
-    return fetch(apidomain + '/announcement/' + id, {
-        method: 'GET',
-        headers: {
-            'Authorization': token,
-        }
-    })
-        .then(res => res.json())
-        .then(res => {
-            console.log(res);
-            return res;
-        })
-        .catch(e => {
-            console.error('Error:', error)
-        })
-}
-
-function PostAnnoucement(title, content) {
+function PostReview(id, score, review) {
     const token = getCookie('token');
     var data = new FormData();
-    data.append('Title', title);
-    data.append('Content', content);
-    return fetch(apidomain + '/announcement', {
+    data.append('RecordId', id);
+    data.append('CustomerScore', score);
+    data.append('CustomerReview', review);
+    return fetch(apidomain + '/dealreview', {
         method: 'POST',
         headers: {
             'Authorization': token,
@@ -65,7 +49,7 @@ function PATCHAnnoucement(id, data) {
         var encodedValue = encodeURIComponent(details[property])
         formBody.push(encodedKey + "=" + encodedValue)
     }
-    return fetch(apidomain + '/announcement/' + id, {
+    return fetch(apidomain + '/dealreview/' + id, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -86,7 +70,7 @@ function PATCHAnnoucement(id, data) {
 
 function DELETEAnnoucement(id) {
     const token = getCookie('token');
-    return fetch(apidomain + '/announcement/' + id, {
+    return fetch(apidomain + '/dealreview/' + id, {
         method: 'DELETE',
         headers: {
             'Authorization': token,

@@ -1,19 +1,20 @@
 <!DOCTYPE html>
-<html lang="en">
+<html>
 
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>會員中心</title>
     <link href="../css/header.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../css/profile/deal.css">
     <link rel="stylesheet" href="../css/style.css">
+    <link rel="stylesheet" href="../css/profile/profile.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
+    <title>交易紀錄</title>
 </head>
 
 <body>
-    <header></header>
+    <header>
+    </header>
     <section>
         <div class="title">
             <h1>會員中心</h1>
@@ -40,7 +41,7 @@
         <div class="container">
             <div class="left-sidebar">
                 <ul>
-                    <li id="member_m">
+                    <li id="member_m" class="active">
                         會員管理
                     </li>
                     <li id="buyer_m">
@@ -86,41 +87,28 @@
                 </ul>
             </div>
             <div class="right-content">
-                <div class="header">
-                    <div class="h1">交易紀錄</div>
-                    <div class="action">
-                        </a>
+                <h1 style="align-self:flex-start">交易紀錄</h1>
+                <div class="personal-info-2" style="align-self:flex-start">
+                    <div class="info-item">
+                        <span class="data-label-num">
+                            編號
+                        </span>
+                        <span class="data-label-time">
+                            交易時間
+                        </span>
+                        <span class="data-label-text">
+                            交易狀態
+                        </span>
+                        <span class="data-label-text">
+                            交易方式
+                        </span>
+                        <span class="data-label-text">
+                            交易類型
+                        </span>
+                        <span class="data-action info-action">
+                            操作
+                        </span>
                     </div>
-                </div>
-                <div class="header">
-                    <ul>
-                        <li class="active">待處理</li>
-                        <li><a href="transaction_history_send.html">運送中</a></li>
-                        <li>商品確認</li>
-                        <li><a href="profile_product_off.html">取消交易</a></li>
-                        <li>完成交易</li>
-                    </ul>
-                </div>
-                <div class="product_table">
-                    <div class="table_thead">
-                        <div class="order table_column">
-                            訂單編號
-                        </div>
-                        <div class="p_name table_column_2">
-                            商品名稱
-                        </div>
-                        <div class="d_name table_column">
-                            總計
-                        </div>
-                        <div class="d_date table_column">
-                            交易日期
-                        </div>
-                    </div>
-                </div>
-                <div class="page">
-                    <ul>
-
-                    </ul>
                 </div>
             </div>
         </div>
@@ -128,21 +116,14 @@
     <div class="modal hidden">
 
     </div>
+    <script src="../js/api/chatroom.js"></script>
+    <script src="../js/api/user.js"></script>
+    <script src="../js/api/dealrecord.js"></script>
+    <script src="../js/chatusers.js"></script>
+    <script src="../js/profile/profile_p.js"></script>
+    <script src="../js/header.js"></script>
+    <script src="../js/transaction.js"></script>
 
 </body>
-<!-- API -->
-<script src="../js/api/chatroom.js"></script>
-<script src="../js/api/user.js"></script>
-<script src="../js/api/category.js"></script>
-<script src="../js/api/dealrecord.js"></script>
-
-<!-- 頁面 -->
-<script src="../js/chatusers.js"></script>
-<script src="../js/header.js"></script>
-<script src="../js/profile/profile_p.js"></script>
-<script src="../js/profile/category.js"></script>
-<script src="../js/deal/fordeal.js"></script>
-
-
 
 </html>

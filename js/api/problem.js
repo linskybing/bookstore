@@ -1,6 +1,6 @@
-function GetAnnoucement() {
+function GetByIdQuestion(id) {
     var token = getCookie('token');
-    return fetch(apidomain + '/announcement', {
+    return fetch(apidomain + '/productquestion/' + id, {
         method: 'GET',
         headers: {
             'Authorization': token,
@@ -16,30 +16,12 @@ function GetAnnoucement() {
         })
 }
 
-function GetByIdAnnoucement(id) {
-    var token = getCookie('token');
-    return fetch(apidomain + '/announcement/' + id, {
-        method: 'GET',
-        headers: {
-            'Authorization': token,
-        }
-    })
-        .then(res => res.json())
-        .then(res => {
-            console.log(res);
-            return res;
-        })
-        .catch(e => {
-            console.error('Error:', error)
-        })
-}
-
-function PostAnnoucement(title, content) {
+function PostQuestion(id, content) {
     const token = getCookie('token');
     var data = new FormData();
-    data.append('Title', title);
+    data.append('ProductId', id);
     data.append('Content', content);
-    return fetch(apidomain + '/announcement', {
+    return fetch(apidomain + '/productquestion', {
         method: 'POST',
         headers: {
             'Authorization': token,
@@ -56,20 +38,16 @@ function PostAnnoucement(title, content) {
         })
 }
 
-function PATCHAnnoucement(id, data) {
+function PATCHQuestion(id, data) {
     const token = getCookie('token')
-    var formBody = []
-    id = 8;
-    data = {
-        'Title': 'asdf'
-    }
+    var formBody = []   
     var details = data
     for (var property in details) {
         var encodedKey = encodeURIComponent(property)
         var encodedValue = encodeURIComponent(details[property])
         formBody.push(encodedKey + "=" + encodedValue)
     }
-    return fetch(apidomain + '/announcement/' + id, {
+    return fetch(apidomain + '/productquestion/' + id, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -88,9 +66,9 @@ function PATCHAnnoucement(id, data) {
         })
 }
 
-function DELETEAnnoucement(id) {
+function DELETEQuestion(id) {
     const token = getCookie('token');
-    return fetch(apidomain + '/announcement/' + id, {
+    return fetch(apidomain + '/productquestion/' + id, {
         method: 'DELETE',
         headers: {
             'Authorization': token,

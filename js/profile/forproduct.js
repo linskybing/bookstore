@@ -813,7 +813,7 @@ function modal_category_info() {
 //載入商品陣列
 async function GetOnProduct(search) {
     var data;
-    await GetSellerProduct('on', search).then(r => data = r);
+    await GetSellerProduct('on').then(r => data = r);
     if (data.hasOwnProperty('data')) {
         prodcutonlist = data.data;
     }

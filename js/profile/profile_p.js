@@ -1,5 +1,5 @@
 
-if (getCookie('Image')) {
+if (getCookie('Image') != 'null' && getCookie('Image')) {
    document.querySelector('.membericon .icon img').src = "http://localhost:8080/images/Members/" + getCookie('Image');
 }
 

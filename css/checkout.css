@@ -58,19 +58,19 @@ ul {
     margin-top: 30px;
 }
 
-.commodity {
+#commodity {
     background-color: #fff;
     border: none;
     height: 100px;
 }
 
-.commodity img {
+#commodity img {
     width: 50px;
     height: 50px;
     border-radius: 1em;
 }
 
-.commodity span {
+#commodity span {
     display: flex;
     align-items: center;
 }
@@ -85,14 +85,6 @@ ul {
     justify-content: space-between;
     padding: 0 10px;
     background-color: #fbfbfb;
-}
-
-.order_info>* {
-    padding-right: 10px;
-}
-
-.order_info img {
-    margin-right: 10px;
 }
 
 .radio_group {
@@ -112,18 +104,21 @@ ul {
     padding-left: 50px;
 }
 
-.order_info_group .submit {
+.order_info_group input[type='submit'] {
     width: 100%;
     height: 50px;
     border: none;
-    background-color: rgb(255, 123, 0);
+    background-color: orange;
     font-size: 20px;
     font-weight: bold;
     color: #fff;
     border-radius: 5px;
-    cursor: pointer;   
+    cursor: pointer;
 }
 
+.order_info_group input[type='submit']:active {
+    background-color: rgb(255, 181, 43);
+}
 
 /*done*/
 .done {
@@ -150,4 +145,116 @@ ul {
 .done h1,
 .done_info_group h2 {
     padding: 20px;
+}
+
+/* table */
+.table-wrapper {
+    width: 100%;
+}
+
+.flex-table {
+    border-radius: 5px;
+    font-size: 14px;
+    font-weight: normal;
+    border: none;
+    border-collapse: collapse;
+    width: 100%;
+    white-space: nowrap;
+    background-color: white;
+}
+
+.flex-table td,
+.flex-table th {
+    text-align: center;
+    padding: 8px;
+}
+
+.flex-table td {
+    border-right: 1px solid #f8f8f8;
+    font-size: 12px;
+}
+
+.flex-table thead th {
+    color: white;
+    background-color: #4fc3a1;
+}
+
+.flex-table thead th:nth-child(odd) {
+    background-color: #324960;
+}
+
+.flex-table thead tr:nth-child(even) {
+    background-color: #f8f8f8;
+}
+
+@media (max-width: 767px) {
+    .flex-table {
+        display: block;
+        width: 100%;
+    }
+
+    .flex-table thead,
+    .flex-table tbody,
+    .flex-table thead th,
+    .flex-table tbody tr {
+        display: block;
+    }
+
+    .flex-table tbody tr {
+        display: table-cell;
+    }
+
+    .flex-table thead th:last-child {
+        border-bottom: none;
+    }
+
+    .flex-table thead {
+        float: left;
+    }
+
+    .flex-table tbody {
+        width: auto;
+        position: relative;
+        overflow-x: auto;
+    }
+
+    .flex-table td,
+    .flex-table th {
+        padding: 20px 0.625em 0.625em 0.625em;
+        height: 60px;
+        vertical-align: middle;
+        box-sizing: border-box;
+        overflow-x: hidden;
+        overflow-y: auto;
+        width: 120px;
+        font-size: 13px;
+        text-overflow: ellipsis;
+    }
+
+    .flex-table thead th {
+        text-align: left;
+        border-bottom: 1px solid #f7f7f9;
+    }
+
+    .flex-table tbody tr:nth-child(odd) {
+        background: none;
+    }
+
+    .flex-table tr:nth-child(even) {
+        background: transparent;
+    }
+
+    .flex-table tr td:nth-child(odd) {
+        background: #f8f8f8;
+        border-right: 1px solid #e6e4e4;
+    }
+
+    .flex-table tr td:nth-child(even) {
+        border-right: 1px solid #e6e4e4;
+    }
+
+    .flex-table tbody td {
+        display: block;
+        text-align: center;
+    }
 }

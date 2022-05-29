@@ -804,7 +804,7 @@ function modal_category_info() {
 //載入商品陣列
 async function GetOnProduct(search) {
     var data;
-    await GetSellerProduct(nowType, search).then(r => data = r);
+    await GetSellerProduct(nowType).then(r => data = r);
     if (data.hasOwnProperty('data')) {
         productofflist = data.data;
     }
