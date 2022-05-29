@@ -49,7 +49,6 @@ function GetRecordDetail(id) {
         .catch(e => {
             console.error('Error:', error)
         })
-
 }
 function UpdateDealRecord(id, data) {
     const token = getCookie('token');

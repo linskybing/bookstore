@@ -38,7 +38,7 @@ async function loadtransation() {
         `;
         for (i = 0; i < list.length && i < nowpage * pageitem - 1; i++) {
             let div = document.createElement('a');
-            div.href = "#";
+            div.href = "transaction_detail.html?id=" + list[i].RecordId;
             div.innerHTML = `
             <div class="table_content table_column_parent">
                 <div class="table_column">
@@ -54,7 +54,7 @@ async function loadtransation() {
                 ${list[i].CreatedAt}
                 </div> 
             </div>
-            `;            
+            `;
             document.querySelector('.product_table').appendChild(div);
         }
         paging()
@@ -144,5 +144,5 @@ function paging() {
                 })
             }
         }
-    }   
+    }
 }

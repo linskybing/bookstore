@@ -651,11 +651,11 @@ a {
 }
 
 
-:is(.modal) *::-webkit-scrollbar {
+body *::-webkit-scrollbar {
     width: 10px;
 }
 
-:is(.modal) *::-webkit-scrollbar-thumb {
+body *::-webkit-scrollbar-thumb {
     border-radius: 20px;
     background: #e2e2e2;
     cursor: pointer;
@@ -709,7 +709,7 @@ a {
     color: #ff5e00;
 }
 
-.page ul .active {    
+.page ul .active {
     border-radius: 25px;
     color: white;
     background-color: #ff5e00;

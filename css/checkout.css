@@ -144,23 +144,37 @@ ul {
 
 .done h1,
 .done_info_group h2 {
-    padding: 20px;
+    padding: 20px 0px;
 }
 
 /* table */
 .table-wrapper {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
     width: 100%;
 }
 
 .flex-table {
+    display: flex;
+    justify-content: center;
+    width: 100%;
     border-radius: 5px;
-    font-size: 14px;
+    font-size: 20px;
     font-weight: normal;
     border: none;
     border-collapse: collapse;
     width: 100%;
     white-space: nowrap;
     background-color: white;
+}
+
+.flex-table thead,
+.flex-table tbody,
+.flex-table thead th,
+.flex-table tbody tr {
+    display: block;
 }
 
 .flex-table td,
@@ -171,90 +185,159 @@ ul {
 
 .flex-table td {
     border-right: 1px solid #f8f8f8;
-    font-size: 12px;
+    font-size: 16px;
 }
 
 .flex-table thead th {
     color: white;
-    background-color: #4fc3a1;
+    background-color: #ff5100;
 }
 
 .flex-table thead th:nth-child(odd) {
-    background-color: #324960;
+    background-color: #ff5100;
+
 }
 
 .flex-table thead tr:nth-child(even) {
-    background-color: #f8f8f8;
+    background-color: #b34506;
 }
 
-@media (max-width: 767px) {
-    .flex-table {
-        display: block;
-        width: 100%;
-    }
 
-    .flex-table thead,
-    .flex-table tbody,
-    .flex-table thead th,
-    .flex-table tbody tr {
-        display: block;
-    }
 
-    .flex-table tbody tr {
-        display: table-cell;
-    }
+.flex-table tbody tr {
+    display: table-cell;
+}
 
-    .flex-table thead th:last-child {
-        border-bottom: none;
-    }
+.flex-table thead th:last-child {
+    border-bottom: none;
+}
 
-    .flex-table thead {
-        float: left;
-    }
+.flex-table thead {
+    float: left;
+}
 
-    .flex-table tbody {
-        width: auto;
-        position: relative;
-        overflow-x: auto;
-    }
+.flex-table tbody {
+    width: auto;
+    position: relative;
+}
 
-    .flex-table td,
-    .flex-table th {
-        padding: 20px 0.625em 0.625em 0.625em;
-        height: 60px;
-        vertical-align: middle;
-        box-sizing: border-box;
-        overflow-x: hidden;
-        overflow-y: auto;
-        width: 120px;
-        font-size: 13px;
-        text-overflow: ellipsis;
-    }
+.flex-table th {
+    padding: 20px 0.625em 0.625em 0.625em;
+    height: 60px;
+    vertical-align: middle;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 120px;
+    font-size: 16px;
+    text-overflow: ellipsis;
+}
 
-    .flex-table thead th {
-        text-align: left;
-        border-bottom: 1px solid #f7f7f9;
-    }
+.flex-table td {
+    padding: 20px 0.625em 0.625em 0.625em;
+    height: 60px;
+    vertical-align: middle;
+    box-sizing: border-box;
+    overflow-x: hidden;
+    overflow-y: auto;
+    width: 500px;
+    font-size: 16px;
+    text-overflow: ellipsis;
+}
 
-    .flex-table tbody tr:nth-child(odd) {
-        background: none;
-    }
+.flex-table thead th {
+    text-align: left;
+    border-bottom: 1px solid #f7f7f9;
+}
 
-    .flex-table tr:nth-child(even) {
-        background: transparent;
-    }
+.flex-table tbody tr:nth-child(odd) {
+    background: none;
+}
 
-    .flex-table tr td:nth-child(odd) {
-        background: #f8f8f8;
-        border-right: 1px solid #e6e4e4;
-    }
+.flex-table tr:nth-child(even) {
+    background: transparent;
+}
 
-    .flex-table tr td:nth-child(even) {
-        border-right: 1px solid #e6e4e4;
-    }
+.flex-table tr td:nth-child(odd) {
+    background: #f8f8f8;
+    border-right: 1px solid #e6e4e4;
+}
 
-    .flex-table tbody td {
-        display: block;
-        text-align: center;
-    }
+.flex-table tr td:nth-child(even) {
+    border-right: 1px solid #e6e4e4;
+}
+
+.flex-table tbody td {
+    display: block;
+    text-align: center;
+}
+
+:is(.flex-table, .form) button {
+    width: 75px;
+    height: 30px;
+    border: none;
+    border-radius: 2px;
+    color: white;
+    font-weight: 500;
+    outline: none;
+    cursor: pointer;
+}
+
+.flex-table .check {
+    background-color: rgb(6, 180, 6);
+}
+
+.flex-table .check:hover {
+    background-color: rgb(4, 114, 4);
+}
+
+:is(.flex-table, .form) .nextstep {
+    background-color: #0066ffd5;
+}
+
+:is(.flex-table, .form) .nextstep:hover {
+    background-color: #0066ff;
+}
+
+.flex-table .cancel {
+    background-color: #ff0000d7;
+}
+
+.flex-table .cancel:hover {
+    background-color: #ff0000;
+}
+
+.flex-table .reply {
+    background-color: #3a3030d7;
+}
+
+.flex-table .reply:hover {
+    background-color: #292121d7;
+}
+
+.form {
+    margin-top: 50px;
+}
+
+.form>* {
+    display: flex;
+    align-items: center;
+    margin-top: 20px;
+}
+
+.stargroup>* {
+    cursor: pointer;
+}
+
+.stargroup :first-child:hover {
+    color: #ff5100;
+}
+
+.stargroup :nth-child(2):hover~.stargroup :first-child {
+    color: #ff5100;
+}
+
+.formgroup:is(.btn) {
+    display: flex;
+    justify-content: flex-end;
 }
