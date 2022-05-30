@@ -1,6 +1,7 @@
-function GetByIdQuestion(id) {
+
+function GetUserProblem(state) {
     var token = getCookie('token');
-    return fetch(apidomain + '/productquestion/' + id, {
+    return fetch(apidomain + '/problemlistu/' + state, {
         method: 'GET',
         headers: {
             'Authorization': token,
@@ -16,12 +17,48 @@ function GetByIdQuestion(id) {
         })
 }
 
-function PostQuestion(id, content) {
+function GetAdminProblem(state) {
+    var token = getCookie('token');
+    return fetch(apidomain + '/problemlista/' + state, {
+        method: 'GET',
+        headers: {
+            'Authorization': token,
+        }
+    })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res);
+            return res;
+        })
+        .catch(e => {
+            console.error('Error:', error)
+        })
+}
+
+function GetByIdProblem(id) {
+    var token = getCookie('token');
+    return fetch(apidomain + '/problemlist/' + id, {
+        method: 'GET',
+        headers: {
+            'Authorization': token,
+        }
+    })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res);
+            return res;
+        })
+        .catch(e => {
+            console.error('Error:', error)
+        })
+}
+
+function PostProblem(Title, content) {
     const token = getCookie('token');
     var data = new FormData();
-    data.append('ProductId', id);
+    data.append('Title', Title);
     data.append('Content', content);
-    return fetch(apidomain + '/productquestion', {
+    return fetch(apidomain + '/problemlist', {
         method: 'POST',
         headers: {
             'Authorization': token,
@@ -38,16 +75,16 @@ function PostQuestion(id, content) {
         })
 }
 
-function PATCHQuestion(id, data) {
+function PATCHProblem(id, data) {
     const token = getCookie('token')
-    var formBody = []   
+    var formBody = []
     var details = data
     for (var property in details) {
         var encodedKey = encodeURIComponent(property)
         var encodedValue = encodeURIComponent(details[property])
         formBody.push(encodedKey + "=" + encodedValue)
     }
-    return fetch(apidomain + '/productquestion/' + id, {
+    return fetch(apidomain + '/problemlist/' + id, {
         method: 'PATCH',
         headers: {
             'Content-Type': 'application/x-www-form-urlencoded;charset=UTF-8',
@@ -66,9 +103,9 @@ function PATCHQuestion(id, data) {
         })
 }
 
-function DELETEQuestion(id) {
+function DELETEProblem(id) {
     const token = getCookie('token');
-    return fetch(apidomain + '/productquestion/' + id, {
+    return fetch(apidomain + '/problemlist/' + id, {
         method: 'DELETE',
         headers: {
             'Authorization': token,

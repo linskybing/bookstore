@@ -7,7 +7,7 @@ const pageitem = 10;
 listinit();
 async function listinit() {
     var data;
-    await GetDealRecord('s_2').then(r => data = r);
+    await GetDealRecord('s_3').then(r => data = r);
 
     if (data && data.hasOwnProperty('data')) {
         list = data.data;
@@ -38,7 +38,7 @@ async function loadtransation() {
         `;
         for (i = 0; i < list.length && i < nowpage * pageitem - 1; i++) {
             let div = document.createElement('a');
-            div.href = "transaction_detail.html?id=" + list[i].RecordId;
+            div.href ="transaction_detail.html?id=" + list[i].RecordId;
             div.innerHTML = `
             <div class="table_content table_column_parent">
                 <div class="table_column">

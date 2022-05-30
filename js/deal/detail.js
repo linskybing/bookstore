@@ -1,6 +1,7 @@
 var detail;
 var mark = 0;
 var nowid;
+var reivew;
 // 載入資料
 listinit();
 async function listinit() {
@@ -19,9 +20,10 @@ async function listinit() {
                 console.log(data);
 
                 if (data) {
-                    createform();
-                    console.log(document.querySelector('.form'));
                     detail = data;
+                    await GetByIdReview(nowid).then(r => reivew = r);
+                    console.log(reivew);
+                    createform();
                     let tr = document.querySelector('.flex-table tbody tr')
                     tr.innerHTML = `
                         <td>${data.RecordId}</td>
@@ -33,7 +35,7 @@ async function listinit() {
                         <td>${data.SentAddress}</td>
                         <td>
                             <button class="check hidden">同意取消</button>
-                            <button class="nextstep">確認商品</button>
+                            <button class="nextstep hidden">確認商品</button>
                             <button class="cancel">取消交易</button>
                             <button class="reply">問題回報</button>
                         </td>
@@ -84,9 +86,11 @@ async function listinit() {
 
 function createform() {
     let div = document.createElement('div');
-    div.classList.add('form')   
-    div.classList.add('hidden')   
-    div.innerHTML = `                   
+    div.classList.add('form')
+    div.classList.add('hidden')
+    div.innerHTML = `  
+    <div class="formerror">
+    </div>   
     <div class="formgroup">
         <label for="">評分　　</label>
         <div class="stargroup">
@@ -100,14 +104,47 @@ function createform() {
     <div class="formgroup">
         <label for="">評價內容</label>
         <textarea></textarea>
-    </div>
+    </div>     
     <div class="formgroup btn">
         <button class="nextstep">送出</button>
     </div>                
     `;
+    if (reivew && reivew.CustomerReview != null) {
+        div.querySelector('textarea').innerHTML = reivew.CustomerReview;
+        div.querySelector('textarea').setAttribute('disabled', 'disabled');
+        mark = reivew.CustomerScore;
+        var array = div.querySelectorAll('.form .stargroup i');
+        for (i = 0; i <= mark; i++) {
+            array[i].style.color = '#ff5100';
+        }
+        for (j = mark; j < array.length; j++) {
+            array[j].style.color = 'black';
+        }
+    }
+    else {
+        mouseover();
+    }
     document.querySelector('.right-content').appendChild(div);
-    mouseover();
+    div.querySelector('.btn button').addEventListener('click', function () {
+        sendreivew();
+    });
 }
+// 送出評價
+async function sendreivew() {
+    var array = document.querySelectorAll('.form .stargroup i');
+    var text = document.querySelector('.form textarea').value;
+    var count = 0;
+    for (i = 0; i < array.length; i++) {
+        if (array[i].style.color == "rgb(255, 81, 0)") {
+            count++;
+        }
+
+    }
+    if (count > 1 && text.length > 0) {
+        await PostReview(nowid, count, text);
+    }
+}
+// hover
 function mouseover() {
     var array = document.querySelectorAll('.form .stargroup i');
     for (i = 0; i < array.length; i++) {
@@ -310,7 +347,7 @@ async function displaymodal3() {
                     <input type="text" id="pbtitle"></input>
                 </div>
                 <div class="formgroup">
-                    <label for="pbcontent">取消原因<span class="must">*</span></label>
+                    <label for="pbcontent">回報內容<span class="must">*</span></label>
                     <textarea type="text" id="pbcontent"></textarea>
                 </div>
             </div>
@@ -371,26 +408,26 @@ function senddata() {
     btn.addEventListener('click', async function () {
         let content = document.querySelector('#content').value;
         if (content.length > 0) {
-            document.querySelector('.formerror').innerHTML = '';
-            document.querySelector('.formerror').classList.remove('erroractive');
-            document.querySelector('.formerror').classList.add('succece');
-            document.querySelector('.formerror').innerHTML = '已成功送出請求，請等待賣家回應';
+            document.querySelector('.modal .formerror').innerHTML = '';
+            document.querySelector('.modal .formerror').classList.remove('erroractive');
+            document.querySelector('.modal .formerror').classList.add('succece');
+            document.querySelector('.modal .formerror').innerHTML = '已成功送出請求，請等待賣家回應';
             var temp = {
                 'Customer_Agree': 1,
                 'CustomerContent': content
             }
             await UpdateDealRecord(nowid, temp);
             setTimeout(() => {
-                document.querySelector('.formerror').classList.remove('succece');
-                document.querySelector('.formerror').innerHTML = '';
-                document.querySelector('.modal').toggle('hidden');
+                document.querySelector('.modal .formerror').classList.remove('succece');
+                document.querySelector('.modal .formerror').innerHTML = '';
+                document.querySelector('.modal').classList.toggle('hidden');
             }, 5000);
             window.location.reload();
 
         }
         else {
-            document.querySelector('.formerror').innerHTML = '請說明原因';
-            document.querySelector('.formerror').classList.add('erroractive');
+            document.querySelector('.modal .formerror').innerHTML = '請說明原因';
+            document.querySelector('.modal .formerror').classList.add('erroractive');
         }
     })
 }
@@ -405,15 +442,51 @@ function senddata2() {
             'Customer_Agree': 1
         }
         await UpdateDealRecord(nowid, temp);
+        window.location.reload();
     })
 }
 
-async function senddata4() {
-    var temp = {
-        'State': '待評價'
-    }
-    await UpdateDealRecord(nowid, temp);
-    window.href.reload();
+function senddata3() {
+    let btn = document.getElementById('submit_d');
+
+    btn.addEventListener('click', async function () {
+        let title = document.querySelector('#pbtitle').value;
+        let contente = document.querySelector('#pbcontent');
+        let content = contente.value;
+
+
+        if (content.length > 0 && title.length > 0) {
+            document.querySelector('.modal .formerror').innerHTML = '';
+            document.querySelector('.modal .formerror').classList.remove('erroractive');
+            document.querySelector('.modal .formerror').classList.add('succece');
+            document.querySelector('.modal .formerror').innerHTML = '已成功送出問題，請等待管理員回應';
+
+            await PostProblem(title, content);
+            setTimeout(() => {
+                document.querySelector('.modal .formerror').classList.remove('succece');
+                document.querySelector('.modal .formerror').innerHTML = '';
+                document.querySelector('.modal').classList.toggle('hidden');
+            }, 5000);
+
+        }
+        else {
+            document.querySelector('.modal .formerror').innerHTML = '必填欄位不可為空';
+            document.querySelector('.modal .formerror').classList.add('erroractive');
+        }
+    })
+
+}
+
+function senddata4() {
+    let btn = document.getElementById('submit_d');
+
+    btn.addEventListener('click', async function () {
+        var temp = {
+            'State': '待評價'
+        }
+        await UpdateDealRecord(nowid, temp);
+        window.location.reload();
+    })
 }
 
 function compare(a, b) {
