@@ -19,7 +19,7 @@ async function listinit() {
 function getbuy(data) {
     var temp = [];
     for (i = 0; i < data.length; i++) {
-        if (data.Type == 'Buy') {
+        if (data.Type == 'Rent') {
             temp.push(data[i]);
         }
     }
@@ -29,15 +29,18 @@ function getbuy(data) {
 async function loadtransation() {
     if (list) {
         document.querySelector('.product_table').innerHTML = `
-        <div class="table_thead">                        
-                        <div class="order table_column">
-                            訂單編號
-                        </div>
+        <div class="table_thead">
                         <div class="p_name table_column_2">
                             商品名稱
                         </div>
                         <div class="d_name table_column">
                             總計
+                        </div>
+                        <div class="d_date table_column">
+                            起始日期
+                        </div>
+                        <div class="d_date table_column">
+                            歸還日期
                         </div>
                         <div class="d_date table_column">
                             交易日期
@@ -56,8 +59,11 @@ async function loadtransation() {
                 ${list[i].Name}
                 </div> 
                 <div class="table_column">
-                ${list[i].Count * list[i].Price}$
+                ${list[i].Count * list[i].RentPrice}$
                 </div>
+                 <div class="table_column">
+                ${list[i].CreatedAt}
+                </div> 
                 <div class="table_column">
                 ${list[i].CreatedAt}
                 </div> 

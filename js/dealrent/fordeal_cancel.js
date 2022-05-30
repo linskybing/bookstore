@@ -7,24 +7,16 @@ const pageitem = 10;
 listinit();
 async function listinit() {
     var data;
-    await GetDealRecord('s_1').then(r => data = r);
+    await GetDealRecord('s_4').then(r => data = r);
 
     if (data && data.hasOwnProperty('data')) {
-        list = getbuy(data.data);
+        list = data.data;
         tempcount = list.length;
         console.log(list);
         loadtransation();
     }
 }
-function getbuy(data) {
-    var temp = [];
-    for (i = 0; i < data.length; i++) {
-        if (data.Type == 'Buy') {
-            temp.push(data[i]);
-        }
-    }
-    return temp;
-}
+
 
 async function loadtransation() {
     if (list) {
@@ -46,7 +38,7 @@ async function loadtransation() {
         `;
         for (i = 0; i < list.length && i < nowpage * pageitem - 1; i++) {
             let div = document.createElement('a');
-            div.href = "transaction_detail.html?id=" + list[i].RecordId;
+            div.href ="transaction_detail.html?id=" + list[i].RecordId;
             div.innerHTML = `
             <div class="table_content table_column_parent">
                 <div class="table_column">

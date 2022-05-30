@@ -16,7 +16,7 @@ function GetDealRecord(state) {
 
 }
 
-function GetDealRecordS() {
+function GetDealRecordS(state) {
     var token = getCookie('token');
     return fetch(apidomain + '/dealrs/' + state, {
         method: 'GET',

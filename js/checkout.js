@@ -26,6 +26,7 @@ function loadcart() {
     if (cartlist.length > 0) {
         var total = 0;
         for (i = 0; i < cartlist.length; i++) {
+            var priceper = (cartlist[i].Type == "Rent") ? cartlist[i].RentPrice : cartlist[i].Price;
             let li = document.createElement('li');
             li.classList.add('order_info');
             li.classList.add('commodity');
@@ -34,11 +35,11 @@ function loadcart() {
             ${cartlist[i].Name}
             </span>
             <span>${cartlist[i].Count}${(cartlist[i].Type == 'Buy') ? "(本)" : "(天)"}</span>
-            <span>$${cartlist[i].Price * cartlist[i].Count}</span>
+            <span>$${cartlist[i].priceper * cartlist[i].Count}</span>
             `;
-            total += cartlist[i].Price * cartlist[i].Count;
+            total += cartlist[i].priceper * cartlist[i].Count;
             ul.appendChild(li);
-        }
+        }        
         let li = document.createElement('li');
         li.classList.add('order_info');
         li.innerHTML = `

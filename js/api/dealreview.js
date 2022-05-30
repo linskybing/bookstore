@@ -9,7 +9,6 @@ function GetByIdReview(id) {
     })
         .then(res => res.json())
         .then(res => {
-            console.log(res);
             return res;
         })
         .catch(e => {
@@ -40,7 +39,7 @@ function PostReview(id, score, review) {
         })
 }
 
-function PATCHAnnoucement(id, data) {
+function PATCHReview(id, data) {
     const token = getCookie('token')
     var formBody = []
     var details = data
@@ -68,7 +67,7 @@ function PATCHAnnoucement(id, data) {
         })
 }
 
-function DELETEAnnoucement(id) {
+function DELETEReview(id) {
     const token = getCookie('token');
     return fetch(apidomain + '/dealreview/' + id, {
         method: 'DELETE',

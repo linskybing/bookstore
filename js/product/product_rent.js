@@ -11,23 +11,23 @@ getcategory();
 getproduct();
 async function getcategory() {
     var data;
-    await GetTagRent().then(r => data = r);
+    await GetTag().then(r => data = r);
 
-    if (data.hasOwnProperty('data') && data.data != null) {
+    if (data.hasOwnProperty('data')) {
         category = data.data;
-        Object.entries(category).forEach((key, value) => {
-            var li = document.createElement('li');
-            li.innerHTML = `
+    }
+    Object.entries(category).forEach((key, value) => {
+        var li = document.createElement('li');
+        li.innerHTML = `
         <input id="c_${category[value].Tag}" type="hidden" value="${category[value].Tag}">
        ${category[value].Tag}<span class="num">${category[value].Count}</span>
        `;
-            li.addEventListener('click', function () {
-                let c = this.querySelector('input').value;
-                categoryselect(c);
-            })
-            document.querySelector('.category ul').appendChild(li);
+        li.addEventListener('click', function () {
+            let c = this.querySelector('input').value;
+            categoryselect(c);
         })
-    }
+        document.querySelector('.category ul').appendChild(li);
+    })
 }
 
 async function getproduct() {
@@ -43,6 +43,7 @@ async function getproduct() {
         sortbyprice('DESC');
         paging();
     }
+
 }
 
 //分頁
@@ -139,30 +140,55 @@ function pageproduct(templist) {
             let div = document.createElement('div');
             div.classList.add('item');
             div.innerHTML = `
-                        <a href="product.html?id=${nowdata.ProductId}">
+                        <a href="product_rent.html?id=${nowdata.ProductId}">
                             <img src="${(nowdata.Image != null) ? "http://localhost:8080/images/Products/" + nowdata.Image[0].Image : "https://imagepng.org/wp-content/uploads/2019/08/google-chrome-icon-1.png"}"
                                 alt="" width="250px" height="250px">
                         </a>
                         <div class="detail">
                             <div class="p-title">${nowdata.Name}</div>
-                            <div class="p-category">
-                            ${nowdata.Description}
-                                <span class="cart">
-                                    <i class="fa-solid fa-cart-arrow-down"></i>
+                            <div class="p-category">            
+                                <div class="p-price">${nowdata.RentPrice}  NT/天</div>                
+                                <span class="cart add ${(nowdata.InCart == 0) ? '' : 'hidden'}">
+                                    <i class="fa-solid fa-cart-arrow-down"></i>                                  
+                                </span>
+                                <span class="cart2 remove ${(nowdata.InCart != 0) ? '' : 'hidden'}">                                
+                                    <i class="fa-solid fa-cart-arrow-down"></i> 
                                 </span>
                             </div>
-                            <div class="p-price">${nowdata.Price} NT</div>
+                           
                         </div>
             `;
+            let add = div.querySelector('.add');
+            let remove = div.querySelector('.remove');
+            add.addEventListener('click', async function () {
+                await AddtoCart(nowdata.ProductId, 1, 'Buy');
+
+                var incart;
+                await InCart(nowdata.ProductId).then(r => incart = r);
+                if (incart) {
+                    add.classList.toggle('hidden');
+                    remove.classList.toggle('hidden');
+                }
+            })
+            remove.addEventListener('click', async function () {
+                await DeleteCartItem(nowdata.ProductId);
+                var incart;
+                await InCart(nowdata.ProductId).then(r => incart = r);
+                if (!incart) {
+                    add.classList.toggle('hidden');
+                    remove.classList.toggle('hidden');
+                }
+            })
             productblock.appendChild(div);
         }
     }
 }
 
+
 function sortbyprice(type) {
     for (i = 0; i < templist.length; i++) {
         for (j = 0; j < templist.length - i - 1; j++) {
-            if (sort(type, templist[j].Price, templist[j + 1].Price)) {
+            if (sort(type, templist[j].RentPrice, templist[j + 1].RentPrice)) {
                 var temp = templist[j];
                 templist[j] = templist[j + 1]
                 templist[j + 1] = temp;
@@ -282,4 +308,6 @@ function searchproduct(search) {
     })
     paging();
 }
+
+
 setoption()

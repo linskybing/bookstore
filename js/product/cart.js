@@ -24,6 +24,7 @@ function loadcart() {
         totaltable.appendChild(div);
         for (i = 0; i < cartlist.length; i++) {
             let tr = document.createElement('tr');
+            var priceper = (cartlist[i].Type == "Rent") ? cartlist[i].RentPrice : cartlist[i].Price;
             tr.innerHTML = `
                         <td class="product-remove">
                                 <span class="xmark">
@@ -39,7 +40,7 @@ function loadcart() {
                                 ${cartlist[i].Name}
                             </td>
                             <td class="product-price">
-                                ${cartlist[i].Price} NT
+                                ${priceper} NT
                             </td>
                             <td class="product-name">
                                 ${(cartlist[i].Type == 'Buy') ? "購買" : "租借"}
@@ -52,20 +53,19 @@ function loadcart() {
                                 </div>
                             </td>
                             <td class="product-subtotal">
-                                ${cartlist[i].Price * cartlist[i].Count}
+                                ${priceper * cartlist[i].Count}
                             </td>                 
             `;
-            total += cartlist[i].Price * cartlist[i].Count;
+            total += priceper * cartlist[i].Count;
             let a = tr.querySelector('.count input');
             let Inventory = cartlist[i].Inventory;
-            let subtotale = document.createElement('div');
-            let price = cartlist[i].Price;
+            let subtotale = document.createElement('div');            
             let id = i;
             subtotale.classList.add('subtotal');
             subtotale.id = id;
             subtotale.innerHTML = `
                 <div>小計</div>
-                <div>${cartlist[i].Price * cartlist[i].Count} NT</div>
+                <div>${priceper * cartlist[i].Count} NT</div>
             `;
             totaltable.appendChild(subtotale);
             tr.querySelector('.count input').addEventListener('change', function () {
@@ -74,40 +74,40 @@ function loadcart() {
                 }
                 let subtotal = tr.querySelector('.product-subtotal');
                 let count = tr.querySelector('.count input').value;
-                subtotal.innerHTML = count * price;
+                subtotal.innerHTML = count * priceper;
                 document.getElementById(id).innerHTML = `
                 <div>小計</div>
-                <div>${count * price} NT</div>
+                <div>${count * priceper} NT</div>
                 `;
                 counttotal();
             });
             tr.querySelector('#add').addEventListener('click', function () {
                 if (a.value < Inventory) {
                     a.value = Number(a.value) + 1;
-                    total += price;
+                    total += priceper;
                     cartlist[id].Count += 1;
                 }
                 let subtotal = tr.querySelector('.product-subtotal');
                 let count = tr.querySelector('.count input').value;
-                subtotal.innerHTML = count * price;
+                subtotal.innerHTML = count * priceper;
                 document.getElementById(id).innerHTML = `
                 <div>小計</div>
-                <div>${count * price} NT</div>
+                <div>${count * priceper} NT</div>
                 `;
                 counttotal();
             });
             tr.querySelector('#minus').addEventListener('click', function () {
                 if (a.value > 1) {
                     a.value -= 1;
-                    total -= price;
+                    total -= priceper;
                     cartlist[id].Count -= 1;
                 }
                 let subtotal = tr.querySelector('.product-subtotal');
                 let count = tr.querySelector('.count input').value;
-                subtotal.innerHTML = count * price;
+                subtotal.innerHTML = count * priceper;
                 document.getElementById(id).innerHTML = `
                 <div>小計</div>
-                <div>${count * price} NT</div>
+                <div>${count * priceper} NT</div>
                 `;
                 counttotal();
                 console.log(cartlist);
@@ -115,7 +115,7 @@ function loadcart() {
             tr.querySelector('.xmark').addEventListener('click', async function () {
                 await DeleteCartItem(cartlist[id].ProductId);
                 let count = tr.querySelector('.count input').value;
-                total -= count * price;
+                total -= count * priceper;
                 tr.remove();
                 document.getElementById(id).remove();
                 if (document.querySelectorAll('.subtotal').length == 1) {

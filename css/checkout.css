@@ -272,11 +272,12 @@ ul {
     text-align: center;
 }
 
-:is(.flex-table, .form) button {
+:is(.flex-table, .form, *) button {
     width: 75px;
     height: 30px;
     border: none;
     border-radius: 2px;
+    background-color: #ff5100;
     color: white;
     font-weight: 500;
     outline: none;

@@ -35,17 +35,17 @@ async function listinit() {
                         <td>${data.SentAddress}</td>
                         <td>
                             <button class="check hidden">同意取消</button>
-                            <button class="nextstep hidden">確認商品</button>
+                            <button class="nextstep hidden">商品已寄出</button>
                             <button class="cancel">取消交易</button>
                             <button class="reply">問題回報</button>
                         </td>
                     `;
                     switch (detail.State) {
                         case "待處理": {
+                            tr.querySelector('.nextstep').classList.remove('hidden');
                             break;
                         }
                         case "待確認": {
-                            tr.querySelector('.nextstep').classList.remove('hidden');
                             break;
                         }
                         case "待評價": {
@@ -61,15 +61,19 @@ async function listinit() {
                             break;
                         }
                     }
-                    if (detail.SellerContent != null && detail.Customer_Agree != 1) {
+                    if (detail.CustomerContent != null && detail.Seller_Agree != 1) {
                         tr.querySelector('.check').classList.remove('hidden');
                         tr.querySelector('.cancel').classList.add('hidden');
                     }
                     tr.querySelector('.check').addEventListener('click', function () {
                         displaymodal2();
                     })
-                    tr.querySelector('.nextstep').addEventListener('click', function () {
-                        displaymodal4();
+                    tr.querySelector('.nextstep').addEventListener('click', async function () {
+                        var temp = {
+                            'State': '待確認'
+                        }
+                        await UpdateDealRecord(nowid, temp);
+                        window.location.reload();
                     })
                     tr.querySelector('.cancel').addEventListener('click', function () {
                         displaymodal();
@@ -111,12 +115,12 @@ function createform() {
     </div>                
     `;
     document.querySelector('.right-content').appendChild(div);
-    if (reivew && reivew.CustomerReview != null) {
-        div.querySelector('textarea').innerHTML = reivew.CustomerReview;
+    if (reivew && reivew.SellerReview != null) {
+        div.querySelector('textarea').innerHTML = reivew.SellerReview;
         div.querySelector('textarea').setAttribute('disabled', 'disabled');
-        mark = reivew.CustomerScore;
+        mark = reivew.SellerScore;
         var array = div.querySelectorAll('.form .stargroup i');
-        for (i = 0; i <= mark; i++) {
+        for (i = 0; i < mark; i++) {
             array[i].style.color = '#ff5100';
         }
         for (j = mark; j < array.length; j++) {
@@ -130,6 +134,7 @@ function createform() {
         });
         mouseover();
     }
+
 
 }
 // 送出評價
@@ -149,12 +154,13 @@ async function sendreivew() {
         }
         else {
             var temp = {
-                'CustomerReview': text,
-                'CustomerScore': count
+                'SellerReview': text,
+                'SellerScore': count
             }
             await PATCHReview(reivew.ReviewId, temp);
         }
-        if (detail.CustomerContent != null) {
+
+        if (reivew.CustomerReview != null) {
             var temp = {
                 'State': '完成交易'
             }
@@ -247,7 +253,7 @@ function modal_content_event() {
 
 function displaymodal() {
     modal.classList.remove('hidden');
-    if (detail.CustomerContent != null) {
+    if (detail.SellerContent != null) {
         modal.innerHTML = `
         <div class="modal-content-2">
                  <div class="header">
@@ -265,7 +271,7 @@ function displaymodal() {
                     </div>             
                      <div class="formgroup">
                          <label for="content">取消原因<span class="must">*</span></label>
-                         <textarea type="text" id="content" disabled>${detail.CustomerContent}</textarea>
+                         <textarea type="text" id="content" disabled>${detail.SellerContent}</textarea>
                      </div>
                  </div>
                  <div class="footer">                                             
@@ -320,7 +326,8 @@ async function displaymodal2() {
                 </div>                             
                 <div class="menu">
                     <ul>
-                        <li class="active" id="infoperson">同意取消</li>                      
+                        <li class="active" id="infoperson">同意取消</li>    
+                    </ul>                  
                 </div> 
             </div>
             <div class="content">
@@ -328,7 +335,7 @@ async function displaymodal2() {
                </div>             
                 <div class="formgroup">
                     <label for="content">取消原因<span class="must">*</span></label>
-                    <textarea type="text" id="content" disabled>${detail.SellerContent}</textarea>
+                    <textarea type="text" id="content" disabled>${detail.CustomerContent}</textarea>
                 </div>
             </div>
             <div class="footer">
@@ -394,7 +401,7 @@ async function displaymodal4() {
                 </div>                             
                 <div class="menu">
                     <ul>
-                        <li class="active" id="infoperson">確認商品</li>                      
+                        <li class="active" id="infoperson">已寄出商品</li>                      
                 </div> 
             </div>
             <div class="content">
@@ -407,7 +414,7 @@ async function displaymodal4() {
             </div>
             <div class="footer" style="display:flex;justify-content:center;align-items:center;">
                 <button class="submit" id="submit_d">
-                    領收
+                    完成寄送
                 </button>                          
                 <span class="cancel">取消</span>
             </div>
@@ -432,8 +439,8 @@ function senddata() {
             document.querySelector('.modal .formerror').classList.add('succece');
             document.querySelector('.modal .formerror').innerHTML = '已成功送出請求，請等待賣家回應';
             var temp = {
-                'Customer_Agree': 1,
-                'CustomerContent': content
+                'Seller_Agree': 1,
+                'SellerContent': content
             }
             await UpdateDealRecord(nowid, temp);
             setTimeout(() => {
@@ -458,7 +465,7 @@ function senddata2() {
     btn.addEventListener('click', async function () {
         var temp = {
             'State': '已取消',
-            'Customer_Agree': 1
+            'Seller_Agree': 1
         }
         await UpdateDealRecord(nowid, temp);
         window.location.reload();
@@ -501,7 +508,7 @@ function senddata4() {
 
     btn.addEventListener('click', async function () {
         var temp = {
-            'State': '待評價'
+            'State': '商品確認'
         }
         await UpdateDealRecord(nowid, temp);
         window.location.reload();

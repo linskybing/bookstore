@@ -7,16 +7,24 @@ const pageitem = 10;
 listinit();
 async function listinit() {
     var data;
-    await GetDealRecord('s_3').then(r => data = r);
+    await GetDealRecord('s_1').then(r => data = r);
 
     if (data && data.hasOwnProperty('data')) {
-        list = data.data;
+        list = getbuy(data.data);
         tempcount = list.length;
         console.log(list);
         loadtransation();
     }
 }
-
+function getbuy(data) {
+    var temp = [];
+    for (i = 0; i < data.length; i++) {
+        if (data.Type == 'Buy') {
+            temp.push(data[i]);
+        }
+    }
+    return temp;
+}
 
 async function loadtransation() {
     if (list) {
