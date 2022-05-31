@@ -1,4 +1,6 @@
 var productdata;
+var pageid;
+var seller;
 async function geturl() {
     var url = location.href;
 
@@ -9,8 +11,10 @@ async function geturl() {
         for (i = 0; i <= ary.length - 1; i++) {
             if (ary[i].split('=')[0] == 'id') {
                 id = ary[i].split('=')[1];
+                pageid = id;              
                 await GetSingle(id).then(r => productdata = r);
                 console.log(productdata);
+                seller = productdata.Seller;
                 loadingpage();
                 getscore();
                 createtag();

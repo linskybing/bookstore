@@ -7,7 +7,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>會員中心</title>
     <link href="../css/header.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../css/profile/profile.css">
+    <link rel="stylesheet" href="../css/profile/fordeposit.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
@@ -34,14 +34,14 @@
                 <img src="../image/user.png" alt="">
             </div>
             <div id="name" style="color: white;font-weight: bolder;">
-                <span class="name">asdf</span>
+                <span>asdf</span>
             </div>
         </div>
         <div class="container">
             <div class="left-sidebar">
                 <ul>
-                    <li id="member_m" class="active">
-                        會員管理
+                    <li id="member_m">
+                        <a href="profile.html">會員管理</a>
                     </li>
                     <li id="buyer_m">
                         買家管理
@@ -64,9 +64,9 @@
                     </li>
                     <li id="seller_m">
                         賣家管理
-                        <div class="arrow"><i class="fa-solid fa-angle-right"></i></div>
+                        <div class="arrow rotate"><i class="fa-solid fa-angle-right"></i></div>
                     </li>
-                    <li class="list-item close">
+                    <li class="list-item">
                         <div class="div_2">
                             <ul>
                                 <li>
@@ -83,7 +83,10 @@
                                     </a>
                                 </li>
                                 <li>
-                                    存款帳戶
+                                    <a href="mailbox_s.html">租借訂單</a>
+                                </li>
+                                <li class="active">
+                                    <a href="deposit.html">存款帳戶</a>
                                 </li>
                             </ul>
                         </div>
@@ -91,85 +94,60 @@
                 </ul>
             </div>
             <div class="right-content">
-                <h1>個人資訊</h1>
-                <div class="personal-info">
-                    <div class="info-item lock">
-                        <span class="data-label">
-                            帳號
-                        </span>
-                        <span class="data-content" id="accountinfo">
-
-                        </span>
-                        <div class="info-icon">
-                            <div>
-                                <i class="fa-solid fa-lock"></i>
-                            </div>
+                <div class="header">
+                    <div class="h1">存款帳戶</div>
+                    <div class="action">
+                        </a>
+                    </div>
+                </div>
+                <div class="header">
+                    <ul>
+                        <li class="active">帳戶管理</li>
+                    </ul>
+                </div>
+                <div class="product_table">
+                    <div class="table_action">
+                        <div class="h1"></a></div>
+                        <div class="action">
+                            <button class="insert">
+                                新增帳戶
+                            </button>
+                            <button class="delete">
+                                刪除帳戶
+                            </button>
                         </div>
                     </div>
-                    <div class="info-item">
-                        <span class="data-label">
-                            使用者名稱
-                        </span>
-                        <span class="data-content" id="nameinfo">
-
-                        </span>
-                        <div class="info-icon">
-                            <div id="click-modal-name">
-                                <i class="fa-solid fa-angle-right"></i>
-                            </div>
+                    <div class="table_thead">
+                        <div class="checkbox_head">
+                            <input type="checkbox" id="p_all">
+                            <label for="p_all"><i class="fa-solid fa-check"></i></label>
                         </div>
-                    </div>
-                    <div class="info-item lock">
-                        <span class="data-label">
-                            電子信箱
-                        </span>
-                        <span class="data-content" id="emailinfo">
-
-                        </span>
-                        <div class="info-icon">
-                            <div>
-                                <i class="fa-solid fa-lock"></i>
-                            </div>
+                        <div class="productprice_head">
+                            銀行編號
                         </div>
-                    </div>
-                    <div class="info-item">
-                        <span class="data-label">
-                            地址
-                        </span>
-                        <span class="data-content" id="address">
-
-                        </span>
-                        <div class="info-icon">
-                            <div id="click-modal-address">
-                                <i class="fa-solid fa-angle-right"></i>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="info-item">
-                        <span class="data-label">
-                            密碼
-                        </span>
-                        <span class="data-content" id="password">
-                            *************
-                        </span>
-                        <div class="info-icon">
-                            <div id="click-modal-password">
-                                <i class="fa-solid fa-angle-right"></i>
-                            </div>
-                        </div>
+                        <div class="productname_head">
+                            銀行帳戶
+                        </div>                       
                     </div>
                 </div>
             </div>
         </div>
     </section>
     <div class="modal hidden">
+
     </div>
 
 </body>
+
+<!-- API -->
 <script src="../js/api/chatroom.js"></script>
 <script src="../js/api/user.js"></script>
+<script src="../js/api/deposit.js"></script>
+<!-- 頁面 -->
 <script src="../js/chatusers.js"></script>
-<script src="../js/profile/profile_p.js"></script>
 <script src="../js/header.js"></script>
-<script src="../js/profile/profile.js"></script>
+<script src="../js/profile/profile_p.js"></script>
+<script src="../js/profile/fordeposit.js"></script>
+
+
 </html>
