@@ -10,26 +10,38 @@ async function listinit() {
     await GetDealRecord('s_3').then(r => data = r);
 
     if (data && data.hasOwnProperty('data')) {
-        list = data.data;
+        console.log(data.data);
+        list = getbuy(data.data);
         tempcount = list.length;
         console.log(list);
         loadtransation();
     }
 }
-
+function getbuy(data) {
+    var temp = [];
+    for (i = 0; i < data.length; i++) {
+        if (data[i].DealType == 'Rent') {
+            temp.push(data[i]);
+        }
+    }
+    return temp;
+}
 
 async function loadtransation() {
     if (list) {
         document.querySelector('.product_table').innerHTML = `
-        <div class="table_thead">                        
-                        <div class="order table_column">
-                            訂單編號
-                        </div>
+        <div class="table_thead">
                         <div class="p_name table_column_2">
                             商品名稱
                         </div>
                         <div class="d_name table_column">
                             總計
+                        </div>
+                        <div class="d_date table_column">
+                            起始日期
+                        </div>
+                        <div class="d_date table_column">
+                            歸還日期
                         </div>
                         <div class="d_date table_column">
                             交易日期
@@ -38,18 +50,21 @@ async function loadtransation() {
         `;
         for (i = 0; i < list.length && i < nowpage * pageitem - 1; i++) {
             let div = document.createElement('a');
-            div.href ="transaction_detail.html?id=" + list[i].RecordId;
+            div.href = "transaction_detail.html?id=" + list[i].RecordId;
             div.innerHTML = `
-            <div class="table_content table_column_parent">
-                <div class="table_column">
-                    ${list[i].RecordId}
-                </div> 
+            <div class="table_content table_column_parent">               
                 <div class="table_column_2">
                 ${list[i].Name}
                 </div> 
                 <div class="table_column">
-                ${list[i].Count * list[i].Price}$
+                ${list[i].Count * list[i].RentPrice}$
                 </div>
+                 <div class="table_column">
+                ${(list[i].StartTime == null) ? '收到商品後計算' : list[i].StartTime}
+                </div> 
+                <div class="table_column">
+                ${(list[i].EndTime == null) ? '收到商品後計算' : list[i].StartTime}
+                </div> 
                 <div class="table_column">
                 ${list[i].CreatedAt}
                 </div> 

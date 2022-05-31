@@ -6,9 +6,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>會員中心</title>
-    <link href="../css/header.css" rel="stylesheet" />
-    <link rel="stylesheet" href="../css/profile/deal.css">
-    <link rel="stylesheet" href="../css/style.css">
+    <link href="../../css/header.css" rel="stylesheet" />
+    <link rel="stylesheet" href="../../css/profile/deal.css">
+    <link rel="stylesheet" href="../../css/style.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
 
@@ -31,7 +31,7 @@
                     <label for="filein" id="button"><i class="fa-solid fa-pen"></i></label>
                     <input type="file" id="filein">
                 </div>
-                <img src="../image/user.png" alt="">
+                <img src="../../image/user.png" alt="">
             </div>
             <div id="name" style="color: white;font-weight: bolder;">
                 <span>asdf</span>
@@ -51,10 +51,13 @@
                         <div class="div_2">
                             <ul>
                                 <li class="active">
-                                    <a href="transaction_history.html">交易紀錄</a>
+                                    <a href="transaction_rent.html">租借紀錄</a>
                                 </li>
                                 <li>
-                                    商品問答紀錄
+                                    <a href="../transaction_history.html">交易紀錄</a>
+                                </li>
+                                <li>
+                                    <a href="../mailbox.html">商品問答紀錄</a>
                                 </li>
                             </ul>
                         </div>
@@ -67,18 +70,25 @@
                         <div class="div_2">
                             <ul>
                                 <li>
-                                    <a href="profile_product.html">
+                                    <a href="../profile_product.html">
                                         商品管理
                                     </a>
                                 </li>
                                 <li>
-                                    商品問答管理
+                                    <a href="../mailbox_s.html">商品問答紀錄</a>
                                 </li>
                                 <li>
-                                    <a href="transaction_history_seller.html">訂單管理</a>
+                                    <a href="../transaction_history_seller.html">
+                                        訂單管理
+                                    </a>
                                 </li>
                                 <li>
-                                    存款帳戶
+                                    <a href="../rent_s/transaction_rent.html">
+                                        租借訂單
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="../deposit.html">存款帳戶</a>
                                 </li>
                             </ul>
                         </div>
@@ -87,15 +97,17 @@
             </div>
             <div class="right-content">
                 <div class="header">
-                    <div class="h1">交易紀錄</div>
+                    <div class="h1">租借紀錄</div>
                     <div class="action">
                         </a>
                     </div>
                 </div>
                 <div class="header">
                     <ul>
-                        <li class="active"><a href="transaction_history.html">待處理</a></li>
-                        <li><a href="transaction_check.html">商品確認</a></li>
+                        <li><a href="transaction_rent.html">待處理</a></li>
+                        <li><a href="transaction_rent_check.html">商品確認</a></li>
+                        <li class="active"><a href="transaction_not_return.html">未歸還</a></li>
+                        <li><a href="transaction_return.html">已歸還</a></li>
                         <li><a href="transaction_review.html">待評價</a></li>
                         <li><a href="transaction_cancel.html">取消交易</a></li>
                         <li><a href="transaction_complete.html">完成交易</a></li>
@@ -131,17 +143,17 @@
 
 </body>
 <!-- API -->
-<script src="../js/api/chatroom.js"></script>
-<script src="../js/api/user.js"></script>
-<script src="../js/api/category.js"></script>
-<script src="../js/api/dealrecord.js"></script>
+<script src="../../js/api/chatroom.js"></script>
+<script src="../../js/api/user.js"></script>
+<script src="../../js/api/category.js"></script>
+<script src="../../js/api/dealrecord.js"></script>
 
 <!-- 頁面 -->
-<script src="../js/chatusers.js"></script>
-<script src="../js/header.js"></script>
-<script src="../js/profile/profile_p.js"></script>
-<script src="../js/profile/category.js"></script>
-<script src="../js/dealrent/fordeal.js"></script>
+<script src="../../js/chatusers.js"></script>
+<script src="../../js/header2.js"></script>
+<script src="../../js/profile/profile_p.js"></script>
+<script src="../../js/profile/category.js"></script>
+<script src="../../js/dealrent/fordeal_not_return.js"></script>
 
 
 

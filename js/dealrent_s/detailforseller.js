@@ -29,13 +29,14 @@ async function listinit() {
                         <td>${data.RecordId}</td>
                         <td>${data.Name}</td>
                         <td>${data.Count}</td>
-                        <td>${data.Price}</td>
-                        <td>${data.Price * data.Count}</td>
+                        <td>${data.RentPrice} $</td>
+                        <td>${data.RentPrice * data.Count} $</td>
                         <td>${data.DealMethod}</td>
                         <td>${data.SentAddress}</td>
                         <td>
                             <button class="check hidden">同意取消</button>
                             <button class="nextstep hidden">商品已寄出</button>
+                            <button class="nextstepc return2 hidden">確認商品</button>
                             <button class="cancel">取消交易</button>
                             <button class="reply">問題回報</button>
                         </td>
@@ -60,6 +61,14 @@ async function listinit() {
                             tr.querySelector('.cancel').classList.add('hidden');
                             break;
                         }
+                        case "未歸還": {
+
+                            break;
+                        }
+                        case "已歸還": {
+                            tr.querySelector('.nextstepc').classList.remove('hidden');
+                            break;
+                        }
                     }
                     if (detail.CustomerContent != null && detail.Seller_Agree != 1) {
                         tr.querySelector('.check').classList.remove('hidden');
@@ -75,12 +84,16 @@ async function listinit() {
                         await UpdateDealRecord(nowid, temp);
                         window.location.reload();
                     })
+                    tr.querySelector('.nextstepc').addEventListener('click', async function () {
+                        displaymodal4();
+                    })
                     tr.querySelector('.cancel').addEventListener('click', function () {
                         displaymodal();
                     })
                     tr.querySelector('.reply').addEventListener('click', function () {
                         displaymodal3();
                     })
+
 
                 }
 
@@ -149,8 +162,8 @@ async function sendreivew() {
 
     }
     if (count > 1 && text.length > 0) {
-        if (!reivew) {
-            await PostReview(nowid, count, text);
+        if (reivew.hasOwnProperty('info')) {
+            await PostReview2(nowid, count, text);
         }
         else {
             var temp = {
@@ -408,13 +421,13 @@ async function displaymodal4() {
                <div class="formerror">
                </div>             
                 <div class="formgroup" style="display:flex;justify-content:center;align-items:center;">
-                    <h3>請確認商品是否無誤，若沒有任何問題並且確認完畢後，請按領收。</h3>
+                    <h3>請確認商品是否無誤，若沒有任何問題並且確認完畢後，請按完成歸還。</h3>
                 </div>
              
             </div>
             <div class="footer" style="display:flex;justify-content:center;align-items:center;">
                 <button class="submit" id="submit_d">
-                    完成寄送
+                完成歸還
                 </button>                          
                 <span class="cancel">取消</span>
             </div>
@@ -508,7 +521,7 @@ function senddata4() {
 
     btn.addEventListener('click', async function () {
         var temp = {
-            'State': '商品確認'
+            'State': '待評價'
         }
         await UpdateDealRecord(nowid, temp);
         window.location.reload();

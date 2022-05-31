@@ -342,3 +342,11 @@ ul {
     display: flex;
     justify-content: flex-end;
 }
+
+.return2 {
+    background-color: #0066ffd5 !important;
+}
+
+.return2:hover {
+    background-color: #0066ff !important;
+}

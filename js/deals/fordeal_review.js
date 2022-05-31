@@ -7,7 +7,7 @@ const pageitem = 10;
 listinit();
 async function listinit() {
     var data;
-    await GetDealRecordS('s_1').then(r => data = r);
+    await GetDealRecordS('s_3').then(r => data = r);
 
     if (data && data.hasOwnProperty('data')) {
         list = getbuy(data.data);
@@ -19,7 +19,7 @@ async function listinit() {
 function getbuy(data) {
     var temp = [];
     for (i = 0; i < data.length; i++) {
-        if (data.Type == 'Buy') {
+        if (data[i].DealType == 'Buy') {
             temp.push(data[i]);
         }
     }

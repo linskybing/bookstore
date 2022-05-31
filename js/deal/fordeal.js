@@ -19,7 +19,7 @@ async function listinit() {
 function getbuy(data) {
     var temp = [];
     for (i = 0; i < data.length; i++) {
-        if (data.Type == 'Buy') {
+        if (data[i].DealType == 'Buy') {
             temp.push(data[i]);
         }
     }

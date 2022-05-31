@@ -116,7 +116,7 @@ function createform() {
         div.querySelector('textarea').setAttribute('disabled', 'disabled');
         mark = reivew.CustomerScore;
         var array = div.querySelectorAll('.form .stargroup i');
-        for (i = 0; i <= mark; i++) {
+        for (i = 0; i < mark; i++) {
             array[i].style.color = '#ff5100';
         }
         for (j = mark; j < array.length; j++) {
@@ -144,7 +144,7 @@ async function sendreivew() {
 
     }
     if (count > 1 && text.length > 0) {
-        if (!reivew) {
+        if (reivew.hasOwnProperty('info')) {
             await PostReview(nowid, count, text);
         }
         else {
@@ -154,7 +154,7 @@ async function sendreivew() {
             }
             await PATCHReview(reivew.ReviewId, temp);
         }
-        if (detail.CustomerContent != null) {
+        if (reivew.SellerReview != null) {
             var temp = {
                 'State': '完成交易'
             }

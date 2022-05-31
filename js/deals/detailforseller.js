@@ -149,8 +149,8 @@ async function sendreivew() {
 
     }
     if (count > 1 && text.length > 0) {
-        if (!reivew) {
-            await PostReview(nowid, count, text);
+        if (reivew.hasOwnProperty('info')) {
+            await PostReview2(nowid, count, text);
         }
         else {
             var temp = {

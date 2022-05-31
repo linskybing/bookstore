@@ -853,8 +853,7 @@ async function GetOnProduct(search) {
             })
             onIndex += 1;
         });
-    }
-
+    }    
 
 }
 

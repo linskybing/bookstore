@@ -39,6 +39,29 @@ function PostReview(id, score, review) {
         })
 }
 
+function PostReview2(id, score, review) {
+    const token = getCookie('token');
+    var data = new FormData();
+    data.append('RecordId', id);
+    data.append('SellerScore', score);
+    data.append('SellerReview', review);
+    return fetch(apidomain + '/dealreview2', {
+        method: 'POST',
+        headers: {
+            'Authorization': token,
+        },
+        body: data,
+    })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res);
+            return res;
+        })
+        .catch(e => {
+            console.error('Error:', error)
+        })
+}
+
 function PATCHReview(id, data) {
     const token = getCookie('token')
     var formBody = []

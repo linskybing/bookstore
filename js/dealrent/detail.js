@@ -29,13 +29,14 @@ async function listinit() {
                         <td>${data.RecordId}</td>
                         <td>${data.Name}</td>
                         <td>${data.Count}</td>
-                        <td>${data.Price}</td>
-                        <td>${data.Price * data.Count}</td>
+                        <td>${data.RentPrice} $</td>
+                        <td>${data.RentPrice * data.Count} $</td>
                         <td>${data.DealMethod}</td>
                         <td>${data.SentAddress}</td>
                         <td>
                             <button class="check hidden">同意取消</button>
                             <button class="nextstep hidden">確認商品</button>
+                            <button class="return2 hidden">歸還書籍</button>
                             <button class="cancel">取消交易</button>
                             <button class="reply">問題回報</button>
                         </td>
@@ -60,11 +61,26 @@ async function listinit() {
                             tr.querySelector('.cancel').classList.add('hidden');
                             break;
                         }
+                        case "未歸還": {
+                            tr.querySelector('.return2').classList.remove('hidden');
+                            break;
+                        }
+                        case "已歸還": {
+
+                            break;
+                        }
                     }
                     if (detail.SellerContent != null && detail.Customer_Agree != 1) {
                         tr.querySelector('.check').classList.remove('hidden');
                         tr.querySelector('.cancel').classList.add('hidden');
                     }
+                    tr.querySelector('.return2').addEventListener('click', async function () {
+                        var temp = {
+                            'State': '已歸還',
+                        }
+                        await UpdateDealRecord(nowid, temp);
+                        window.location.reload();
+                    })
                     tr.querySelector('.check').addEventListener('click', function () {
                         displaymodal2();
                     })
@@ -116,7 +132,7 @@ function createform() {
         div.querySelector('textarea').setAttribute('disabled', 'disabled');
         mark = reivew.CustomerScore;
         var array = div.querySelectorAll('.form .stargroup i');
-        for (i = 0; i <= mark; i++) {
+        for (i = 0; i < mark; i++) {
             array[i].style.color = '#ff5100';
         }
         for (j = mark; j < array.length; j++) {
@@ -144,7 +160,7 @@ async function sendreivew() {
 
     }
     if (count > 1 && text.length > 0) {
-        if (!reivew) {
+        if (reivew.hasOwnProperty('info')) {
             await PostReview(nowid, count, text);
         }
         else {
@@ -154,7 +170,7 @@ async function sendreivew() {
             }
             await PATCHReview(reivew.ReviewId, temp);
         }
-        if (detail.CustomerContent != null) {
+        if (reivew.SellerReview != null) {
             var temp = {
                 'State': '完成交易'
             }
@@ -501,7 +517,19 @@ function senddata4() {
 
     btn.addEventListener('click', async function () {
         var temp = {
-            'State': '待評價'
+            'State': '未歸還',
+        }
+        await UpdateDealRecord(nowid, temp);
+
+    })
+}
+
+function senddata5() {
+    let btn = document.getElementById('submit_d');
+
+    btn.addEventListener('click', async function () {
+        var temp = {
+            'State': '已歸還',
         }
         await UpdateDealRecord(nowid, temp);
         window.location.reload();

@@ -10,6 +10,7 @@ async function listinit() {
     await GetDealRecord('s_1').then(r => data = r);
 
     if (data && data.hasOwnProperty('data')) {
+        console.log(data.data);
         list = getbuy(data.data);
         tempcount = list.length;
         console.log(list);
@@ -19,7 +20,7 @@ async function listinit() {
 function getbuy(data) {
     var temp = [];
     for (i = 0; i < data.length; i++) {
-        if (data.Type == 'Rent') {
+        if (data[i].DealType == 'Rent') {
             temp.push(data[i]);
         }
     }
@@ -51,10 +52,7 @@ async function loadtransation() {
             let div = document.createElement('a');
             div.href = "transaction_detail.html?id=" + list[i].RecordId;
             div.innerHTML = `
-            <div class="table_content table_column_parent">
-                <div class="table_column">
-                    ${list[i].RecordId}
-                </div> 
+            <div class="table_content table_column_parent">               
                 <div class="table_column_2">
                 ${list[i].Name}
                 </div> 
@@ -62,7 +60,10 @@ async function loadtransation() {
                 ${list[i].Count * list[i].RentPrice}$
                 </div>
                  <div class="table_column">
-                ${list[i].CreatedAt}
+                ${(list[i].StartTime == null) ? '收到商品後計算' : list[i].StartTime}
+                </div> 
+                <div class="table_column">
+                ${(list[i].EndTime == null) ? '收到商品後計算' : list[i].StartTime}
                 </div> 
                 <div class="table_column">
                 ${list[i].CreatedAt}
