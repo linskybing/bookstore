@@ -1,7 +1,10 @@
 if (getCookie('Image') != 'null' && getCookie('Image')) {
    document.querySelector('.membericon .icon img').src = "http://localhost:8080/images/Members/" + getCookie('Image');
-}
 
+}
+if (getCookie('Name')) {
+   document.querySelector('#name span').innerHTML = getCookie('Name');
+}
 let buyer = document.getElementById('buyer_m')
 buyer.addEventListener('click', function () {
    var ns = buyer.nextElementSibling;
