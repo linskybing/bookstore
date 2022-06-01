@@ -83,7 +83,7 @@ async function loadcontent(id) {
         img.querySelector('img').src = "http://localhost:8080/images/Members/" + getCookie('Image');
         img.classList.remove('hidden');
     }
-    name.innerHTML = getCookie('Name');
+    name.innerHTML = getCookie('Name') + " (使用者)";
     date.innerHTML = problem[index].CreatedAt;
     content.innerHTML = problem[index].Content;
 
@@ -119,7 +119,7 @@ async function loadcontent(id) {
                     let name2 = mail.querySelector('.name');
                     mail.querySelector('img').src = "http://localhost:8080/images/Members/" + getCookie('Image');
                     img.classList.remove('hidden');
-                    name2.innerHTML = getCookie('Name');
+                    name2.innerHTML = getCookie('Name') + " (使用者)";
                 }
             }
             else {
