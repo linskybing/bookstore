@@ -462,7 +462,6 @@ function senddata() {
                 document.querySelector('.modal').classList.toggle('hidden');
             }, 5000);
             window.location.reload();
-
         }
         else {
             document.querySelector('.modal .formerror').innerHTML = '請說明原因';

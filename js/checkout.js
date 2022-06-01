@@ -35,11 +35,11 @@ function loadcart() {
             ${cartlist[i].Name}
             </span>
             <span>${cartlist[i].Count}${(cartlist[i].Type == 'Buy') ? "(本)" : "(天)"}</span>
-            <span>$${cartlist[i].priceper * cartlist[i].Count}</span>
+            <span>$${priceper * cartlist[i].Count}</span>
             `;
-            total += cartlist[i].priceper * cartlist[i].Count;
+            total += priceper * cartlist[i].Count;
             ul.appendChild(li);
-        }        
+        }
         let li = document.createElement('li');
         li.classList.add('order_info');
         li.innerHTML = `

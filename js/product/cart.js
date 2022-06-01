@@ -58,7 +58,7 @@ function loadcart() {
             `;
             total += priceper * cartlist[i].Count;
             let a = tr.querySelector('.count input');
-            let Inventory = cartlist[i].Inventory;
+            let Inventory = cartlist[i].Inventory + 1;
             let subtotale = document.createElement('div');            
             let id = i;
             subtotale.classList.add('subtotal');

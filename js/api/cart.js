@@ -15,6 +15,23 @@ function GetUserCart() {
         })
 }
 
+function RegisterCart() {
+    var token = getCookie('token');
+    return fetch(apidomain + '/cart', {
+        method: 'GET',
+        headers: {
+            'Authorization': token,
+        }
+    })
+        .then(res => res.json())
+        .then(res => {
+            return res;
+        })
+        .catch(e => {
+            console.error('Error:', error)
+        })
+}
+
 
 function UpdateCart(id, data) {
     const token = getCookie('token')

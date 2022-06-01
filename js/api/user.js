@@ -80,7 +80,7 @@ function CheckAccount(account) {
         })
 }
 
-function Login(Account, Password) {
+function Login(Account, Password) {    
     var data = new FormData();
     data.append('Account', Account)
     data.append('Password', Password)
