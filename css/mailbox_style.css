@@ -80,7 +80,7 @@ body>section>.title {
     z-index: 5;
 }
 
-.icon div {
+.membericon .icon div {
     position: absolute;
     top: -40px;
     left: 95px;

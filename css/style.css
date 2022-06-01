@@ -6,7 +6,11 @@
     padding: 0;
     box-sizing: border-box;
     text-decoration: none;
-    font-family: 'Poppins', '微軟正黑體', sans-serif;    
+    font-family: 'Poppins', '微軟正黑體', sans-serif;
+}
+
+body {
+    overflow-x: hidden;
 }
 
 .option {
@@ -41,7 +45,7 @@
 
 .chatitem {
     position: fixed;
-    width: 100vh;   
+    width: 100vh;
     z-index: 4;
 }
 
@@ -202,7 +206,7 @@
 
 :is(.users-list, .chat-box)::-webkit-scrollbar-thumb {
     border-radius: 20px;
-    background: #e2e2e2;   
+    background: #e2e2e2;
 }
 
 .users-list a {

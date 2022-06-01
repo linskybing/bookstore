@@ -17,6 +17,25 @@ function GetUserProblem(state) {
         })
 }
 
+function GetProblemReply(id) {
+    var token = getCookie('token');
+    return fetch(apidomain + '/problemreply/' + id, {
+        method: 'GET',
+        headers: {
+            'Authorization': token,
+        }
+    })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res);
+            return res;
+        })
+        .catch(e => {
+            console.error('Error:', error)
+        })
+}
+
+
 function GetAdminProblem(state) {
     var token = getCookie('token');
     return fetch(apidomain + '/problemlista/' + state, {
@@ -59,6 +78,28 @@ function PostProblem(Title, content) {
     data.append('Title', Title);
     data.append('Content', content);
     return fetch(apidomain + '/problemlist', {
+        method: 'POST',
+        headers: {
+            'Authorization': token,
+        },
+        body: data,
+    })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res);
+            return res;
+        })
+        .catch(e => {
+            console.error('Error:', error)
+        })
+}
+
+function PostReply(id, content) {
+    const token = getCookie('token');
+    var data = new FormData();
+    data.append('ProblemId', id);
+    data.append('Reply', content);
+    return fetch(apidomain + '/problemreply', {
         method: 'POST',
         headers: {
             'Authorization': token,

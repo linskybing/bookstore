@@ -1,8 +1,11 @@
+body {
+    overflow-x: hidden;
+}
 body>section {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 90px;
+    margin-top: 70px;    
 }
 
 a {

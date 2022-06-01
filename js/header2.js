@@ -35,8 +35,7 @@ if (token != "") {
     <li><a href="#">關於我們</a></li>
     </ul>
     <ul>    
-    <li><a href="../cart_2.html">購物車</a></li>
-    <li><a href="../report.html">問題回報</a></li>
+    <li><a href="../cart_2.html">購物車</a></li>    
     <li><a href="../profile.html">${timestring}，${Name}</a></li>
     <li id="logout"><a href="#">登出</a></li>
     </ul>
