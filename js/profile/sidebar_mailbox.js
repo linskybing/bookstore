@@ -1,4 +1,4 @@
-let leftsidebar = document.querySelector(".left-sidebar");
+let leftsidebar = document.querySelector(".left-sidebar ul");
 var money;
 var balance;
 //modal
@@ -39,40 +39,16 @@ async function inithead() {
     money = data.Code1;
     balance = data.Code2;
     if (balance != 1) {
-      leftsidebar.innerHTML = `
-        
-                      <ul>
-                          <li id="member_m">
-                              會員管理
-                          </li>
-                          <li id="buyer_m">
-                              買家管理
-                              <div class="arrow"><i class="fa-solid fa-angle-right"></i></div>
-                          </li>
-                          <li class="list-item close">
-                              <div class="div_2">
-                                  <ul>
-                                      <li>
-                                          <a href="transaction_rent.html">租借紀錄</a>
-                                      </li>
-                                      <li>
-                                          <a href="../transaction_history.html">交易紀錄</a>
-                                      </li>                               
-                                  </ul>
-                              </div>
-                          </li>
-                          <li id="balance">
-                              賣家刊登費                        
-                          </li>                  
-                          <li class="problem_reply active">
-                              <a href="mailbox.html">問題回報</a>
-                          </li>
-                      </ul>
-      
-        `;
-      document.getElementById("balance").addEventListener("click", function () {
+      var buyer2 = document.getElementById("seller_m");
+      buyer2.remove();
+      let li = document.createElement("li");
+      li.id = balance;
+      li.innerHTML = "賣家刊登費";
+
+      li.addEventListener("click", function () {
         displaypaymodal();
       });
+      leftsidebar.appendChild(li);
     }
   }
 }
@@ -159,8 +135,8 @@ function displaypaymodal() {
              </div>
          </div>
     `;
-  console.log(userdata.Address);
-  modal_content = document.querySelector(".modal-content");
+  
+  modal_content = document.querySelector(".modal-content-2");
   closemodal();
   pay();
   modal_content_event();

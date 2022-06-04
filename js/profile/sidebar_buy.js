@@ -135,8 +135,7 @@ function displaypaymodal() {
              </div>
          </div>
     `;
-
-    modal_content = document.querySelector(".modal-content-2");
+  modal_content = document.querySelector(".modal-content-2");
   closemodal();
   pay();
   modal_content_event();
