@@ -1,30 +1,26 @@
-let header = document.querySelector('header');
+let header = document.querySelector("header");
 
-let div = document.createElement('div');
+let div = document.createElement("div");
 
-const token = getCookie('token');
-const Name = getCookie('Name');
+const token = getCookie("token");
+const Name = getCookie("Name");
 var timestring;
 var today = new Date();
 
 if (today.getHours() < 11) {
-    timestring = "早安";
-}
-else if (today.getHours() < 13) {
-    timestring = "午安";
-}
-else if (today.getHours() < 18) {
-    timestring = "下午好";
-}
-else {
-    timestring = "晚安";
+  timestring = "早安";
+} else if (today.getHours() < 13) {
+  timestring = "午安";
+} else if (today.getHours() < 18) {
+  timestring = "下午好";
+} else {
+  timestring = "晚安";
 }
 
-
-div.classList.add('nav');
+div.classList.add("nav");
 
 if (token != "") {
-    div.innerHTML = `
+  div.innerHTML = `
     <ul>
     <li class="logo"><a href="index.html"><img src="../image/logo.png"></a></li>
     <li><a href="index.html">首頁</a></li>
@@ -40,12 +36,11 @@ if (token != "") {
     <li id="logout"><a href="#">登出</a></li>
     </ul>
     `;
-    ChatroomForUser();
-    CreateChatroomE();
-    BindWrapperEvent();
-}
-else {
-    div.innerHTML = `
+  ChatroomForUser();
+  CreateChatroomE();
+  BindWrapperEvent();
+} else {
+  div.innerHTML = `
     <ul>
     <li class="logo"><a href="index.html"><img src="../image/logo.png"></a></li>
     <li><a href="index.html">首頁</a></li>
@@ -62,13 +57,13 @@ else {
     `;
 }
 
-
 header.appendChild(div);
 
 if (token != "") {
-    let logoutbtn = document.getElementById('logout').addEventListener('click', function () {
-        Logout();
-    })
+  let logoutbtn = document
+    .getElementById("logout")
+    .addEventListener("click", function () {
+      Logout();
+    });
 }
-
 

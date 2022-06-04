@@ -380,7 +380,7 @@ a {
 
 .modal-content {
     position: absolute;
-    top: 30%;
+    top: 10%;
     display: flex;
     flex-direction: column;
     width: 45%;

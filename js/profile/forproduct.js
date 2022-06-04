@@ -1,70 +1,67 @@
-
 var prodcutonlist;
 var onIndex = 0;
 var nowIndex = 0;
-var nowType = 'on';
-var tempdata = {}
+var nowType = "on";
+var tempdata = {};
 
+let modal = document.querySelector(".modal");
 
-let modal = document.querySelector('.modal');
-
-
-modal.addEventListener('click', function (e) {
-    let element = e.target;
-    if (element == modal) {
-        document.body.classList.toggle('bodyhidden');
-        modal.classList.toggle('hidden');
-    }
-})
+modal.addEventListener("click", function (e) {
+  let element = e.target;
+  if (element == modal) {
+    document.body.classList.toggle("bodyhidden");
+    modal.classList.toggle("hidden");
+  }
+});
 
 //綁定insert按鈕
 function insertbtn() {
-    var insert = document.querySelector('.table_action .insert');
-    insert.addEventListener('click', function () {
-        document.body.classList.toggle('bodyhidden');
-        modal.classList.toggle('hidden');
-        displaymodal();
-    })
+  var insert = document.querySelector(".table_action .insert");
+  insert.addEventListener("click", function () {
+    document.body.classList.toggle("bodyhidden");
+    modal.classList.toggle("hidden");
+    displaymodal();
+  });
 }
 
 //綁定check事件
 function checkall() {
-    let checkbox_all = document.querySelector('.checkbox_head input');
-    checkbox_all.addEventListener('click', function () {
-        checkboxes = document.getElementsByName('product');
+  let checkbox_all = document.querySelector(".checkbox_head input");
+  checkbox_all.addEventListener("click", function () {
+    checkboxes = document.getElementsByName("product");
 
-        checkboxes.forEach(element => {
-            element.checked = checkbox_all.checked;
-        });
+    checkboxes.forEach((element) => {
+      element.checked = checkbox_all.checked;
     });
+  });
 }
 
 //綁定delete按鈕
 function binddelete() {
-    var h_delete = document.querySelector('.table_action .delete');
-    h_delete.addEventListener('click', async function () {
-        checkboxes = document.getElementsByName('product');
+  var h_delete = document.querySelector(".table_action .delete");
+  h_delete.addEventListener("click", async function () {
+    checkboxes = document.getElementsByName("product");
 
-        checkboxes.forEach(element => {
-            if (element.checked) {
-                var re;
-                var dataobj = {
-                    'State': 'off'
-                }
-                re = turnoff(dataobj, element.value);
-                console.log(re);
-            }
-        });
-    })
+    checkboxes.forEach((element) => {
+      if (element.checked) {
+        var re;
+        var dataobj = {
+          State: "off",
+        };
+        re = turnoff(dataobj, element.value);
+        console.log(re);
+      }
+    });
+  });
 }
 //message modal
 
 function displaymessage(id, type) {
-    var data;
-    data = GetDataArray(type);
-    nowIndex = id;
-    nowType = type;
-    modal.innerHTML = `
+  var data;
+  data = GetDataArray(type);
+  nowIndex = id;
+  nowType = type;
+  modal.innerHTML = `
     <div class="modal-content-2" style="width: 20%!important;min-width: 400px;">
     <div class="header">
         <div class="close">
@@ -87,59 +84,45 @@ function displaymessage(id, type) {
     </div>
     </div>
     `;
-    closemodal();
-    modal_content_event('.modal .modal-content-2');
-    document.querySelector('.modal .action .delete').addEventListener('click', async function () {
-        var re;
-        await DeleteProduct(data[nowIndex].ProductId).then(r => re = r);
-        if (re.hasOwnProperty('error')) {
-            document.querySelector('.modal .message').innerHTML = ` 
-            <div class="modal-content-2" style="width: 20%!important;min-width: 400px;">
-                <div class="header">
-                    <div class="close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </div>
-                    <div class="message">
+  closemodal();
+  modal_content_event(".modal .modal-content-2");
+  document
+    .querySelector(".modal .action .delete")
+    .addEventListener("click", async function () {
+      var re;
+      await DeleteProduct(data[nowIndex].ProductId).then((r) => (re = r));
+      if (re.hasOwnProperty("error")) {
+        document.querySelector(".modal .message").innerHTML = ` 
+           
+                 
                         <div class="icon">
                             <i class="fa-solid fa-circle-exclamation"></i>
                         </div>
                         <div class="text">
                             ${re.error}
-                        </div>                     
-                    </div>
-                </div>
-            </div>`;
-        }
-        else {
-            document.querySelector('.modal .message').innerHTML = `
-            <div class="modal-content-2" style="width: 20%!important;min-width: 400px;">
-                <div class="header">
-                    <div class="close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </div>
-                    <div class="message">
+          `;
+      } else {
+        document.querySelector(".modal .message").innerHTML = `
+            
                         <div class="icon" style="color:green;">
                             <i class="fa-solid fa-circle-check"></i>
                         </div>
                         <div class="text">
                             ${re.info}
                         </div>                     
-                    </div>
-                </div>
-            </div>
+          
             `;
-            GetOnProduct('null');
-            setTimeout(() => {
-                document.querySelector('.modal').classList.toggle('hidden');
-            }, 3000);
-
-        }
+        GetOnProduct("null");
+        setTimeout(() => {
+          document.querySelector(".modal").classList.toggle("hidden");
+        }, 3000);
+      }
     });
 }
 //顯示modal內容
-let modal_content = document.querySelector('.modal-content-2')
+let modal_content = document.querySelector(".modal-content-2");
 function displaymodal() {
-    modal.innerHTML = `
+  modal.innerHTML = `
     <div class="modal-content-2">
         <div class="header">
             <div class="close">
@@ -182,81 +165,76 @@ function displaymodal() {
         </div>
     </div>
     `;
-    let btn = document.querySelector('.modal .submit');
-    btn.addEventListener('click', async function () {
-        let Name = document.querySelector('#editname').value;
-        let Price = document.querySelector('#editprice').value;
-        let Inventory = document.querySelector('#store').value;
-        let Description = document.querySelector('#description').value;
-        tempdata = Object.assign(tempdata, { 'Name': Name });
-        tempdata = Object.assign(tempdata, { 'Price': Price });
-        tempdata = Object.assign(tempdata, { 'Inventory': Inventory });
-        tempdata = Object.assign(tempdata, { 'Description': Description });
-        if (validate(tempdata)) {
-            if (!checkRate(parseInt(tempdata.Price)) || !checkRate(parseInt(tempdata.Inventory))) {
-                numbererror()
-            }
-            else {
-                var data;
-                data = GetDataArray(nowType);
-                document.querySelector('.formerror').classList.remove('erroractive');
-                document.querySelector('.formerror').innerHTML = '';
-                var re;
-                await InsertProduct(tempdata).then(r => re = r);
-                if (re.hasOwnProperty('error')) {
-                    document.querySelector('.formerror').classList.add('erroractive');
-                    document.querySelector('.formerror').innerHTML = re.error;
-                }
-                else {
-                    document.querySelector('.formerror').classList.add('succece');
-                    document.querySelector('.formerror').innerHTML = re.info;
-                    GetOnProduct('null');
-                    setTimeout(() => {
-                        document.querySelector('.formerror').classList.remove('succece');
-                    }, 3000);
-                }
-            }
-
+  let btn = document.querySelector(".modal .submit");
+  btn.addEventListener("click", async function () {
+    let Name = document.querySelector("#editname").value;
+    let Price = document.querySelector("#editprice").value;
+    let Inventory = document.querySelector("#store").value;
+    let Description = document.querySelector("#description").value;
+    tempdata = Object.assign(tempdata, { Name: Name });
+    tempdata = Object.assign(tempdata, { Price: Price });
+    tempdata = Object.assign(tempdata, { Inventory: Inventory });
+    tempdata = Object.assign(tempdata, { Description: Description });
+    if (validate(tempdata)) {
+      if (
+        !checkRate(parseInt(tempdata.Price)) ||
+        !checkRate(parseInt(tempdata.Inventory))
+      ) {
+        numbererror();
+      } else {
+        var data;
+        data = GetDataArray(nowType);
+        document.querySelector(".formerror").classList.remove("erroractive");
+        document.querySelector(".formerror").innerHTML = "";
+        var re;
+        await InsertProduct(tempdata).then((r) => (re = r));
+        if (re.hasOwnProperty("error")) {
+          document.querySelector(".formerror").classList.add("erroractive");
+          document.querySelector(".formerror").innerHTML = re.error;
+        } else {
+          document.querySelector(".formerror").classList.add("succece");
+          document.querySelector(".formerror").innerHTML = re.info;
+          GetOnProduct("null");
+          setTimeout(() => {
+            document.querySelector(".formerror").classList.remove("succece");
+          }, 3000);
         }
-        else {
-            document.querySelector('.formerror').classList.add('erroractive');
-            document.querySelector('.formerror').innerHTML = '必填資料不可為空';
-        }
-
-    })
-    closemodal();
-    modal_content_event('.modal .modal-content-2');
+      }
+    } else {
+      document.querySelector(".formerror").classList.add("erroractive");
+      document.querySelector(".formerror").innerHTML = "必填資料不可為空";
+    }
+  });
+  closemodal();
+  modal_content_event(".modal .modal-content-2");
 }
 //取得資料陣列
 function GetDataArray(type) {
-    var data;
-    if (type == 'on') {
-        data = prodcutonlist;
-    }
-    else if (type == 'off') {
-        data = prodcutofflist;
-    }
-    else {
-        data = replenishment;
-    }
-    return data;
+  var data;
+  if (type == "on") {
+    data = prodcutonlist;
+  } else if (type == "off") {
+    data = prodcutofflist;
+  } else {
+    data = replenishment;
+  }
+  return data;
 }
 
 function deletemodal(id, type) {
-    var data;
-    data = GetDataArray(type);
-    nowIndex = id;
-    nowType = type;
-
+  var data;
+  data = GetDataArray(type);
+  nowIndex = id;
+  nowType = type;
 }
 
 //修改資訊modal
 function editmodal(id, type) {
-    var data;
-    data = GetDataArray(type);
-    nowIndex = id;
-    nowType = type;
-    modal.innerHTML = `
+  var data;
+  data = GetDataArray(type);
+  nowIndex = id;
+  nowType = type;
+  modal.innerHTML = `
     <div class="modal-content-2">
         <div class="header">
             <div class="close">
@@ -312,315 +290,317 @@ function editmodal(id, type) {
     </div>
     `;
 
-    closemodal();
-    modal_content_event('.modal .modal-content-2');
-    modal_rent_info();
-    modal_image_info();
-    modal_category_info();
-    sendeditdata();
+  closemodal();
+  modal_content_event(".modal .modal-content-2");
+  modal_rent_info();
+  modal_image_info();
+  modal_category_info();
+  sendeditdata();
 }
 
 //送出修改資料
 function sendeditdata() {
-    let btn = document.querySelector('#submit_p');
-    btn.addEventListener('click', async function () {
-        var data;
-        data = GetDataArray(nowType);
-        let Name = document.querySelector('#editname').value;
-        let Price = document.querySelector('#editprice').value;
-        let Inventory = document.querySelector('#store').value;
-        let Description = document.querySelector('#description').value;
-        tempdata = Object.assign(tempdata, { 'Name': Name });
-        tempdata = Object.assign(tempdata, { 'Price': Price });
-        tempdata = Object.assign(tempdata, { 'Inventory': Inventory });
-        tempdata = Object.assign(tempdata, { 'Description': Description });
-        if (!checkRate(parseInt(tempdata.Price)) || !checkRate(parseInt(tempdata.Inventory))) {
-            numbererror()
-        }
-        else if (validate(tempdata)) {
-            UpdateInfo(tempdata);
-        }
-        else {
-            document.querySelector('.formerror').classList.add('erroractive');
-            document.querySelector('.formerror').innerHTML = '必填資料不可為空';
-        }
-
-    })
-    document.getElementById('submit_r').addEventListener('click', async function () {
-        let isrent = document.getElementById('rentbox');
-        if (isrent.checked) {
-            let maxrent = document.querySelector('#editrent').value;
-            let rentpriceedit = document.querySelector('#rentprice').value;
-            tempdata = Object.assign(tempdata, { 'Rent': 1 });
-            tempdata = Object.assign(tempdata, { 'MaxRent': maxrent });
-            tempdata = Object.assign(tempdata, { 'RentPrice': rentpriceedit });
-            if (!checkRate(maxrent) || !checkRate(rentpriceedit)) {
-                document.querySelector('.formerror').classList.add('erroractive');
-                document.querySelector('.formerror').innerHTML = '數量欄位必須為正整數且大於0';
-            }
-            else {
-                UpdateInfo(tempdata);
-            }
+  let btn = document.querySelector("#submit_p");
+  btn.addEventListener("click", async function () {
+    var data;
+    data = GetDataArray(nowType);
+    let Name = document.querySelector("#editname").value;
+    let Price = document.querySelector("#editprice").value;
+    let Inventory = document.querySelector("#store").value;
+    let Description = document.querySelector("#description").value;
+    tempdata = Object.assign(tempdata, { Name: Name });
+    tempdata = Object.assign(tempdata, { Price: Price });
+    tempdata = Object.assign(tempdata, { Inventory: Inventory });
+    tempdata = Object.assign(tempdata, { Description: Description });
+    if (
+      !checkRate(parseInt(tempdata.Price)) ||
+      !checkRate(parseInt(tempdata.Inventory))
+    ) {
+      numbererror();
+    } else if (validate(tempdata)) {
+      UpdateInfo(tempdata);
+    } else {
+      document.querySelector(".formerror").classList.add("erroractive");
+      document.querySelector(".formerror").innerHTML = "必填資料不可為空";
+    }
+  });
+  document
+    .getElementById("submit_r")
+    .addEventListener("click", async function () {
+      let isrent = document.getElementById("rentbox");
+      if (isrent.checked) {
+        let maxrent = document.querySelector("#editrent").value;
+        let rentpriceedit = document.querySelector("#rentprice").value;
+        tempdata = Object.assign(tempdata, { Rent: 1 });
+        tempdata = Object.assign(tempdata, { MaxRent: maxrent });
+        tempdata = Object.assign(tempdata, { RentPrice: rentpriceedit });
+        if (!checkRate(maxrent) || !checkRate(rentpriceedit)) {
+          document.querySelector(".formerror").classList.add("erroractive");
+          document.querySelector(".formerror").innerHTML =
+            "數量欄位必須為正整數且大於0";
         } else {
-            let maxrent = document.querySelector('#editrent').value;
-            let rentpriceedit = document.querySelector('#rentprice').value;
-            tempdata = Object.assign(tempdata, { 'Rent': 0 });
-            tempdata = Object.assign(tempdata, { 'MaxRent': 0 });
-            tempdata = Object.assign(tempdata, { 'RentPrice': 0 });
-            UpdateInfo(tempdata);
-
-        };
-    })
-    document.getElementById('submit_i').addEventListener('click', async function () {
-        var re;
-        var data;
-        data = GetDataArray(nowType);
-        await Uploadpimg(data[nowIndex].ProductId).then(r => re = r);
-
-        if (re.hasOwnProperty('error')) {
-            document.querySelector('.formerror').classList.add('erroractive');
-            document.querySelector('.formerror').innerHTML = re.error;
+          UpdateInfo(tempdata);
         }
-        else {
-            document.querySelector('.formerror').classList.add('succece');
-            document.querySelector('.formerror').innerHTML = re.info;
-            GetOnProduct('null');
-            setTimeout(() => {
-                document.querySelector('.formerror').classList.remove('succece');
-            }, 3000);
+      } else {
+        let maxrent = document.querySelector("#editrent").value;
+        let rentpriceedit = document.querySelector("#rentprice").value;
+        tempdata = Object.assign(tempdata, { Rent: 0 });
+        tempdata = Object.assign(tempdata, { MaxRent: 0 });
+        tempdata = Object.assign(tempdata, { RentPrice: 0 });
+        UpdateInfo(tempdata);
+      }
+    });
+  document
+    .getElementById("submit_i")
+    .addEventListener("click", async function () {
+      var re;
+      var data;
+      data = GetDataArray(nowType);
+      await Uploadpimg(data[nowIndex].ProductId).then((r) => (re = r));
+
+      if (re.hasOwnProperty("error")) {
+        document.querySelector(".formerror").classList.add("erroractive");
+        document.querySelector(".formerror").innerHTML = re.error;
+      } else {
+        document.querySelector(".formerror").classList.add("succece");
+        document.querySelector(".formerror").innerHTML = re.info;
+        GetOnProduct("null");
+        setTimeout(() => {
+          document.querySelector(".formerror").classList.remove("succece");
+        }, 3000);
+      }
+    });
+  document
+    .getElementById("submit_c")
+    .addEventListener("click", async function () {
+      var re;
+      var data;
+      data = GetDataArray(nowType);
+      trundatatoid();
+
+      for (i = 0; i < tmp.length; i++) {
+        await PostTag(data[nowIndex].ProductId, tmp[i]).then((r) => (re = r));
+        if (re && re.hasOwnProperty("Id")) {
+          delete re.ProductId;
+          if (prodcutonlist[nowIndex].Category) {
+            prodcutonlist[nowIndex].Category.push(re);
+          } else {
+            prodcutonlist[nowIndex].Category = re;
+          }
         }
-    })
-    document.getElementById('submit_c').addEventListener('click', async function () {
-        var re;
-        var data;
-        data = GetDataArray(nowType);
-        trundatatoid();
+      }
+      for (i = 0; i < delarray.length; i++) {
+        await DeleteTag(delarray[i]).then((r) => (re = r));
 
-        for (i = 0; i < tmp.length; i++) {
-            await PostTag(data[nowIndex].ProductId, tmp[i]).then(r => re = r);
-            if (re && re.hasOwnProperty('Id')) {
-                delete re.ProductId;
-                if (prodcutonlist[nowIndex].Category) {
-                    prodcutonlist[nowIndex].Category.push(re);
-                }
-                else {
-                    prodcutonlist[nowIndex].Category = re;
-                }
-
+        Object.entries(prodcutonlist[nowIndex].Category).forEach(
+          (key, value) => {
+            if (prodcutonlist[nowIndex].Category[value].Id == delarray[i]) {
+              delete prodcutonlist[nowIndex].Category[value];
             }
+          }
+        );
+      }
+      tmp = [];
+      delarray = [];
+      GetOnProduct("null");
+      inittag();
+      if (re) {
+        if (re.hasOwnProperty("error")) {
+          document.querySelector(".formerror").classList.add("erroractive");
+          document.querySelector(".formerror").innerHTML = re.error;
+        } else {
+          document.querySelector(".formerror").classList.add("succece");
+          document.querySelector(".formerror").innerHTML = "資料修改成功";
+          setTimeout(() => {
+            document.querySelector(".formerror").classList.remove("succece");
+          }, 3000);
         }
-        for (i = 0; i < delarray.length; i++) {
-            await DeleteTag(delarray[i]).then(r => re = r);
-
-            Object.entries(prodcutonlist[nowIndex].Category).forEach((key, value) => {
-                if (prodcutonlist[nowIndex].Category[value].Id == delarray[i]) {
-                    delete prodcutonlist[nowIndex].Category[value];
-                }
-            })
-
-        }
-        tmp = [];
-        delarray = [];
-        GetOnProduct('null');
-        inittag();
-        if (re) {
-            if (re.hasOwnProperty('error')) {
-                document.querySelector('.formerror').classList.add('erroractive');
-                document.querySelector('.formerror').innerHTML = re.error;
-            }
-            else {
-                document.querySelector('.formerror').classList.add('succece');
-                document.querySelector('.formerror').innerHTML = '資料修改成功';
-                setTimeout(() => {
-                    document.querySelector('.formerror').classList.remove('succece');
-                }, 3000);
-
-            }
-        }
-
-    })
+      }
+    });
 }
 
 //上架for all
 async function turnoff(dataobj, value) {
-    var re;
-    await UpdateProductInfo(dataobj, value).then(r => re = r);
-    GetOnProduct('null');
-    return re;
+  var re;
+  await UpdateProductInfo(dataobj, value).then((r) => (re = r));
+  GetOnProduct("null");
+  return re;
 }
 //送出資訊for modal
 async function UpdateInfo(tempdata) {
-    var data;
-    data = GetDataArray(nowType);
-    document.querySelector('.formerror').classList.remove('erroractive');
-    document.querySelector('.formerror').innerHTML = '';
-    var re;
-    await UpdateProductInfo(tempdata, data[nowIndex].ProductId).then(r => re = r);
-    if (re.hasOwnProperty('error')) {
-        document.querySelector('.formerror').classList.add('erroractive');
-        document.querySelector('.formerror').innerHTML = re.error;
-    }
-    else {
-        document.querySelector('.formerror').classList.add('succece');
-        document.querySelector('.formerror').innerHTML = re.info;
-        GetOnProduct('null');
-        setTimeout(() => {
-            document.querySelector('.formerror').classList.remove('succece');
-        }, 3000);
-    }
+  var data;
+  data = GetDataArray(nowType);
+  document.querySelector(".formerror").classList.remove("erroractive");
+  document.querySelector(".formerror").innerHTML = "";
+  var re;
+  await UpdateProductInfo(tempdata, data[nowIndex].ProductId).then(
+    (r) => (re = r)
+  );
+  if (re.hasOwnProperty("error")) {
+    document.querySelector(".formerror").classList.add("erroractive");
+    document.querySelector(".formerror").innerHTML = re.error;
+  } else {
+    document.querySelector(".formerror").classList.add("succece");
+    document.querySelector(".formerror").innerHTML = re.info;
+    GetOnProduct("null");
+    setTimeout(() => {
+      document.querySelector(".formerror").classList.remove("succece");
+    }, 3000);
+  }
 }
 
 //數量級錯
 function numbererror() {
-    document.querySelector('.formerror').classList.add('erroractive');
-    document.querySelector('.formerror').innerHTML = '數量欄位必須為正整數且大於0';
+  document.querySelector(".formerror").classList.add("erroractive");
+  document.querySelector(".formerror").innerHTML =
+    "數量欄位必須為正整數且大於0";
 }
 
 //驗證資料是否為空
 function validate(data) {
-    var btn = true;
-    Object.entries(data).forEach(([key, value]) => {
-        if (value.length == 0) btn = false;
-    })
-    return btn;
+  var btn = true;
+  Object.entries(data).forEach(([key, value]) => {
+    if (value.length == 0) btn = false;
+  });
+  return btn;
 }
 
 //判斷正整數
 function checkRate(nubmer) {
-    if (/^[0-9]*[1-9][0-9]*$/.test(nubmer))
-        return true;
-    else
-        return false;
+  if (/^[0-9]*[1-9][0-9]*$/.test(nubmer)) return true;
+  else return false;
 }
 
 //關閉modal
 function closemodal() {
-    let close = document.querySelector('.modal .close');
-    close.addEventListener('click', function () {
-        document.body.classList.toggle('bodyhidden');
-        modal.classList.add('hidden');
-    });
+  let close = document.querySelector(".modal .close");
+  close.addEventListener("click", function () {
+    document.body.classList.toggle("bodyhidden");
+    modal.classList.add("hidden");
+  });
 
-    let cancel = document.querySelector('.modal .cancel');
-    cancel.addEventListener('click', function () {
-        document.body.classList.toggle('bodyhidden');
-        modal.classList.add('hidden');
-    });
+  let cancel = document.querySelector(".modal .cancel");
+  cancel.addEventListener("click", function () {
+    document.body.classList.toggle("bodyhidden");
+    modal.classList.add("hidden");
+  });
 }
 
 //modal事件
 function modal_content_event(type) {
-    let modal_content = document.querySelector(type);
-    modal_content.display = 'flex'
-    modal_content.classList.toggle('open');
+  let modal_content = document.querySelector(type);
+  modal_content.display = "flex";
+  modal_content.classList.toggle("open");
 }
 
 //點擊租借資訊
 function modal_rent_info() {
-    let rent = document.getElementById('rent');
-    rent.addEventListener('click', function () {
-        var data;
-        data = GetDataArray(nowType);
-        let now = document.querySelector('.now');
-        now.classList.remove('now');
-        now.classList.add('hidden');
-        let rentbtn = document.getElementById('submit_r')
-        rentbtn.classList.remove('hidden');
-        rentbtn.classList.add('now');
-        let content = document.querySelector('.modal .content');
-        content.innerHTML = `
+  let rent = document.getElementById("rent");
+  rent.addEventListener("click", function () {
+    var data;
+    data = GetDataArray(nowType);
+    let now = document.querySelector(".now");
+    now.classList.remove("now");
+    now.classList.add("hidden");
+    let rentbtn = document.getElementById("submit_r");
+    rentbtn.classList.remove("hidden");
+    rentbtn.classList.add("now");
+    let content = document.querySelector(".modal .content");
+    content.innerHTML = `
         <div class="formerror">                    
         </div>
         <div class="formgroup onoption">
         <label>租借功能　　</label>
         <input type="checkbox" id="rentbox" >
         <label class="toggle" for="rentbox">
-            <div class="radio ${(data[nowIndex].Rent == 0) ? "default" : "default-2"}"></div>
+            <div class="radio ${
+              data[nowIndex].Rent == 0 ? "default" : "default-2"
+            }"></div>
         </label>                   
         </div>
         <div class="formgroup">
             <label for="editrent">最大租借天數</label>
-            <input type="text" id="editrent" ${(data[nowIndex].Rent == 0) ? 'disabled="disabled"' : ''} value="${data[nowIndex].MaxRent}">
+            <input type="text" id="editrent" ${
+              data[nowIndex].Rent == 0 ? 'disabled="disabled"' : ""
+            } value="${data[nowIndex].MaxRent}">
         </div>
         <div class="formgroup">
             <label for="rentprice">租借價格(天)&nbsp;</label>
-            <input type="text" id="rentprice" ${(data[nowIndex].Rent == 0) ? 'disabled="disabled"' : ''} value="${data[nowIndex].RentPrice}">
+            <input type="text" id="rentprice" ${
+              data[nowIndex].Rent == 0 ? 'disabled="disabled"' : ""
+            } value="${data[nowIndex].RentPrice}">
         </div>
         `;
-        radio_event();
-        modal_product_info();
-        let rentbox = document.getElementById('rentbox');
-        rentbox.checked = (data[nowIndex].Rent != 0);
-    })
+    radio_event();
+    modal_product_info();
+    let rentbox = document.getElementById("rentbox");
+    rentbox.checked = data[nowIndex].Rent != 0;
+  });
 }
 
 //租借radio_event
 
 function radio_event() {
-    var btn = true;
-    let option = document.querySelector('.onoption .toggle');
-    let active = document.querySelector('.modal .active');
-    active.classList.remove('active');
-    let rent = document.querySelector('#rent');
-    rent.classList.add('active');
-    option.addEventListener('click', function () {
-        let radio = document.querySelector('.onoption .toggle .radio');
-        let rentbox = document.querySelector('#rentbox');
-        if (btn) {
-            btn = false;
-            if (!rentbox.checked) {
-                radio.classList.remove('default');
-                radio.classList.add('toggle-check');
-                let modalinput = document.querySelectorAll('.modal input[type=text]');
-                modalinput.forEach(e => {
-                    e.removeAttribute('disabled');
-                })
-                return false;
-            }
-            else {
-                radio.classList.remove('default-2');
-                radio.classList.add('toggle-uncheck');
-                let modalinput = document.querySelectorAll('.modal input[type=text]');
-                modalinput.forEach(e => {
-                    e.setAttribute('disabled', 'disabled');
-                })
-                return false;
-            }
-
-        }
-        if (rentbox.checked) {
-            let modalinput = document.querySelectorAll('.modal input[type=text]');
-            modalinput.forEach(e => {
-                e.setAttribute('disabled', 'disabled');
-            })
-        }
-        else {
-            let modalinput = document.querySelectorAll('.modal input[type=text]');
-            modalinput.forEach(e => {
-                e.removeAttribute('disabled');
-            })
-        }
-        radio.classList.toggle('toggle-uncheck');
-        radio.classList.toggle('toggle-check');
-
-    });
+  var btn = true;
+  let option = document.querySelector(".onoption .toggle");
+  let active = document.querySelector(".modal .active");
+  active.classList.remove("active");
+  let rent = document.querySelector("#rent");
+  rent.classList.add("active");
+  option.addEventListener("click", function () {
+    let radio = document.querySelector(".onoption .toggle .radio");
+    let rentbox = document.querySelector("#rentbox");
+    if (btn) {
+      btn = false;
+      if (!rentbox.checked) {
+        radio.classList.remove("default");
+        radio.classList.add("toggle-check");
+        let modalinput = document.querySelectorAll(".modal input[type=text]");
+        modalinput.forEach((e) => {
+          e.removeAttribute("disabled");
+        });
+        return false;
+      } else {
+        radio.classList.remove("default-2");
+        radio.classList.add("toggle-uncheck");
+        let modalinput = document.querySelectorAll(".modal input[type=text]");
+        modalinput.forEach((e) => {
+          e.setAttribute("disabled", "disabled");
+        });
+        return false;
+      }
+    }
+    if (rentbox.checked) {
+      let modalinput = document.querySelectorAll(".modal input[type=text]");
+      modalinput.forEach((e) => {
+        e.setAttribute("disabled", "disabled");
+      });
+    } else {
+      let modalinput = document.querySelectorAll(".modal input[type=text]");
+      modalinput.forEach((e) => {
+        e.removeAttribute("disabled");
+      });
+    }
+    radio.classList.toggle("toggle-uncheck");
+    radio.classList.toggle("toggle-check");
+  });
 }
 
 //點擊商品資訊
 
 function modal_product_info() {
-    let product = document.getElementById('product');
-    product.addEventListener('click', function () {
-        var data;
-        data = GetDataArray(nowType);
-        let now = document.querySelector('.now');
-        now.classList.remove('now');
-        now.classList.add('hidden');
-        let btn = document.getElementById('submit_p')
-        btn.classList.remove('hidden');
-        btn.classList.add('now');
-        let content = document.querySelector('.modal .content');
-        content.innerHTML = `
+  let product = document.getElementById("product");
+  product.addEventListener("click", function () {
+    var data;
+    data = GetDataArray(nowType);
+    let now = document.querySelector(".now");
+    now.classList.remove("now");
+    now.classList.add("hidden");
+    let btn = document.getElementById("submit_p");
+    btn.classList.remove("hidden");
+    btn.classList.add("now");
+    let content = document.querySelector(".modal .content");
+    content.innerHTML = `
             <div class="formerror">                    
             </div>
             <div class="formgroup">
@@ -640,33 +620,33 @@ function modal_product_info() {
                 <textarea id="description">${data[nowIndex].Description}</textarea>
             </div> 
         `;
-        modal_product_event();
-    })
+    modal_product_event();
+  });
 }
 
 //商品資訊所需事件
 function modal_product_event() {
-    let active = document.querySelector('.modal .active');
-    active.classList.remove('active');
-    let product = document.querySelector('#product');
-    product.classList.add('active');
+  let active = document.querySelector(".modal .active");
+  active.classList.remove("active");
+  let product = document.querySelector("#product");
+  product.classList.add("active");
 }
 
 //點擊商品圖片
 function modal_image_info() {
-    let photo = document.getElementById('photo');
-    photo.addEventListener('click', function () {
-        var data;
-        data = GetDataArray(nowType);
-        let now = document.querySelector('.now');
-        now.classList.remove('now');
-        now.classList.add('hidden');
-        let btn = document.getElementById('submit_i')
-        btn.classList.remove('hidden');
-        btn.classList.add('now');
-        imgcount = 0;
-        let content = document.querySelector('.modal .content');
-        content.innerHTML = `
+  let photo = document.getElementById("photo");
+  photo.addEventListener("click", function () {
+    var data;
+    data = GetDataArray(nowType);
+    let now = document.querySelector(".now");
+    now.classList.remove("now");
+    now.classList.add("hidden");
+    let btn = document.getElementById("submit_i");
+    btn.classList.remove("hidden");
+    btn.classList.add("now");
+    imgcount = 0;
+    let content = document.querySelector(".modal .content");
+    content.innerHTML = `
             <div class="formerror">                    
             </div>
             <div class="formgroup">
@@ -675,89 +655,89 @@ function modal_image_info() {
             <div class="formgroup type-fill">                
             </div>
         `;
-        loadallimage();
-        createfileitem();
-        modal_image_event();
-    })
+    loadallimage();
+    createfileitem();
+    modal_image_event();
+  });
 }
 //載入商品圖片
 function loadallimage() {
-    var data;
-    data = GetDataArray(nowType);
-    if (data[nowIndex].Image != null) {
-        var image = data[nowIndex].Image;
-        image.forEach(e => {
-            let div = document.createElement('div');
-            div.classList.add('img-item-2');
-            div.innerHTML = `
+  var data;
+  data = GetDataArray(nowType);
+  if (data[nowIndex].Image != null) {
+    var image = data[nowIndex].Image;
+    image.forEach((e) => {
+      let div = document.createElement("div");
+      div.classList.add("img-item-2");
+      div.innerHTML = `
             <img src="http://localhost:8080/images/Products/${e.Image}" alt="" id="img_exist_${e.Image}" class="">
             <div class="remove exit" id="remove_exist_${e.ImageId}">
                 <i class="fa-solid fa-xmark"></i>
             </div>
             `;
-            document.querySelector('.type-fill').appendChild(div);
-            document.getElementById('remove_exist_' + e.ImageId).onclick = removeexit;
-        })
-    }
+      document.querySelector(".type-fill").appendChild(div);
+      document.getElementById("remove_exist_" + e.ImageId).onclick = removeexit;
+    });
+  }
 }
 
 function removeexit(e) {
-    let removeitem = e.target.parentNode.parentNode;
-    if (removeitem.classList[0] == 'img-item-2') {
-        removeitem.remove();
-        var result = e.target.parentNode.id.replace("remove_exist_", "");
-        DeleteImg(result);
-        var count = document.querySelectorAll('.img-item , .img-item-2').length;
-        if (count == 0) createfileitem();
-    }
+  let removeitem = e.target.parentNode.parentNode;
+  if (removeitem.classList[0] == "img-item-2") {
+    removeitem.remove();
+    var result = e.target.parentNode.id.replace("remove_exist_", "");
+    DeleteImg(result);
+    var count = document.querySelectorAll(".img-item , .img-item-2").length;
+    if (count == 0) createfileitem();
+  }
 }
 //商品圖片事件
 function modal_image_event() {
-    let active = document.querySelector('.modal .active');
-    active.classList.remove('active');
-    let photo = document.querySelector('#photo');
-    photo.classList.add('active');
+  let active = document.querySelector(".modal .active");
+  active.classList.remove("active");
+  let photo = document.querySelector("#photo");
+  photo.classList.add("active");
 }
 
 //圖片即時預覽
 var imgcount = 1;
 function view_upload_image(e) {
-    id = e.target.id;
-    var x = new FileReader;
-    x.readAsDataURL(this.files[0]);
+  id = e.target.id;
+  var x = new FileReader();
+  x.readAsDataURL(this.files[0]);
 
-    x.onloadend = function () {
-        let img = document.querySelector('#img_photo_' + imgcount);
-        img.classList.remove('hidden');
-        document.querySelector('#label_' + id).classList.add('hidden');
-        let remove = document.querySelector('#remove_' + imgcount);
-        remove.classList.remove('hidden');
-        remove.onclick = removeimg;
-        createfileitem();
-        img.src = this.result;
-    }
+  x.onloadend = function () {
+    let img = document.querySelector("#img_photo_" + imgcount);
+    img.classList.remove("hidden");
+    document.querySelector("#label_" + id).classList.add("hidden");
+    let remove = document.querySelector("#remove_" + imgcount);
+    remove.classList.remove("hidden");
+    remove.onclick = removeimg;
+    createfileitem();
+    img.src = this.result;
+  };
 }
 
-//remove icon 
+//remove icon
 function removeimg(e) {
-    let imgcontent = document.querySelector('.type-fill');
-    let removeitem = e.target.parentNode.parentNode;
-    if (removeitem.classList[0] == 'img-item') {
-        removeitem.remove();
-        createfileitem();
-    }
+  let imgcontent = document.querySelector(".type-fill");
+  let removeitem = e.target.parentNode.parentNode;
+  if (removeitem.classList[0] == "img-item") {
+    removeitem.remove();
+    createfileitem();
+  }
 }
 
-//創造img_item 
+//創造img_item
 function createfileitem() {
-    var count = document.querySelectorAll('.img-item , .img-item-2').length;
-    var count2 = document.querySelectorAll('.img-item label:not(.hidden)').length;
-    if (count < 5 && count2 < 1) {
-        imgcount += 1;
-        let div = document.createElement('div');
-        div.classList.add('img-item');
-        div.id = imgcount;
-        div.innerHTML = `
+  var count = document.querySelectorAll(".img-item , .img-item-2").length;
+  var count2 = document.querySelectorAll(".img-item label:not(.hidden)").length;
+  if (count < 5 && count2 < 1) {
+    imgcount += 1;
+    let div = document.createElement("div");
+    div.classList.add("img-item");
+    div.id = imgcount;
+    div.innerHTML = `
         <label for="photo_${imgcount}" id="label_photo_${imgcount}">
         <i class="fa-solid fa-plus"></i>
         </label>
@@ -767,30 +747,29 @@ function createfileitem() {
             <i class="fa-solid fa-xmark"></i>
         </span>
         `;
-        document.querySelector('.type-fill').appendChild(div);
-        let image = document.getElementById('photo_' + imgcount);
-        image.addEventListener('change', view_upload_image);
-    }
-
+    document.querySelector(".type-fill").appendChild(div);
+    let image = document.getElementById("photo_" + imgcount);
+    image.addEventListener("change", view_upload_image);
+  }
 }
 
 //點擊商品種類管理
 function modal_category_info() {
-    let category = document.getElementById('category');
-    category.addEventListener('click', function () {
-        var data;
-        data = GetDataArray(nowType);
-        let now = document.querySelector('.now');
-        now.classList.remove('now');
-        now.classList.add('hidden');
-        let btn = document.getElementById('submit_c')
-        btn.classList.remove('hidden');
-        btn.classList.add('now');
-        let active = document.querySelector('.modal .menu .active');
-        active.classList.remove('active');
-        category.classList.add('active');
-        let content = document.querySelector('.modal .content');
-        content.innerHTML = `
+  let category = document.getElementById("category");
+  category.addEventListener("click", function () {
+    var data;
+    data = GetDataArray(nowType);
+    let now = document.querySelector(".now");
+    now.classList.remove("now");
+    now.classList.add("hidden");
+    let btn = document.getElementById("submit_c");
+    btn.classList.remove("hidden");
+    btn.classList.add("now");
+    let active = document.querySelector(".modal .menu .active");
+    active.classList.remove("active");
+    category.classList.add("active");
+    let content = document.querySelector(".modal .content");
+    content.innerHTML = `
             <div class="formerror">
             </div>
             <div class="formgroup" style="background-color: white;">
@@ -806,29 +785,39 @@ function modal_category_info() {
             <div class="formgroup" id="taglist">
             </div>          
         `;
-        inittag();
-    });
+    inittag();
+  });
 }
 
 //載入商品陣列
 async function GetOnProduct(search) {
-    var data;
-    await GetSellerProduct('on').then(r => data = r);
-    if (data.hasOwnProperty('data')) {
-        prodcutonlist = data.data;
-    }
-    ClearContent();
-    if (prodcutonlist) {
-        prodcutonlist.forEach(element => {
-            let div = document.createElement('div');
-            div.classList.add('table_content');
-            div.innerHTML = `   
+  var data;
+  await GetSellerProduct("on").then((r) => (data = r));
+  if (data.hasOwnProperty("data")) {
+    prodcutonlist = data.data;
+  }
+  ClearContent();
+  if (prodcutonlist) {
+    prodcutonlist.forEach((element) => {
+      let div = document.createElement("div");
+      div.classList.add("table_content");
+      div.innerHTML = `   
             <div class="checkbox">
-                <input type="checkbox" id="p_${element.ProductId}" name="product" value="${element.ProductId}">
-                <label for="p_${element.ProductId}"><i class="fa-solid fa-check"></i></label>
+                <input type="checkbox" id="p_${
+                  element.ProductId
+                }" name="product" value="${element.ProductId}">
+                <label for="p_${
+                  element.ProductId
+                }"><i class="fa-solid fa-check"></i></label>
             </div>
             <div class="productimg">
-                ${(element.Image == null) ? "" : '<img src="http://localhost:8080/images/Products/' + element.Image[0].Image + '" alt="">'}               
+                ${
+                  element.Image == null
+                    ? ""
+                    : '<img src="http://localhost:8080/images/Products/' +
+                      element.Image[0].Image +
+                      '" alt="">'
+                }               
             </div >
             <div class="productname">
                 ${element.Name}
@@ -840,36 +829,36 @@ async function GetOnProduct(search) {
             ${element.Inventory}
             </div>
             <div class="product_action">
-                <input type="hidden" name="" id="index_${element.ProductId}" value="${onIndex}">
+                <input type="hidden" name="" id="index_${
+                  element.ProductId
+                }" value="${onIndex}">
                 <span id="editbtn_${onIndex}"><i class="fa-solid fa-pen-to-square"></i></span>
                 <span id="deletebtn_${onIndex}"><i class="fa-solid fa-trash-can"></i></span>
             </div>
 `;
-            document.querySelector('.product_table').appendChild(div);
-            let edit = document.querySelector('#editbtn_' + onIndex);
-            edit.addEventListener('click', function () {
-                document.body.classList.toggle('bodyhidden');
-                modal.classList.toggle('hidden');
-                var getindex = document.getElementById('index_' + element.ProductId);
-                editmodal(getindex.value, nowType);
-            })
-            let deletebtn = document.querySelector('#deletebtn_' + onIndex);
-            deletebtn.addEventListener('click', function () {
-                document.body.classList.toggle('bodyhidden');
-                modal.classList.toggle('hidden');
-                var getindex = document.getElementById('index_' + element.ProductId);
-                displaymessage(getindex.value, nowType);
-            })
-            onIndex += 1;
-        });
-    }
-
-
+      document.querySelector(".product_table").appendChild(div);
+      let edit = document.querySelector("#editbtn_" + onIndex);
+      edit.addEventListener("click", function () {
+        document.body.classList.toggle("bodyhidden");
+        modal.classList.toggle("hidden");
+        var getindex = document.getElementById("index_" + element.ProductId);
+        editmodal(getindex.value, nowType);
+      });
+      let deletebtn = document.querySelector("#deletebtn_" + onIndex);
+      deletebtn.addEventListener("click", function () {
+        document.body.classList.toggle("bodyhidden");
+        modal.classList.toggle("hidden");
+        var getindex = document.getElementById("index_" + element.ProductId);
+        displaymessage(getindex.value, nowType);
+      });
+      onIndex += 1;
+    });
+  }
 }
 
 function ClearContent() {
-    onIndex = 0;
-    document.querySelector('.product_table').innerHTML = `
+  onIndex = 0;
+  document.querySelector(".product_table").innerHTML = `
     <div class="table_action" >
         <div class="h1"></a></div >
             <div class="action">
@@ -903,12 +892,11 @@ function ClearContent() {
         </div>
     </div>
 `;
-    checkall();
-    insertbtn();
-    binddelete();
+  checkall();
+  insertbtn();
+  binddelete();
 }
 
 //上傳商品圖片
 
-
-GetOnProduct('null')
+GetOnProduct("null");

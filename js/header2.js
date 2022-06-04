@@ -72,3 +72,12 @@ if (token != "") {
 }
 
 
+inithead();
+async function inithead() {
+  var data;
+  await GetBalance().then((r) => (data = r));
+  if (data && data.hasOwnProperty("Code1")) {
+    money = data.Code1;
+    balance = data.Code2;
+  }
+}
