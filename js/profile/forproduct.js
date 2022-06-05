@@ -4,6 +4,14 @@ var nowIndex = 0;
 var nowType = "on";
 var tempdata = {};
 
+var constproduct;
+var nowpage = 1;
+var totalpage;
+var productcount;
+var tempcount;
+var pageitem = 10;
+var refreshproductbtn = true;
+
 let modal = document.querySelector(".modal");
 
 modal.addEventListener("click", function (e) {
@@ -112,6 +120,7 @@ function displaymessage(id, type) {
                         </div>                     
           
             `;
+        refreshproductbtn = true;
         GetOnProduct("null");
         setTimeout(() => {
           document.querySelector(".modal").classList.toggle("hidden");
@@ -194,6 +203,7 @@ function displaymodal() {
         } else {
           document.querySelector(".formerror").classList.add("succece");
           document.querySelector(".formerror").innerHTML = re.info;
+          refreshproductbtn = true;
           GetOnProduct("null");
           setTimeout(() => {
             document.querySelector(".formerror").classList.remove("succece");
@@ -364,6 +374,7 @@ function sendeditdata() {
       } else {
         document.querySelector(".formerror").classList.add("succece");
         document.querySelector(".formerror").innerHTML = re.info;
+        refreshproductbtn = true;
         GetOnProduct("null");
         setTimeout(() => {
           document.querySelector(".formerror").classList.remove("succece");
@@ -402,6 +413,7 @@ function sendeditdata() {
       }
       tmp = [];
       delarray = [];
+      refreshproductbtn = true;
       GetOnProduct("null");
       inittag();
       if (re) {
@@ -423,6 +435,7 @@ function sendeditdata() {
 async function turnoff(dataobj, value) {
   var re;
   await UpdateProductInfo(dataobj, value).then((r) => (re = r));
+  refreshproductbtn = true;
   GetOnProduct("null");
   return re;
 }
@@ -442,6 +455,7 @@ async function UpdateInfo(tempdata) {
   } else {
     document.querySelector(".formerror").classList.add("succece");
     document.querySelector(".formerror").innerHTML = re.info;
+    refreshproductbtn = true;
     GetOnProduct("null");
     setTimeout(() => {
       document.querySelector(".formerror").classList.remove("succece");
@@ -513,22 +527,19 @@ function modal_rent_info() {
         <label>租借功能　　</label>
         <input type="checkbox" id="rentbox" >
         <label class="toggle" for="rentbox">
-            <div class="radio ${
-              data[nowIndex].Rent == 0 ? "default" : "default-2"
-            }"></div>
+            <div class="radio ${data[nowIndex].Rent == 0 ? "default" : "default-2"
+      }"></div>
         </label>                   
         </div>
         <div class="formgroup">
             <label for="editrent">最大租借天數</label>
-            <input type="text" id="editrent" ${
-              data[nowIndex].Rent == 0 ? 'disabled="disabled"' : ""
-            } value="${data[nowIndex].MaxRent}">
+            <input type="text" id="editrent" ${data[nowIndex].Rent == 0 ? 'disabled="disabled"' : ""
+      } value="${data[nowIndex].MaxRent}">
         </div>
         <div class="formgroup">
             <label for="rentprice">租借價格(天)&nbsp;</label>
-            <input type="text" id="rentprice" ${
-              data[nowIndex].Rent == 0 ? 'disabled="disabled"' : ""
-            } value="${data[nowIndex].RentPrice}">
+            <input type="text" id="rentprice" ${data[nowIndex].Rent == 0 ? 'disabled="disabled"' : ""
+      } value="${data[nowIndex].RentPrice}">
         </div>
         `;
     radio_event();
@@ -791,10 +802,21 @@ function modal_category_info() {
 
 //載入商品陣列
 async function GetOnProduct(search) {
-  var data;
-  await GetSellerProduct("on").then((r) => (data = r));
-  if (data.hasOwnProperty("data")) {
-    prodcutonlist = data.data;
+  if (refreshproductbtn) {
+    var data;
+    await GetSellerProduct(nowType).then(r => data = r);
+    if (data.hasOwnProperty('data')) {
+      constproduct = data.data;
+      productofflist = constproduct;
+      tempcount = constproduct.length;
+      nowpage = 1;
+      paging()
+      refreshproductbtn = false;
+    }
+
+  }
+  else {
+    paging();
   }
   ClearContent();
   if (prodcutonlist) {
@@ -803,24 +825,21 @@ async function GetOnProduct(search) {
       div.classList.add("table_content");
       div.innerHTML = `   
             <div class="checkbox">
-                <input type="checkbox" id="p_${
-                  element.ProductId
-                }" name="product" value="${element.ProductId}">
-                <label for="p_${
-                  element.ProductId
-                }"><i class="fa-solid fa-check"></i></label>
+                <input type="checkbox" id="p_${element.ProductId
+        }" name="product" value="${element.ProductId}">
+                <label for="p_${element.ProductId
+        }"><i class="fa-solid fa-check"></i></label>
             </div>
             <div class="productimg">
-                ${
-                  element.Image == null
-                    ? ""
-                    : '<img src="http://localhost:8080/images/Products/' +
-                      element.Image[0].Image +
-                      '" alt="">'
-                }               
+                ${element.Image == null
+          ? ""
+          : '<img src="http://localhost:8080/images/Products/' +
+          element.Image[0].Image +
+          '" alt="">'
+        }               
             </div >
             <div class="productname">
-                ${element.Name}
+                ${formatecontent(element.Name)}
             </div>
             <div class="productprice">
             ${element.Price} NT
@@ -829,9 +848,8 @@ async function GetOnProduct(search) {
             ${element.Inventory}
             </div>
             <div class="product_action">
-                <input type="hidden" name="" id="index_${
-                  element.ProductId
-                }" value="${onIndex}">
+                <input type="hidden" name="" id="index_${element.ProductId
+        }" value="${onIndex}">
                 <span id="editbtn_${onIndex}"><i class="fa-solid fa-pen-to-square"></i></span>
                 <span id="deletebtn_${onIndex}"><i class="fa-solid fa-trash-can"></i></span>
             </div>
@@ -900,3 +918,101 @@ function ClearContent() {
 //上傳商品圖片
 
 GetOnProduct("null");
+function formatecontent(string) {
+  if (string.length > 10) {
+    string = string.substring(0, 10) + ".....";
+  }
+  return string;
+}
+
+
+
+//分頁
+function paging() {
+  totalpage = Math.ceil((tempcount / pageitem));
+  let page = document.querySelector('.page ul');
+  page.innerHTML = ``;
+  for (i = -6; i < tempcount + 5; i++) {
+    if (i > 0 && i <= totalpage) {
+      if (nowpage == 1 && i == 1) {
+        let li = document.createElement('li');
+        li.classList.add("no-drap");
+        li.innerHTML = `                
+                    <span>
+                        <i class="fa-solid fa-angle-left">
+                        </i>
+                    </span>               
+                `;
+        page.appendChild(li);
+      }
+      else if (i == 1) {
+        let li = document.createElement('li');
+        li.innerHTML = `                
+                    <span id="pre">
+                        <i class="fa-solid fa-angle-left">
+                        </i>
+                    </span>               
+                `;
+        page.appendChild(li);
+        document.getElementById('pre').addEventListener('click', function () {
+          nowpage = nowpage - 1;
+          GetOnProduct('null')
+        })
+      }
+      if (i == nowpage) {
+        let li = document.createElement('li');
+        li.innerHTML = `                
+                <span>
+                    <li class="active"><span>${i}</span></li>
+                </span>               
+                 `;
+        page.appendChild(li);
+      }
+      else {
+        let li = document.createElement('li');
+        li.innerHTML = `                
+                <span>
+                    <li id="page-${i}"><span>${i}</span></li>
+                </span>               
+                 `;
+        page.appendChild(li);
+        document.getElementById('page-' + i).addEventListener('click', function () {
+          nowpage = this.id[this.id.indexOf('-') + 1];
+          GetOnProduct('null')
+        })
+      }
+      if (nowpage == totalpage && i == totalpage) {
+        let li = document.createElement('li');
+        li.classList.add("no-drap");
+        li.innerHTML = `                
+                    <span>
+                        <i class="fa-solid fa-angle-right">
+                        </i>
+                    </span>               
+                `;
+        page.appendChild(li);
+      }
+      else if (i == totalpage) {
+        let li = document.createElement('li');
+        li.innerHTML = `                
+                    <span id="next">
+                        <i class="fa-solid fa-angle-right">
+                        </i>
+                    </span>               
+                `;
+        page.appendChild(li);
+
+        document.getElementById('next').addEventListener('click', function () {
+          nowpage += 1;
+          GetOnProduct('null')
+        })
+      }
+    }
+  }
+  prodcutonlist = [];
+  for (i = (nowpage - 1) * pageitem; i < nowpage * pageitem && i < tempcount; i++) {
+    prodcutonlist.push(constproduct[i]);
+  }
+  console.log(prodcutonlist, (nowpage - 1) * pageitem, nowpage * pageitem , nowpage);
+}
+

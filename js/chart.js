@@ -1,166 +1,37 @@
 var constdata = [];
 
-var tagdetail = [
-  {
-    CategoryId: 1,
-    Tag: "種類1",
-    Data: [
-      {
-        RecordId: 1,
-        Name: "MVC",
-        Count: 10,
-        Amount: 3650,
-        Time: "2022/05/04 12:54:36",
-      },
-      {
-        RecordId: 2,
-        Name: "MVC",
-        Count: 30,
-        Amount: 10950,
-        Time: "2022/05/14 12:54:36",
-      },
-      {
-        RecordId: 3,
-        Name: "MVC",
-        Count: 5,
-        Amount: 1825,
-        Time: "2022/05/14 12:54:36",
-      },
-    ],
-  },
-  {
-    CategoryId: 2,
-    Tag: "種類2",
-    Data: [
-      {
-        RecordId: 1,
-        Name: "MVC",
-        Count: 10,
-        Amount: 3650,
-        Time: "2022/05/04 12:54:36",
-      },
-      {
-        RecordId: 2,
-        Name: "MVC",
-        Count: 30,
-        Amount: 10950,
-        Time: "2022/05/14 12:54:36",
-      },
-    ],
-  },
-  {
-    CategoryId: 3,
-    Tag: "種類3",
-    Data: [
-      {
-        RecordId: 1,
-        Name: "MVC",
-        Count: 1,
-        Amount: 365,
-        Time: "2022/05/04 12:54:36",
-      },
-      {
-        RecordId: 2,
-        Name: "MVC",
-        Count: 30,
-        Amount: 10950,
-        Time: "2022/05/14 12:54:36",
-      },
-    ],
-  },
-  {
-    CategoryId: 4,
-    Tag: "種類4",
-    Data: [
-      {
-        RecordId: 1,
-        Name: "MVC",
-        Count: 1,
-        Amount: 365,
-        Time: "2022/05/04 12:54:36",
-      },
-      {
-        RecordId: 2,
-        Name: "MVC",
-        Count: 30,
-        Amount: 10950,
-        Time: "2022/05/14 12:54:36",
-      },
-    ],
-  },
-  {
-    CategoryId: 5,
-    Tag: "種類5",
-    Data: [
-      {
-        RecordId: 1,
-        Name: "MVC",
-        Count: 1,
-        Amount: 365,
-        Time: "2022/05/04 12:54:36",
-      },
-      {
-        RecordId: 2,
-        Name: "MVC",
-        Count: 30,
-        Amount: 10950,
-        Time: "2022/05/14 12:54:36",
-      },
-    ],
-  },
-  {
-    CategoryId: 6,
-    Tag: "種類6",
-    Data: [
-      {
-        RecordId: 1,
-        Name: "MVC",
-        Count: 1,
-        Amount: 365,
-        Time: "2022/05/04 12:54:36",
-      },
-      {
-        RecordId: 2,
-        Name: "MVC",
-        Count: 30,
-        Amount: 10950,
-        Time: "2022/05/14 12:54:36",
-      },
-    ],
-  },
-  {
-    CategoryId: 7,
-    Tag: "種類7",
-    Data: [
-      {
-        RecordId: 1,
-        Name: "MVC",
-        Count: 1,
-        Amount: 365,
-        Time: "2022/05/04 12:54:36",
-      },
-      {
-        RecordId: 2,
-        Name: "MVC",
-        Count: 30,
-        Amount: 10950,
-        Time: "2022/05/14 12:54:36",
-      },
-    ],
-  },
-];
+var tagdetail = []
 
-var tagcount = tagdetail.length;
+var tagcount;
 var taglabel = [];
 var taglabeldata = [];
 
+var Bar;
+var Polor;
 const MaxCount = 7;
+initchart();
 async function initchart() {
-  var data;
+  // 獲取資料  
+  await RecordForChart().then(r => tagdetail = r);
+  console.log(tagdetail);
+
+  //tagdetail.length;
+  tagcount = tagdetail.length;
+
+  // init
+  labelInit();
+  loadTag();
+  showTag();
+
+  // 圖表
+  var ctx = document.getElementById("Bar");
+  Bar = new Chart(ctx, loadBar());
+
+  var ctx2 = document.getElementById("Polor");
+  Polor = new Chart(ctx2, loadPolor());
 }
 
-//label init
-labelInit();
+
 function labelInit() {
   for (i = 0; i < tagdetail.length; i++) {
     taglabel.push(tagdetail[i].Tag);
@@ -190,12 +61,6 @@ const borderset = [
   "rgba(153, 102, 255, 1)",
   "rgba(255, 159, 64, 1)",
 ];
-
-var ctx = document.getElementById("Bar");
-var Bar = new Chart(ctx, loadBar());
-
-var ctx2 = document.getElementById("Polor");
-var Polor = new Chart(ctx2, loadPolor());
 
 // Bar圖表
 function loadBar() {
@@ -415,8 +280,6 @@ function bindDateinput() {
   });
 }
 
-loadTag();
-
 function loadTag() {
   let category = document.querySelector(".category");
   for (i = 0; i < constdata.length; i++) {
@@ -507,7 +370,7 @@ function loadTable() {
     }
   }
 }
-showTag();
+
 function showTag() {
   let taglist = document.querySelector(".taglist");
   taglist.innerHTML = "";
