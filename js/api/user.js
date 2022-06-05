@@ -101,6 +101,35 @@ function UpdateUserBalance() {
     });
 }
 
+function UpdateUserMoney(amount) {
+  const token = getCookie("token");
+  var formBody = [];
+  var details = {
+    Money: amount,
+  };
+  for (var property in details) {
+    var encodedKey = encodeURIComponent(property);
+    var encodedValue = encodeURIComponent(details[property]);
+    formBody.push(encodedKey + "=" + encodedValue);
+  }
+  return fetch(apidomain + "/user/patch", {
+    method: "PATCH",
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded;charset=UTF-8",
+      Authorization: token,
+    },
+    body: formBody,
+  })
+    .then((res) => res.json())
+    .then((data) => {
+      console.log(data);
+      return data;
+    })
+    .catch((e) => {
+      console.error("Error:", e);
+    });
+}
+
 function CheckAccount(account) {
   fetch(apidomain + "/user/check/" + account, {
     method: "GET",

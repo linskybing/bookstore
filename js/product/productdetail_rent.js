@@ -183,15 +183,20 @@ function cartbtn() {
         addcart.classList.remove('hidden');
     }
     addcart.addEventListener('click', async function () {
-        await AddtoCart(productdata.ProductId, a.value, 'Rent');
-
-        var incart;
-        await InCart(productdata.ProductId).then(r => incart = r);
-        if (incart) {
-            removecart.classList.remove('hidden');
-            countdiv.classList.add('hidden');
-            addcart.classList.add('hidden');
+        if (money < productdata.Price) {
+            displaypaymodal(productdata);
         }
+        else {
+            await AddtoCart(productdata.ProductId, a.value, 'Rent');
+            var incart;
+            await InCart(productdata.ProductId).then(r => incart = r);
+            if (incart) {
+                removecart.classList.remove('hidden');
+                countdiv.classList.add('hidden');
+                addcart.classList.add('hidden');
+            }
+        }
+
     })
 
 

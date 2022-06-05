@@ -161,13 +161,18 @@ function pageproduct(templist) {
             let add = div.querySelector('.add');
             let remove = div.querySelector('.remove');
             add.addEventListener('click', async function () {
-                await AddtoCart(nowdata.ProductId, 1, 'Buy');
+                if (money < nowdata.Price) {
+                    displaypaymodal(nowdata);
+                }
+                else {
+                    await AddtoCart(nowdata.ProductId, 1, 'Buy');
 
-                var incart;
-                await InCart(nowdata.ProductId).then(r => incart = r);
-                if (incart) {
-                    add.classList.toggle('hidden');
-                    remove.classList.toggle('hidden');
+                    var incart;
+                    await InCart(nowdata.ProductId).then(r => incart = r);
+                    if (incart) {
+                        add.classList.toggle('hidden');
+                        remove.classList.toggle('hidden');
+                    }
                 }
             })
             remove.addEventListener('click', async function () {
