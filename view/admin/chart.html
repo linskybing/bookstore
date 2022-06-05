@@ -1,12 +1,19 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
-  <meta name="viewport" charset=utf-8 content="width=device-width, initial-scale=1.0" />
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>報表分析</title>
+  <!-- Css -->
+  <link rel="stylesheet" href="../../css/chart.css" />
+  <link rel="stylesheet" href="../../css/analyze.css" />
   <link href="../../css/index_layout.css" rel="stylesheet" />
   <link href="../../css/style.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
-  <title>後臺管理</title>
+  <!-- Script -->
+  <script src="../../node_modules/chart.js/dist/chart.js"></script>
 </head>
 
 <body>
@@ -22,7 +29,7 @@
       </div>
     </div>
     <div class="baritem">
-      <a href="index_admin_layout.html" class="active">
+      <a href="index_admin_layout.html">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-person-fill"
           viewBox="0 0 16 16">
           <path d="M3 14s-1 0-1-1 1-4 6-4 6 3 6 4-1 1-1 1H3zm5-6a3 3 0 1 0 0-6 3 3 0 0 0 0 6z" />
@@ -52,7 +59,7 @@
       </span>
     </div>
     <div class="baritem" id="analyzebtn">
-      <span>
+      <span class="active">
         <svg xmlns="http://www.w3.org/2000/svg" width="20" height="20" fill="currentColor" class="bi bi-graph-up"
           viewBox="0 0 16 16">
           <path fill-rule="evenodd"
@@ -76,16 +83,62 @@
 
   </aside>
   <section id="mainblock">
-
+    <div class="chartblock">
+      <div class="chart-head">
+        <h1>商品種類報表分析</h1>
+      </div>
+      <div class="chart-content">
+        <div class="chart-item">
+          <canvas id="Bar" width="600" height="600"></canvas>
+        </div>
+        <div class="chart-item">
+          <canvas id="Polor" width="600" height="600"></canvas>
+        </div>
+      </div>
+    </div>
+    <div id="analyzecontain">
+      <div class="action">
+        <div class="date">
+          <input id="date-start" type="date" value="2022-01-01" />
+          <span> ~ </span>
+          <input id="date-end" type="date" value="2022-05-30" />
+        </div>
+        <div class="data-select">
+          <div class="plus">
+            <i class="fa-solid fa-plus"></i>
+          </div>
+          <div class="list">
+            <ul class="category hidden"></ul>
+          </div>
+        </div>
+      </div>
+      <div class="taglist">
+      </div>
+      <div class="table-wrapper">
+        <table class="flex-table">
+          <thead>
+            <tr>
+              <th>訂單編號</th>
+              <th>商品名稱</th>
+              <th>商品數量</th>
+              <th>商品交易金額</th>
+              <th>交易時間</th>
+            </tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
   </section>
+
 </body>
 <!-- API -->
 <script src="../../js/api/chatroom.js"></script>
 <script src="../../js/api/user.js"></script>
 
-<!-- 頁面 -->
+<!-- 圖表 -->
 <script src="../../js/chatusers2.js"></script>
 <script src="../../js/adminheader.js"></script>
-
+<script src="../../js/chart.js"></script>
 
 </html>
