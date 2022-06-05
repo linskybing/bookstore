@@ -48,6 +48,14 @@ a {
     padding: 50px;
 }
 
+body>.container>.title span {
+    padding: 50px;
+}
+
+body>.container>.title span a:hover {
+    color: #ff4800;
+}
+
 
 /*for_title*/
 .for_title {
@@ -105,8 +113,8 @@ a {
 }
 
 #post_time {
-    color: rgb(210, 210, 210);
-    font-weight: bold
+    color: rgb(109, 109, 109);
+    font-weight: lighter
 }
 
 #post_title {
@@ -115,6 +123,7 @@ a {
 }
 
 #post_content {
+    width: 90%;
     font-weight: bold;
     font-size: 18px;
 
