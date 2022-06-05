@@ -2,7 +2,7 @@ section {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    margin-top: 90px;
+    padding-top: 70px;
 }
 
 a {
