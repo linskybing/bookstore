@@ -91,6 +91,7 @@
     display: flex;
     flex-direction: column;
     width: 100%;
+    position: relative;
 }
 
 :is(.modal-content, .modal-content-2) .header>* {
@@ -251,7 +252,7 @@
     margin-right: 10px;
 }
 
-:is(.modal-content, .modal-content-2) .content input[type=text] {
+:is(.modal-content, .modal-content-2) :is(.content,.content2) input[type=text] {
     border: 1px solid #dbdfea;
     height: 35px;
     min-width: 250px;
@@ -336,7 +337,7 @@
 }
 
 
-:is(.modal-content, .modal-content-2) .content textarea {
+:is(.modal-content, .modal-content-2) :is(.content,.content2) textarea {
     border: 1px solid #dbdfea;
     height: 300px;
     min-width: 500px;
@@ -349,7 +350,7 @@
     padding: 5px;
 }
 
-:is(.modal-content, .modal-content-2) .content :is(input, textarea, .fakeinput):focus {
+:is(.modal-content, .modal-content-2) :is(.content,.content2) :is(input, textarea, .fakeinput):focus {
     border: 1px solid rgb(255, 72, 0);
 }
 
