@@ -5,6 +5,8 @@
   <meta name="viewport" charset=utf-8 content="width=device-width, initial-scale=1.0" />
   <link href="../../css/index_layout.css" rel="stylesheet" />
   <link href="../../css/style.css" rel="stylesheet" />
+  <link href="../../css/label.css" rel="stylesheet" />
+  <link href="../../css/modal.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
   <title>後臺管理</title>
 </head>
@@ -88,16 +90,49 @@
 
   </aside>
   <section id="mainblock">
-   
+    <div class="contentblock">
+      <div class="row">
+        <!--header -->
+        <div class="header-title">公告管理</div>
+        <div class="content-header">
+          <div class="flex-nowrap">
+            <div class="function-btn p-10" id="createtag">
+              <div class="tag2" style="background-color: rgb(8, 122, 252);">新增公告</div>
+            </div>
+          </div>
+        </div>
+        <!-- Table -->
+        <div class="tableblock">
+          <table class="content-table">
+            <thead>
+              <th class="table-item">公告編號</th>
+              <th class="table-item">標題</th>
+              <th class="table-item">操作</th>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </section>
+  <div class="page">
+    <ul>
+    </ul>
+  </div>
+  <div class="modal hidden">
+
+  </div>
 </body>
 <!-- API -->
 <script src="../../js/api/chatroom.js"></script>
 <script src="../../js/api/user.js"></script>
+<script src="../../js/api/annoucement.js"></script>
 
 <!-- 頁面 -->
 <script src="../../js/chatusers.js"></script>
 <script src="../../js/adminheader.js"></script>
+<script src="../../js/annoucement.js"></script>
 
 
 </html>

@@ -334,7 +334,7 @@ td>.checkitem {
 
 .formgroup {
     margin: 10px;
-    width: 80%;
+    width: 100%;
     overflow: hidden;
 }
 
@@ -343,7 +343,7 @@ td>.checkitem {
 }
 
 .formgroup textarea {
-    width: 70%;
+    width: 50%;
     height: 100px;
     padding: 10px 20px;
     box-sizing: border-box;
