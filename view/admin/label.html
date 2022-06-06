@@ -5,6 +5,8 @@
   <meta name="viewport" charset=utf-8 content="width=device-width, initial-scale=1.0" />
   <link href="../../css/index_layout.css" rel="stylesheet" />
   <link href="../../css/style.css" rel="stylesheet" />
+  <link href="../../css/label.css" rel="stylesheet" />
+  <link href="../../css/modal.css" rel="stylesheet" />
   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
   <title>後臺管理</title>
 </head>
@@ -88,16 +90,75 @@
 
   </aside>
   <section id="mainblock">
-   
+    <div class="contentblock">
+      <div class="row">
+        <!--header -->
+        <div class="header-title">商品標籤管理</div>
+        <div class="content-header">
+          <div class="search">
+            <span id="search-send">
+              <svg width="25" height="25" viewBox="0 0 25 25" fill="rgba(8, 8, 8, 1)">
+                <path
+                  d="M20.07 18.93l-4.16-4.15a6 6 0 1 0-.88.88l4.15 4.16a.62.62 0 1 0 .89-.89zM6.5 11a4.75 4.75 0 1 1 9.5 0 4.75 4.75 0 0 1-9.5 0z">
+                </path>
+              </svg>
+            </span>
+            <input type="text" placeholder="搜尋使用者" />
+          </div>
+          <div class="flex-nowrap">
+            <div class="function-btn p-10" id="createuser">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-plus-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                <path
+                  d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+              </svg>
+              新增使用者
+            </div>
+            <div class="function-btn p-10">
+              <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor"
+                class="bi bi-plus-circle" viewBox="0 0 16 16">
+                <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+                <path
+                  d="M8 4a.5.5 0 0 1 .5.5v3h3a.5.5 0 0 1 0 1h-3v3a.5.5 0 0 1-1 0v-3h-3a.5.5 0 0 1 0-1h3v-3A.5.5 0 0 1 8 4z" />
+              </svg>
+              刪除使用者
+            </div>
+          </div>
+        </div>
+        <!-- Table -->
+        <div class="tableblock">
+          <table class="content-table">
+            <thead>
+              <th class="table-item">標籤編號</th>
+              <th class="table-item">標籤名稱</th>
+              <th class="table-item">標籤色票</th>
+              <th class="table-item">操作</th>
+            </thead>
+            <tbody>
+            </tbody>
+          </table>
+        </div>
+      </div>
+    </div>
   </section>
+  <div class="page">
+    <ul>     
+    </ul>
+  </div>
+  <div class="modal hidden">
+
+  </div>
 </body>
 <!-- API -->
 <script src="../../js/api/chatroom.js"></script>
 <script src="../../js/api/user.js"></script>
+<script src="../../js/api/category.js"></script>
 
 <!-- 頁面 -->
 <script src="../../js/chatusers.js"></script>
 <script src="../../js/adminheader.js"></script>
+<script src="../../js/label.js"></script>
 
 
 </html>

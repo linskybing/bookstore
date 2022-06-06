@@ -66,6 +66,11 @@ ul {
   background-color: rgba(0, 0, 0, 0.5);
 }
 
+
+.baritem a:hover {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
 #sidebar #closesidebar {
   float: right;
   font-size: 35px;
@@ -185,7 +190,7 @@ body>header {
 }
 
 /*視差背景圖*/
-.header {
+body>.header {
   background-attachment: fixed;
   background-repeat: no-repeat;
   background-size: cover;

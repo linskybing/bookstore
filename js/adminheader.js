@@ -94,7 +94,4 @@ async function loadheader() {
 
 async function initroledata() {
     await getUserroleData().then(r => roleinfo = r);
-    if (roleinfo) {
-        console.log(roleinfo);
-    }
 }
