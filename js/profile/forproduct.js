@@ -805,7 +805,7 @@ async function GetOnProduct(search) {
   if (refreshproductbtn) {
     var data;
     await GetSellerProduct(nowType).then(r => data = r);
-    if (data.hasOwnProperty('data')) {
+    if (data && data.hasOwnProperty('data') && data.data) {
       constproduct = data.data;
       productofflist = constproduct;
       tempcount = constproduct.length;
@@ -1013,6 +1013,6 @@ function paging() {
   for (i = (nowpage - 1) * pageitem; i < nowpage * pageitem && i < tempcount; i++) {
     prodcutonlist.push(constproduct[i]);
   }
-  console.log(prodcutonlist, (nowpage - 1) * pageitem, nowpage * pageitem , nowpage);
+  console.log(prodcutonlist, (nowpage - 1) * pageitem, nowpage * pageitem, nowpage);
 }
 

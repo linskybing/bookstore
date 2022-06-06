@@ -55,3 +55,21 @@ function DELETERole(id) {
             console.error('Error:', error)
         })
 }
+
+function GetAllRolePermisson() {
+    var token = getCookie('token');
+    return fetch(apidomain + '/readforall', {
+        method: 'GET',
+        headers: {
+            'Authorization': token,
+        }
+    })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res);
+            return res;
+        })
+        .catch(e => {
+            console.error('Error:', error)
+        })
+}

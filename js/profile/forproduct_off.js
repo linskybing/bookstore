@@ -820,7 +820,7 @@ async function GetOnProduct(search) {
     if (refreshproductbtn) {
         var data;
         await GetSellerProduct(nowType).then(r => data = r);
-        if (data.hasOwnProperty('data')) {
+        if (data.hasOwnProperty('data') && data.data) {
             constproduct = data.data;
             productofflist = constproduct;
             tempcount = constproduct.length;

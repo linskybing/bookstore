@@ -1,6 +1,6 @@
 function GetRole() {
     var token = getCookie('token');
-    return fetch(apidomain + '/role', {
+    return fetch(apidomain + '/readforall', {
         method: 'GET',
         headers: {
             'Authorization': token,
