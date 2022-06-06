@@ -21,9 +21,13 @@ if (seller) {
   });
 }
 
-document.getElementById("filein").addEventListener("change", function (e) {
+document.getElementById("filein").addEventListener("change", async function (e) {
   view_upload_image(e);
-  Uploadimg();
+
+  var image;
+  await Uploadimg().then(r => image = r);
+
+  setCookie('Image', image.data);
 });
 
 function view_upload_image(e) {

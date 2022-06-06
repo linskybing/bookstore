@@ -9,7 +9,7 @@ async function initquestion() {
     console.log(temp);
     const account = getCookie('Account');
     if (account != seller) {
-        sendtextarea();
+        showtextarea()
     }
     if (temp && temp.hasOwnProperty('data')) {
         question = temp.data;

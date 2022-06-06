@@ -68,7 +68,7 @@ async function ChatroomForUser() {
     <section class="users">
         <header>
             <div class="chat-content">
-                <img src="${(image != '' && image != 'null') ? 'http://localhost:8080/images/Members/' + image : 'http://localhost:8080/image/membericon.png'}" alt="">
+                <img src="${(image != '' && image != 'null') ? 'http://localhost:8080/images/Members/' + image : 'http://localhost/image/membericon.png'}" alt="">
                 <div class="details">
                     <span>${Name}</span>
                     <p>在線中</p>
@@ -113,7 +113,7 @@ async function ChatroomForUser() {
             a.id = ele.RoomId;
             a.innerHTML = `
             <div class="chat-content">
-                <img src="${(ele.SellerImage == null) ? 'http://localhost:8080/image/membericon.png' : 'http://localhost:8080/images/Members/' + ele.SellerImage}" alt="">
+                <img src="${(ele.SellerImage == null) ? 'http://localhost/image/membericon.png' : 'http://localhost:8080/images/Members/' + ele.SellerImage}" alt="">
                 <div class="details">
                     <span>${ele.Seller}</span>
                     <p>${(ele.Message == null) ? '' : ele.Message}</p>
@@ -149,7 +149,7 @@ function UpdateUsersList(search) {
         a.id = ele.RoomId;
         a.innerHTML = `
                     <div class="chat-content">
-                        <img src="${(ele.SellerImage == null) ? 'http://localhost:8080/image/membericon.png' : 'http://localhost:8080/images/Members/' + ele.SellerImage}" alt="">
+                        <img src="${(ele.SellerImage == null) ? 'http://localhost/image/membericon.png' : 'http://localhost:8080/images/Members/' + ele.SellerImage}" alt="">
                         <div class="details">
                             <span>${ele.Seller}</span>
                             <p>${(ele.Message == null) ? '' : ele.Message}</p>
@@ -225,7 +225,7 @@ function UpdateSellerList(search) {
         a.id = ele.RoomId;
         a.innerHTML = `
                     <div class="chat-content">
-                        <img src="${(ele.SellerImage == null) ? 'http://localhost:8080/image/membericon.png' : 'http://localhost:8080/images/Members/' + ele.SellerImage}" alt="">
+                        <img src="${(ele.SellerImage == null) ? 'http://localhost/image/membericon.png' : 'http://localhost:8080/images/Members/' + ele.SellerImage}" alt="">
                         <div class="details">
                             <span>${ele.Seller}</span>
                             <p>${(ele.Message == null) ? '' : ele.Message}</p>
@@ -289,7 +289,7 @@ async function ChatDetail(id) {
     <section class="chat-area">
         <header>
             <a href="#" class="back-icon" onclick="${room}"><i class="fas fa-arrow-left"></i></a>
-            <img src="${(img != null) ? 'http://localhost:8080/images/Members/' + img : 'http://localhost:8080/image/membericon.png'}" alt="">
+            <img src="${(img != null) ? 'http://localhost:8080/images/Members/' + img : 'http://localhost/image/membericon.png'}" alt="">
             <div class="details">
                 <span>${name}</span>
                 <p>${(activeperson == 1) ? '在線中<span style="display:inline;font-size: 12px;color: #468669;padding:1px 15px;"><i class="fas fa-circle"></i></span>' : '離線<span style="display:inline;font-size: 12px;color: #ccc;padding:1px 15px;"><i class="fas fa-circle"></i></span>'}</p>
@@ -323,7 +323,7 @@ async function ChatDetail(id) {
                 div.classList.add('chat');
                 div.classList.add('incoming');
                 div.innerHTML = `
-                <img src="${(ele.Image == null) ? 'http://localhost:8080/image/membericon.png' : 'http://localhost:8080/images/Members/' + ele.Image}" alt="">
+                <img src="${(ele.Image == null) ? 'http://localhost/image/membericon.png' : 'http://localhost:8080/images/Members/' + ele.Image}" alt="">
                 <div class="details">
                     <p>${(ele.DeletedAt != "0000-00-00 00:00:00") ? '已收回訊息' : ele.Message}</p>
                 </div>
@@ -398,7 +398,7 @@ function InsertChat(ele) {
         div.classList.add('chat');
         div.classList.add('incoming');
         div.innerHTML = `
-            <img src="${(ele.Image == null) ? 'http://localhost:8080/image/membericon.png' : 'http://localhost:8080/images/Members/' + ele.Image}" alt="">
+            <img src="${(ele.Image == null) ? 'http://localhost/image/membericon.png' : 'http://localhost:8080/images/Members/' + ele.Image}" alt="">
             <div class="details">
                 <p>${(ele.DeletedAt != "0000-00-00 00:00:00") ? '已收回訊息' : ele.Message}</p>
             </div>

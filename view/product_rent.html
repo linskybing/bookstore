@@ -10,6 +10,7 @@
     <link rel="stylesheet" href="../css/product/product2.css">
     <link rel="stylesheet" href="../css/style.css">
     <link rel="stylesheet" href="../css/modal.css">
+    <link rel="stylesheet" href="../css/question.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.1.1/css/all.min.css">
 </head>
 
@@ -98,10 +99,16 @@
             </div>
         </div>
         <div class="product-title">
-            <h1>賣家商品</h1>
+            <h1>問與答</h1>
         </div>
-        <div class="product">
-
+        <div class="question">
+            <div class="inputbox hidden">
+                <div id="inputboxe" style="color: red;font-weight: bolder;"></div>
+                <textarea name="" id="question_text" cols="30" rows="10" value=""></textarea>
+                <div class="inputaction">
+                    <button id="submit">送出</button>
+                </div>
+            </div>
         </div>
     </section>
     <div class="modal hidden">
@@ -112,11 +119,12 @@
 <script src="../js/api/chatroom.js"></script>
 <script src="../js/api/user.js"></script>
 <script src="../js/api/product.js"></script>
-
+<script src="../js/api/question.js"></script>
 <!-- 頁面 -->
 <script src="../js/chatusers.js"></script>
 <script src="../js/header.js"></script>
 <script src="../js/product/productdetail_rent.js"></script>
 <script src="../js/product/productmodal.js"></script>
+<script src="../js/productquestion.js"></script>
 
 </html>

@@ -9,6 +9,7 @@ async function geturl() {
         for (i = 0; i <= ary.length - 1; i++) {
             if (ary[i].split('=')[0] == 'id') {
                 id = ary[i].split('=')[1];
+                pageid = id;
                 await GetSingle(id).then(r => productdata = r);
                 console.log(productdata);
                 loadingpage();

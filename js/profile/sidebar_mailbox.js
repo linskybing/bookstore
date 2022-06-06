@@ -53,7 +53,7 @@ async function inithead() {
   }
 }
 
-if (token == "") {
+if (getCookie('token') == "") {
   window.location.href = "index.html";
 }
 
