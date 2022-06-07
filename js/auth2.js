@@ -9,15 +9,27 @@ var nowpage = 1;
 initUserRole();
 async function initUserRole() {
     if (!userrole) {
+        var data2;
+        await GetRole().then(r => data2 = r);
+
+        if (data2) {
+            console.log(data);
+            role = data2;
+        }
+
         var data;
-        await GetAllRolePermisson().then(r => data = r);
+        await GetUserAllUserRole().then(r => data = r);
 
         if (data) {
+            console.log(data);
             userrole = data;
             tempcount = userrole.length;
             loadrole();
             paging();
         }
+
+        var data2;
+        await GetRole().then(r => data = r);
     }
     else {
         loadrole();
@@ -36,8 +48,7 @@ function loadrole() {
             <thead>
             <th class="table-item">使用者帳號</th>
             <th class="table-item">使用者名稱</th>
-            <th class="table-item">角色名稱</th>
-            <th class="table-item">操作</th>
+            <th class="table-item">角色名稱</th>           
             </thead>
             <tbody>
             </tbody>
@@ -56,35 +67,26 @@ function loadrole() {
                         <div class="text">${data[i].Name}</div>
                     </td>    
                     <td>
-                        <div class="text">${data[i].RoleName}</div>
-                    </td>                  
-                    <td>
-                        <div class="text">
-                        <input class="index" type="hidden" value="${onIndex}"/>
-                        <span class="insert btnspan" id="editbtn_${onIndex}"><i class="fa-solid fa-pen-to-square"></i></span>
-                        <span class="delete btnspan" id="deletebtn_${onIndex}"><i class="fa-solid fa-trash-can"></i></span>
+                        <div class="text rolelist">
+                            <select name="role" id="${i}">
+                            
+                            </select>
                         </div>
-                    </td>              
+                    </td>         
             `;
-            item.querySelector('.insert').addEventListener('click', function (e) {
-                let element = e.target;
-                let index = document.querySelectorAll('.insert i');
-                for (j = 0; j < index.length; j++) {
-                    if (index[j] == element) {
-                        let value = index[j].parentElement.parentElement.querySelector('input').value;
-                        displaymodal(value);
-                    }
+            let rolelist = item.querySelector('.rolelist select');
+            for (i = 0; i < role.length; i++) {
+                let option = document.createElement('option');
+                option.value = i;
+                option.innerHTML = role[i].RoleName;
+                if (role[i].RoleName == data[i].RoleName) {
+                    option.selected = true;
                 }
-            })
-            item.querySelector('.delete').addEventListener('click', function (e) {
-                let element = e.target;
-                let index = document.querySelectorAll('.delete i');
-                for (j = 0; j < index.length; j++) {
-                    if (index[j] == element) {
-                        let value = index[j].parentElement.parentElement.querySelector('input').value;
-                        displaymodal2(value);
-                    }
-                }
+                rolelist.appendChild(option);
+            }
+            rolelist.addEventListener('change', function (e) {
+                let ele = e.target;
+                console.log(ele.id, ele.value);
             })
             document.querySelector('.content-table tbody').appendChild(item);
         }

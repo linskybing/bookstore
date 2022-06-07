@@ -85,7 +85,7 @@ function PATCHRole(id, data) {
 
 function DELETERole(id) {
     const token = getCookie('token');
-    return fetch(apidomain + '/role/' + id, {
+    return fetch(apidomain + '/role/' + id , {
         method: 'DELETE',
         headers: {
             'Authorization': token,

@@ -16,7 +16,7 @@ function GetByIdPermisson(id) {
         })
 }
 
-function PostRole(RoleId, FunctionId) {
+function PostPermisson(RoleId, FunctionId) {
     const token = getCookie('token');
     var data = new FormData();
     data.append('RoleId', RoleId);
@@ -38,9 +38,9 @@ function PostRole(RoleId, FunctionId) {
         })
 }
 
-function DELETERole(id) {
+function DELETEPermisson(id, functionid) {
     const token = getCookie('token');
-    return fetch(apidomain + '/permisson/' + id, {
+    return fetch(apidomain + '/permisson/' + id + '/' + functionid, {
         method: 'DELETE',
         headers: {
             'Authorization': token,
@@ -59,6 +59,24 @@ function DELETERole(id) {
 function GetAllRolePermisson() {
     var token = getCookie('token');
     return fetch(apidomain + '/readforall', {
+        method: 'GET',
+        headers: {
+            'Authorization': token,
+        }
+    })
+        .then(res => res.json())
+        .then(res => {
+            console.log(res);
+            return res;
+        })
+        .catch(e => {
+            console.error('Error:', error)
+        })
+}
+
+function GetUserAllUserRole(){   
+    var token = getCookie('token');
+    return fetch(apidomain + '/userpermissiona', {
         method: 'GET',
         headers: {
             'Authorization': token,
