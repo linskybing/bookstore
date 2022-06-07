@@ -13,7 +13,7 @@ async function initUserRole() {
         await GetRole().then(r => data2 = r);
 
         if (data2) {
-            console.log(data);
+            console.log(data2);
             role = data2;
         }
 
@@ -67,7 +67,8 @@ function loadrole() {
                         <div class="text">${data[i].Name}</div>
                     </td>    
                     <td>
-                        <div class="text rolelist">
+                        <div class="text rolelist">      
+                            <input type="hidden" value="${data[i].Account}"/>                  
                             <select name="role" id="${i}">
                             
                             </select>
@@ -75,19 +76,53 @@ function loadrole() {
                     </td>         
             `;
             let rolelist = item.querySelector('.rolelist select');
-            for (i = 0; i < role.length; i++) {
+            for (j = 0; j < role.length; j++) {
                 let option = document.createElement('option');
-                option.value = i;
-                option.innerHTML = role[i].RoleName;
-                if (role[i].RoleName == data[i].RoleName) {
+                option.value = j;
+                option.innerHTML = role[j].RoleName;
+                if (role[j].RoleName == data[i].RoleName) {
                     option.selected = true;
                 }
                 rolelist.appendChild(option);
             }
-            rolelist.addEventListener('change', function (e) {
-                let ele = e.target;
-                console.log(ele.id, ele.value);
-            })
+            if (!data[i].RoleName) {
+                let option = document.createElement('option');
+                option.value = -1;
+                option.innerHTML = `無`;
+                option.selected = true;
+                rolelist.appendChild(option);
+            }
+
+            if (!(role.length > 0)) {
+                let option = document.createElement('option');
+                option.value = -1;
+                option.innerHTML = `無`;
+                rolelist.appendChild(option);
+            }
+            else {
+                rolelist.addEventListener('change', async function (e) {
+                    let ele = e.target;
+                    let parent = ele.parentNode;
+                    let account = parent.querySelector('input').value;
+                    console.log(parent);
+                    if (ele.value != -1 && !data[ele.id].RoleId) {
+                        await PostUserRole(role[ele.value].RoleId, data[ele.id].Account);
+
+                    }
+                    if (ele.value != -1 && data[ele.id].RoleId) {
+                        var temp = {
+                            RoleId: role[ele.value].RoleId,
+                            User: data[ele.id].Account
+                        }
+                        await UpdateUserRole(temp);
+                        window.location.reload();
+                    }
+
+                    
+                    console.log(ele.id, role[ele.value].RoleId);
+                })
+            }
+
             document.querySelector('.content-table tbody').appendChild(item);
         }
     }
