@@ -24,6 +24,25 @@ async function loadheader() {
 
   if (token != "") {
     if (roleinfo) {
+      let h = roleinfo.data[0];
+      var link;
+      switch (h) {
+        case "公告管理":
+          link = "../admin/announcement.html";
+          break;
+        case "商品種類管理":
+          link = "../admin/label.html";
+          break;
+        case "權限管理":
+          link = "../admin/index_admin_layout.html";
+          break;
+        case "問題回報":
+          link = "../admin/mailbox.html";
+          break;
+        case "報表分析":
+          link = "../admin/chart.html";
+          break;
+      }
       div.innerHTML = `
         <ul>
         <li class="logo"><a href="../index.html"><img src="../../image/logo.png"></a></li>
@@ -35,7 +54,7 @@ async function loadheader() {
         <li><a href="#">關於我們</a></li>
         </ul>
         <ul> 
-        <li><a href="#">前往後臺</a></li>
+        <li><a href="${link}">前往後臺</a></li>
         <li><a href="../cart_2.html">購物車</a></li>    
         <li><a href="../profile.html">${timestring}，${Name}</a></li>
         <li id="logout"><a href="#">登出</a></li>
@@ -45,7 +64,7 @@ async function loadheader() {
     else {
       div.innerHTML = `
         <ul>
-        <li class="logo"><a href="../index.html"><img src="../../image/logo.png"></a></li>
+        <li class="logo"><a href="../index.html"><img src="../image/logo.png"></a></li>
         <li><a href="../index.html">首頁</a></li>
         <li><a href="../news.html">公告事項</a></li>
         <li><a href="../productlist.html">商品賣場</a></li>
@@ -67,7 +86,7 @@ async function loadheader() {
   } else {
     div.innerHTML = `
     <ul>
-    <li class="logo"><a href="index.html"><img src="../../image/logo.png"></a></li>
+    <li class="logo"><a href="../index.html"><img src="../image/logo.png"></a></li>
     <li><a href="../index.html">首頁</a></li>
     <li><a href="../news.html">公告事項</a></li>
     <li><a href="../productlist.html">商品賣場</a></li>

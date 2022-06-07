@@ -31,13 +31,13 @@ async function loadheader() {
           link = "admin/announcement.html";
           break;
         case "商品種類管理":
-          link = "";
+          link = "admin/label.html";
           break;
         case "權限管理":
           link = "admin/index_admin_layout.html";
           break;
         case "問題回報":
-          link = "admin/report.html";
+          link = "admin/mailbox.html";
           break;
         case "報表分析":
           link = "admin/chart.html";
