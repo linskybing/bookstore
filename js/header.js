@@ -50,8 +50,7 @@ async function loadheader() {
         <li><a href="news.html">公告事項</a></li>
         <li><a href="productlist.html">商品賣場</a></li>
         <li><a href="productlist_rent.html">租借賣場</a></li>
-        <li><a href="#">平台介紹</a></li>
-        <li><a href="#">關於我們</a></li>
+      
         </ul>
         <ul> 
         <li><a href="${link}">前往後臺</a></li>
@@ -60,17 +59,14 @@ async function loadheader() {
         <li id="logout"><a href="#">登出</a></li>
         </ul>
       `;
-    }
-    else {
+    } else {
       div.innerHTML = `
         <ul>
         <li class="logo"><a href="index.html"><img src="../image/logo.png"></a></li>
         <li><a href="index.html">首頁</a></li>
         <li><a href="news.html">公告事項</a></li>
         <li><a href="productlist.html">商品賣場</a></li>
-        <li><a href="productlist_rent.html">租借賣場</a></li>
-        <li><a href="#">平台介紹</a></li>
-        <li><a href="#">關於我們</a></li>
+        <li><a href="productlist_rent.html">租借賣場</a></li>       
         </ul>
         <ul> 
         <li><a href="cart_2.html">購物車</a></li>    
@@ -90,9 +86,7 @@ async function loadheader() {
     <li><a href="index.html">首頁</a></li>
     <li><a href="news.html">公告事項</a></li>
     <li><a href="productlist.html">商品賣場</a></li>
-    <li><a href="productlist_rent.html">租借賣場</a></li>
-    <li><a href="#">平台介紹</a></li>
-    <li><a href="#">關於我們</a></li>
+    <li><a href="productlist_rent.html">租借賣場</a></li>    
     </ul>
     <ul>
     <li><a href="login.html">登入</a></li>
@@ -109,11 +103,10 @@ async function loadheader() {
         Logout();
       });
   }
-
 }
 
 async function initroledata() {
-  await getUserroleData().then(r => roleinfo = r);
+  await getUserroleData().then((r) => (roleinfo = r));
   if (roleinfo) {
     console.log(roleinfo);
   }
