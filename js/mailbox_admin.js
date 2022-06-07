@@ -83,7 +83,7 @@ async function loadcontent(id) {
     let content = div.querySelector('.mail-inside-content p');
     let postimage = problem[index].PostUserImage;
     if (postimage) {
-        img.querySelector('img').src = 'http://localhost:8080/images/Members/' + image;
+        img.querySelector('img').src = 'http://localhost:8080/images/Members/' + postimage;
         img.classList.remove('hidden');
     }
     name.innerHTML = problem[index].PostUser + " (使用者)";
@@ -130,7 +130,7 @@ async function loadcontent(id) {
                 if (getCookie('Image') != 'null' && getCookie('Image')) {
                     let img = mail.querySelector('.image');
                     let name2 = mail.querySelector('.name');
-                    mail.querySelector('img').src = "http://localhost/images/Members/" + getCookie('Image');
+                    mail.querySelector('img').src = "http://localhost:8080/images/Members/" + image;
                     img.classList.remove('hidden');
                     name2.innerHTML = getCookie('Name');
                 }

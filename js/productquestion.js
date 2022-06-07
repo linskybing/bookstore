@@ -8,13 +8,13 @@ async function initquestion() {
     await GetByIdQuestion(pageid).then(r => temp = r);
     console.log(temp);
     const account = getCookie('Account');
+    sendtextarea();
     if (account != seller) {
         showtextarea()
     }
     if (temp && temp.hasOwnProperty('data')) {
         question = temp.data;
         loadquestion();
-        sendtextarea();
     }
 }
 
