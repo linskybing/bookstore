@@ -92,41 +92,27 @@ function displaymessage(id, type) {
         var re;
         await DeleteProduct(data[nowIndex].ProductId).then(r => re = r);
         if (re.hasOwnProperty('error')) {
-            document.querySelector('.modal .message').innerHTML = ` 
-            <div class="modal-content-2" style="width: 20%!important;min-width: 400px;">
-                <div class="header">
-                    <div class="close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </div>
-                    <div class="message">
+            document.querySelector('.modal .message').innerHTML = `
+         
                         <div class="icon">
                             <i class="fa-solid fa-circle-exclamation"></i>
                         </div>
                         <div class="text">
                             ${re.error}
                         </div>                     
-                    </div>
-                </div>
-            </div>`;
+          `;
         }
         else {
             document.querySelector('.modal .message').innerHTML = `
-            <div class="modal-content-2" style="width: 20%!important;min-width: 400px;">
-                <div class="header">
-                    <div class="close">
-                        <i class="fa-solid fa-xmark"></i>
-                    </div>
-                    <div class="message">
+           
                         <div class="icon" style="color:green;">
                             <i class="fa-solid fa-circle-check"></i>
                         </div>
                         <div class="text">
                             ${re.info}
-                        </div>                     
-                    </div>
-                </div>
-            </div>
+                        </div> 
             `;
+
             refreshproductbtn = true;
             GetOnProduct('null');
             setTimeout(() => {
@@ -268,8 +254,7 @@ function editmodal(id, type) {
             </div>
             <div class="menu">
                 <ul>
-                    <li class="active" id="product">商品資訊</li>
-                    <li id="rent">租借資訊</li>
+                    <li class="active" id="product">商品資訊</li>                    
                     <li id="photo">商品圖片</li>
                     <li id="category">商品標籤</li>
                 </ul>
@@ -314,8 +299,7 @@ function editmodal(id, type) {
     `;
 
     closemodal();
-    modal_content_event('.modal .modal-content-2');
-    modal_rent_info();
+    modal_content_event('.modal .modal-content-2');    
     modal_image_info();
     modal_category_info();
     sendeditdata();
@@ -346,32 +330,7 @@ function sendeditdata() {
             document.querySelector('.formerror').innerHTML = '必填資料不可為空';
         }
 
-    })
-    document.getElementById('submit_r').addEventListener('click', async function () {
-        let isrent = document.getElementById('rentbox');
-        if (isrent.checked) {
-            let maxrent = document.querySelector('#editrent').value;
-            let rentpriceedit = document.querySelector('#rentprice').value;
-            tempdata = Object.assign(tempdata, { 'Rent': 1 });
-            tempdata = Object.assign(tempdata, { 'MaxRent': maxrent });
-            tempdata = Object.assign(tempdata, { 'RentPrice': rentpriceedit });
-            if (!checkRate(maxrent) || !checkRate(rentpriceedit)) {
-                document.querySelector('.formerror').classList.add('erroractive');
-                document.querySelector('.formerror').innerHTML = '數量欄位必須為正整數且大於0';
-            }
-            else {
-                UpdateInfo(tempdata);
-            }
-        } else {
-            let maxrent = document.querySelector('#editrent').value;
-            let rentpriceedit = document.querySelector('#rentprice').value;
-            tempdata = Object.assign(tempdata, { 'Rent': 0 });
-            tempdata = Object.assign(tempdata, { 'MaxRent': 0 });
-            tempdata = Object.assign(tempdata, { 'RentPrice': 0 });
-            UpdateInfo(tempdata);
-
-        };
-    })
+    })   
     document.getElementById('submit_i').addEventListener('click', async function () {
         var re;
         var data;
@@ -518,97 +477,6 @@ function modal_content_event(type) {
     let modal_content = document.querySelector(type);
     modal_content.display = 'flex'
     modal_content.classList.toggle('open');
-}
-
-//點擊租借資訊
-function modal_rent_info() {
-    let rent = document.getElementById('rent');
-    rent.addEventListener('click', function () {
-        var data;
-        data = GetDataArray(nowType);
-        let now = document.querySelector('.now');
-        now.classList.remove('now');
-        now.classList.add('hidden');
-        let rentbtn = document.getElementById('submit_r')
-        rentbtn.classList.remove('hidden');
-        rentbtn.classList.add('now');
-        let content = document.querySelector('.modal .content');
-        content.innerHTML = `
-        <div class="formerror">                    
-        </div>
-        <div class="formgroup onoption">
-        <label>租借功能　　</label>
-        <input type="checkbox" id="rentbox" >
-        <label class="toggle" for="rentbox">
-            <div class="radio ${(data[nowIndex].Rent == 0) ? "default" : "default-2"}"></div>
-        </label>                   
-        </div>
-        <div class="formgroup">
-            <label for="editrent">最大租借天數</label>
-            <input type="text" id="editrent" ${(data[nowIndex].Rent == 0) ? 'disabled="disabled"' : ''} value="${data[nowIndex].MaxRent}">
-        </div>
-        <div class="formgroup">
-            <label for="rentprice">租借價格(天)&nbsp;</label>
-            <input type="text" id="rentprice" ${(data[nowIndex].Rent == 0) ? 'disabled="disabled"' : ''} value="${data[nowIndex].RentPrice}">
-        </div>
-        `;
-        radio_event();
-        modal_product_info();
-        let rentbox = document.getElementById('rentbox');
-        rentbox.checked = (data[nowIndex].Rent != 0);
-    })
-}
-
-//租借radio_event
-
-function radio_event() {
-    var btn = true;
-    let option = document.querySelector('.onoption .toggle');
-    let active = document.querySelector('.modal .active');
-    active.classList.remove('active');
-    let rent = document.querySelector('#rent');
-    rent.classList.add('active');
-    option.addEventListener('click', function () {
-        let radio = document.querySelector('.onoption .toggle .radio');
-        let rentbox = document.querySelector('#rentbox');
-        if (btn) {
-            btn = false;
-            if (!rentbox.checked) {
-                radio.classList.remove('default');
-                radio.classList.add('toggle-check');
-                let modalinput = document.querySelectorAll('.modal input[type=text]');
-                modalinput.forEach(e => {
-                    e.removeAttribute('disabled');
-                })
-                return false;
-            }
-            else {
-                radio.classList.remove('default-2');
-                radio.classList.add('toggle-uncheck');
-                let modalinput = document.querySelectorAll('.modal input[type=text]');
-                modalinput.forEach(e => {
-                    e.setAttribute('disabled', 'disabled');
-                })
-                return false;
-            }
-
-        }
-        if (rentbox.checked) {
-            let modalinput = document.querySelectorAll('.modal input[type=text]');
-            modalinput.forEach(e => {
-                e.setAttribute('disabled', 'disabled');
-            })
-        }
-        else {
-            let modalinput = document.querySelectorAll('.modal input[type=text]');
-            modalinput.forEach(e => {
-                e.removeAttribute('disabled');
-            })
-        }
-        radio.classList.toggle('toggle-uncheck');
-        radio.classList.toggle('toggle-check');
-
-    });
 }
 
 //點擊商品資訊
@@ -917,7 +785,6 @@ function ClearContent() {
 `;
     checkall();
     insertbtn();
-
 }
 
 //上傳商品圖片

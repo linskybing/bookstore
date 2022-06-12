@@ -1,7 +1,7 @@
 var prodcutonlist;
 var onIndex = 0;
 var nowIndex = 0;
-var nowType = "on";
+var nowType = "off";
 var tempdata = {};
 
 var constproduct;
@@ -23,13 +23,25 @@ modal.addEventListener("click", function (e) {
 });
 
 //綁定insert按鈕
+
 function insertbtn() {
-  var insert = document.querySelector(".table_action .insert");
-  insert.addEventListener("click", function () {
-    document.body.classList.toggle("bodyhidden");
-    modal.classList.toggle("hidden");
-    displaymodal();
-  });
+  var insert = document.querySelector('.table_action .insert');
+  insert.addEventListener('click', async function () {
+    checkboxes = document.getElementsByName('product');
+
+    await checkboxes.forEach(element => {
+      if (element.checked) {
+        var re;
+        var dataobj = {
+          'State': 'on'
+        }
+        re = turnoff(dataobj, element.value);
+        console.log(re);
+
+      }
+    });
+
+  })
 }
 
 //綁定check事件
@@ -58,6 +70,7 @@ function binddelete() {
         };
         re = turnoff(dataobj, element.value);
         console.log(re);
+
       }
     });
   });
@@ -109,6 +122,7 @@ function displaymessage(id, type) {
                         <div class="text">
                             ${re.error}
           `;
+
       } else {
         document.querySelector(".modal .message").innerHTML = `
             
@@ -150,21 +164,29 @@ function displaymodal() {
             <div class="formerror">               
             </div>
             <div class="formgroup">
-                <label for="editname">商品名稱<span class="must">*</span></label>
+                <label class="label2" for="editname">商品名稱<span class="must">*</span></label>
                 <input type="text" id="editname">
             </div>
             <div class="formgroup">
-                <label for="editprice">商品價格<span class="must">*</span></label>
+                <label class="label2" for="editprice">成本價<span class="must">*</span></label>
                 <input type="text" id="editprice">
             </div>
             <div class="formgroup">
-                <label for="store">　　庫存<span class="must">*</span></label>
+                <label class="label2" for="store">庫存<span class="must">*</span></label>
                 <input type="text" id="store">
             </div>
             <div class="formgroup">
-                <label for="description">商品敘述<span class="must">*</span></label>
+                <label class="label2" for="editrent">最大租借天數<span class="must">*</span></label>
+                <input type="text" id="editrent">
+            </div>         
+            <div class="formgroup">
+              <label class="label2" for="rentprice">租借價格(天)<span class="must">*</span>&nbsp; </label>
+              <input type="text" id="rentprice" value="">
+            </div>
+            <div class="formgroup">
+                <label class="label2" for="description">商品敘述<span class="must">*</span> </label>
                 <textarea id="description"></textarea>
-            </div>            
+            </div>        
         </div>
         <div class="footer">
             <button class="submit">
@@ -180,14 +202,20 @@ function displaymodal() {
     let Price = document.querySelector("#editprice").value;
     let Inventory = document.querySelector("#store").value;
     let Description = document.querySelector("#description").value;
+    let maxrent = document.querySelector('#editrent').value;
+    let rentprice = document.querySelector('#rentprice').value;
     tempdata = Object.assign(tempdata, { Name: Name });
     tempdata = Object.assign(tempdata, { Price: Price });
     tempdata = Object.assign(tempdata, { Inventory: Inventory });
     tempdata = Object.assign(tempdata, { Description: Description });
+    tempdata = Object.assign(tempdata, { MaxRent: maxrent });
+    tempdata = Object.assign(tempdata, { RentPrice: rentprice });
     if (validate(tempdata)) {
       if (
         !checkRate(parseInt(tempdata.Price)) ||
-        !checkRate(parseInt(tempdata.Inventory))
+        !checkRate(parseInt(tempdata.Inventory)) ||
+        !checkRate(parseInt(tempdata.MaxRent)) ||
+        !checkRate(parseInt(tempdata.RentPrice))
       ) {
         numbererror();
       } else {
@@ -196,7 +224,7 @@ function displaymodal() {
         document.querySelector(".formerror").classList.remove("erroractive");
         document.querySelector(".formerror").innerHTML = "";
         var re;
-        await InsertProduct(tempdata).then((r) => (re = r));
+        await InsertProductRent(tempdata).then((r) => (re = r));
         if (re.hasOwnProperty("error")) {
           document.querySelector(".formerror").classList.add("erroractive");
           document.querySelector(".formerror").innerHTML = re.error;
@@ -255,7 +283,7 @@ function editmodal(id, type) {
             </div>
             <div class="menu">
                 <ul>
-                    <li class="active" id="product">商品資訊</li>                   
+                    <li class="active" id="product">商品資訊</li>                    
                     <li id="photo">商品圖片</li>
                     <li id="category">商品標籤</li>
                 </ul>
@@ -265,20 +293,28 @@ function editmodal(id, type) {
             <div class="formerror">                    
             </div>
             <div class="formgroup">
-                <label for="editname">商品名稱<span class="must">*</span></label>
+                <label class="label2" for="editname">商品名稱<span class="must">*</span></label>
                 <input type="text" id="editname" value="${data[id].Name}">
             </div>
             <div class="formgroup">
-                <label for="editprice">商品價格<span class="must">*</span></label>
+                <label class="label2" for="editprice">成本價<span class="must">*</span></label>
                 <input type="text" id="editprice" value="${data[id].Price}">
             </div>
             <div class="formgroup">
-                <label for="store">　　庫存<span class="must">*</span></label>
+                <label class="label2" for="store">庫存<span class="must">*</span></label>
                 <input type="text" id="store" value="${data[id].Inventory}">
             </div>
             <div class="formgroup">
-                <label for="description">商品敘述<span class="must">*</span></label>
-                <textarea id="description">${data[id].Description}</textarea>
+                <label class="label2" for="editrent">最大租借天數</label>
+                <input type="text" id="editrent" value="${data[id].MaxRent}">
+            </div>
+            <div class="formgroup">
+                  <label class="label2" for="rentprice">租借價格(天)&nbsp;</label>
+                  <input type="text" id="rentprice" value="${data[id].RentPrice}">
+            </div>
+            <div class="formgroup">
+                <label class="label2" for="description">商品敘述<span class="must">*</span></label>
+                <textarea id="description">${ntobr(data[id].Description)}</textarea>
             </div>            
         </div>
         <div class="footer">
@@ -300,9 +336,10 @@ function editmodal(id, type) {
     `;
 
   closemodal();
-  modal_content_event(".modal .modal-content-2"); 
+  modal_content_event(".modal .modal-content-2");
   modal_image_info();
   modal_category_info();
+  modal_product_info();
   sendeditdata();
 }
 
@@ -316,13 +353,19 @@ function sendeditdata() {
     let Price = document.querySelector("#editprice").value;
     let Inventory = document.querySelector("#store").value;
     let Description = document.querySelector("#description").value;
+    let maxrent = document.querySelector('#editrent').value;
+    let rentprice = document.querySelector('#rentprice').value;
     tempdata = Object.assign(tempdata, { Name: Name });
     tempdata = Object.assign(tempdata, { Price: Price });
     tempdata = Object.assign(tempdata, { Inventory: Inventory });
     tempdata = Object.assign(tempdata, { Description: Description });
+    tempdata = Object.assign(tempdata, { MaxRent: maxrent });
+    tempdata = Object.assign(tempdata, { RentPrice: rentprice });
     if (
       !checkRate(parseInt(tempdata.Price)) ||
-      !checkRate(parseInt(tempdata.Inventory))
+      !checkRate(parseInt(tempdata.Inventory)) ||
+      !checkRate(parseInt(tempdata.MaxRent)) ||
+      !checkRate(parseInt(tempdata.RentPrice))
     ) {
       numbererror();
     } else if (validate(tempdata)) {
@@ -331,7 +374,7 @@ function sendeditdata() {
       document.querySelector(".formerror").classList.add("erroractive");
       document.querySelector(".formerror").innerHTML = "必填資料不可為空";
     }
-  });  
+  });
   document
     .getElementById("submit_i")
     .addEventListener("click", async function () {
@@ -479,6 +522,7 @@ function modal_content_event(type) {
   modal_content.classList.toggle("open");
 }
 
+
 //點擊商品資訊
 
 function modal_product_info() {
@@ -497,21 +541,29 @@ function modal_product_info() {
             <div class="formerror">                    
             </div>
             <div class="formgroup">
-                <label for="editname">商品名稱</label>
+                <label class="label2" for="editname">商品名稱</label>
                 <input type="text" id="editname" value="${data[nowIndex].Name}">
             </div>
             <div class="formgroup">
-                <label for="editprice">商品價格</label>
+                <label class="label2" for="editprice">成本價</label>
                 <input type="text" id="editprice" value="${data[nowIndex].Price}">
             </div>
             <div class="formgroup">
-                <label for="store">　　庫存</label>
+                <label class="label2" for="store">庫存</label>
                 <input type="text" id="store" value="${data[nowIndex].Inventory}">
             </div>
             <div class="formgroup">
-                <label for="description">商品敘述</label>
-                <textarea id="description">${data[nowIndex].Description}</textarea>
+                <label class="label2" for="description">商品敘述</label>
+                <textarea id="description">${ntobr(data[nowIndex].Description)}</textarea>
             </div> 
+            <div class="formgroup">
+              <label class="label2" for="editrent">最大租借天數</label>
+              <input type="text" id="editrent" value="${data[nowIndex].MaxRent}">
+            </div>
+            <div class="formgroup">
+              <label class="label2" for="rentprice">租借價格(天)&nbsp;</label>
+              <input type="text" id="rentprice" value="${data[nowIndex].RentPrice}">
+            </div>
         `;
     modal_product_event();
   });
@@ -686,7 +738,7 @@ function modal_category_info() {
 async function GetOnProduct(search) {
   if (refreshproductbtn) {
     var data;
-    await GetSellerProduct(nowType).then(r => data = r);
+    await GetSellerProductRent(nowType).then(r => data = r);
     if (data && data.hasOwnProperty('data') && data.data) {
       constproduct = data.data;
       productofflist = constproduct;
@@ -756,45 +808,42 @@ async function GetOnProduct(search) {
   }
 }
 
+
 function ClearContent() {
   onIndex = 0;
-  document.querySelector(".product_table").innerHTML = `
-    <div class="table_action" >
-        <div class="h1"></a></div >
-            <div class="action">
-                <button class="insert">
-                    新增商品
-                </button>
-                <button class="delete">
-                    下架商品
-                </button>
-            </div>
-    </div >
-    <div class="table_thead">
-        <div class="checkbox_head">
-            <input type="checkbox" id="p_all">
-                <label for="p_all"><i class="fa-solid fa-check"></i></label>
-        </div>
-        <div class="productimg_head">
-            商品圖片
-        </div>
-        <div class="productname_head">
-            商品名稱
-        </div>
-        <div class="productprice_head">
-            價格
-        </div>
-        <div class="store_head">
-            剩餘庫存
-        </div>
-        <div class="prodcut_action_head">
-            操作
-        </div>
-    </div>
+  document.querySelector('.product_table').innerHTML = `
+  <div class="table_action" >
+      <div class="h1"></a></div >
+          <div class="action">
+              <button class="insert">
+                  上架商品
+              </button>               
+          </div>
+  </div >
+  <div class="table_thead">
+      <div class="checkbox_head">
+          <input type="checkbox" id="p_all">
+              <label for="p_all"><i class="fa-solid fa-check"></i></label>
+      </div>
+      <div class="productimg_head">
+          商品圖片
+      </div>
+      <div class="productname_head">
+          商品名稱
+      </div>
+      <div class="productprice_head">
+          價格
+      </div>
+      <div class="store_head">
+          剩餘庫存
+      </div>
+      <div class="prodcut_action_head">
+          操作
+      </div>
+  </div>
 `;
   checkall();
   insertbtn();
-  binddelete();
 }
 
 //上傳商品圖片
@@ -837,7 +886,7 @@ function paging() {
                 `;
         page.appendChild(li);
         document.getElementById('pre').addEventListener('click', function () {
-          nowpage = Number(nowpage) - 1;
+          nowpage = nowpage - 1;
           GetOnProduct('null')
         })
       }
@@ -885,7 +934,7 @@ function paging() {
         page.appendChild(li);
 
         document.getElementById('next').addEventListener('click', function () {
-          nowpage = Number(nowpage) + 1;
+          nowpage += 1;
           GetOnProduct('null')
         })
       }
@@ -898,3 +947,6 @@ function paging() {
   console.log(prodcutonlist, (nowpage - 1) * pageitem, nowpage * pageitem, nowpage);
 }
 
+function ntobr(str) {
+  return str.replace('/\n/g', '<br/>');
+}

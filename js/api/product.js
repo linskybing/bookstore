@@ -1,8 +1,24 @@
-var p_nowpage = 1;
-const p_itemnum = 10;
-function GetSellerProduct(state, search) {
+
+function GetSellerProduct(state) {
     var token = getCookie('token');
-    return fetch(apidomain + '/products/' + state + '/' + search + '/' + p_nowpage + '/' + p_itemnum, {
+    return fetch(apidomain + '/products/' + state, {
+        method: 'GET',
+        headers: {
+            'Authorization': token,
+        }
+    })
+        .then(res => res.json())
+        .then(res => {
+            return res;
+        })
+        .catch(e => {
+            console.error('Error:', error)
+        })
+}
+
+function GetSellerProductRent(state) {
+    var token = getCookie('token');
+    return fetch(apidomain + '/productsr/' + state, {
         method: 'GET',
         headers: {
             'Authorization': token,
@@ -128,6 +144,30 @@ function InsertProduct(data) {
     })
     console.log(sdata);
     return fetch(apidomain + '/product', {
+        method: 'POST',
+        headers: {
+            'Authorization': token,
+        },
+        body: sdata
+    })
+        .then(res => res.json())
+        .then(data => {
+            console.log(data)
+            return data
+        })
+        .catch(e => {
+            console.error('Error:', e)
+        })
+}
+
+function InsertProductRent(data) {
+    const token = getCookie('token');
+    var sdata = new FormData()
+    Object.entries(data).forEach(([key, value]) => {
+        sdata.append(key, value);
+    })
+    console.log(sdata);
+    return fetch(apidomain + '/productr', {
         method: 'POST',
         headers: {
             'Authorization': token,
