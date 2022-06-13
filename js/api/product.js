@@ -16,6 +16,40 @@ function GetSellerProduct(state) {
         })
 }
 
+function MutiSearch(url) {
+    var token = getCookie('token');
+    return fetch(apidomain + '/mutisearch?' + url, {
+        method: 'GET',
+        headers: {
+            'Authorization': token,
+        }
+    })
+        .then(res => res.json())
+        .then(res => {
+            return res;
+        })
+        .catch(e => {
+            console.error('Error:', error)
+        })
+}
+
+function GetRecomment(id, state) {
+    var token = getCookie('token');
+    return fetch(apidomain + '/product/' + id + '/' + state, {
+        method: 'GET',
+        headers: {
+            'Authorization': token,
+        }
+    })
+        .then(res => res.json())
+        .then(res => {
+            return res;
+        })
+        .catch(e => {
+            console.error('Error:', error)
+        })
+}
+
 function GetSellerProductRent(state) {
     var token = getCookie('token');
     return fetch(apidomain + '/productsr/' + state, {
@@ -280,3 +314,4 @@ function DeleteCartItem(id) {
             console.error('Error:', e)
         })
 }
+

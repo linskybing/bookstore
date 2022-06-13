@@ -488,3 +488,45 @@ function getUserroleData() {
       console.error('Error:', error)
     })
 }
+
+function objtoparam(obj) {
+  var str = "";
+  for (var key in obj) {
+    if (str != "") {
+      str += "&";
+    }
+    str += key + "=" + encodeURIComponent(obj[key]);
+  }
+  return str;
+}
+
+function geturlparams() {
+  var url = location.href;
+  var string = "";
+  if (url.indexOf('?') != -1) {
+    var id = "";
+    string = url.split('?')[1];
+  }
+  return string;
+}
+
+function geturi() {
+  var url = location.href;
+  var string = "";
+  if (url.indexOf('?') != -1) {
+    var id = "";
+    string = url.split('?')[0];
+  }
+  return string;
+}
+
+function geturlobject() {
+  var search = location.search.substring(1); 
+  if (search) {
+    return JSON.parse('{"' + search.replace(/&/g, '","').replace(/=/g, '":"') + '"}', function (key, value) { return key === "" ? value : decodeURIComponent(value) })
+  }
+  else {
+    return {};
+  }
+
+}

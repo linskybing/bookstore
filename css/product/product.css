@@ -39,18 +39,21 @@ a {
     padding-left: 60px;
 }
 
+.productblock .mutisearch {
+    padding: 20px;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    background-color: #f8f8f8;
+}
+
 .productblock .header {
     display: flex;
-    height: 60px;
-    justify-content: flex-end;
-    flex-wrap: nowrap;
+    flex-direction: column;
     padding-right: 100px;
 }
 
-.header div {
-    display: flex;
-    flex-wrap: nowrap;
-}
+
 
 .header select {
     border-radius: 25px;
@@ -68,11 +71,11 @@ a {
     padding: 5px 0;
 }
 
-.header input {
-    border-radius: 25px;
-    height: 50px;
+.header input[type=text] {
+    border-radius: 5px;
+    height: 30px;
     width: 180px;
-    margin-left: 15px;
+    margin: 10px;
     padding: 0px 20px;
     font-size: 14px;
     font-weight: bolder;
@@ -81,6 +84,123 @@ a {
     border: 1px solid #797979;
 }
 
+.header input:focus {
+    border: 1px solid rgba(255, 72, 0, 0.842);
+}
+
+.header input[type=number] {
+    border-radius: 5px;
+    border: 1px solid #797979;
+    padding: 0px 5px;
+    width: 72px;
+    -moz-appearance: none;
+    outline: none;
+}
+
+.header input[type=number]:focus {
+    border: 1px solid rgba(255, 72, 0, 0.842);
+}
+
+.tag {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 5px;
+    margin: 10px 5px;
+    border-radius: 5px;
+    font-size: 15px;
+    font-weight: bolder;
+    background-color: #dddddd;
+    color: black;
+    cursor: pointer;
+}
+
+:is(.category-select, .price-select, .sort-select) .active {
+    background-color: rgba(255, 72, 0, 0.842);
+    color: white;
+}
+
+
+:is(.category-select) {
+    display: flex;
+    flex-wrap: wrap;
+    width: 70%;
+}
+
+.price-select {
+    display: flex;
+    flex-wrap: wrap;
+    width: 70%;
+}
+
+.sort-select {
+    display: flex;
+    flex-wrap: wrap;
+    width: 70%;
+}
+
+
+.mutisearch .muti-item {
+    width: 100%;
+    display: flex;
+    margin: 10px 0px;
+}
+
+.mutisearch .muti-item .item-title {
+    font-size: 16px;
+    margin: 10px;
+    color: #444444;
+    font-weight: bolder;
+}
+
+:is(.price-select) span {
+    margin: 0px 10px;
+}
+
+.actionblock {
+    display: flex;
+    justify-content: flex-end;
+    width: 100%;
+}
+
+.searchbtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(255, 72, 0, 0.842);
+    color: white;
+    font-size: 14px;
+    font-weight: bolder;
+    border-radius: 5px;
+    border: none;
+    width: 90px;
+    height: 40px;
+    cursor: pointer;
+}
+
+.searchbtn:hover {
+    background-color: rgb(255, 72, 0);
+}
+
+.resetbtn {
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(68, 68, 68, 0.842);
+    color: white;
+    font-size: 14px;
+    font-weight: bolder;
+    border-radius: 5px;
+    border: none;
+    width: 90px;
+    height: 40px;
+    cursor: pointer;
+    margin: 0px 10px;
+}
+
+.resetbtn:hover {
+    background-color: rgb(48, 48, 48);
+}
 
 .content {
     display: flex;
@@ -151,7 +271,6 @@ a {
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    width: calc(100% - 360px);
     padding-left: 80px;
     position: relative;
 }
