@@ -17,7 +17,7 @@
     <header></header>
     <section>
         <div class="title">
-            <h1>商品賣場</h1>
+            <h1>租借賣場</h1>
             <span>
                 <a href="#">首頁 </a>
                 <i class="fa-solid fa-chevron-right"></i>
@@ -26,31 +26,64 @@
         </div>
         <div class="productblock">
             <div class="header">
-                <div>
-                    <input type="text" placeholder="搜尋商品" id="searchproduct">
-                    <select>
-                        <option value="依價格高到低排序">依價格高到低排序</option>
-                        <option value="依價格低到高排序">依價格低到高排序</option>
-                        <option value="依日期排序">依日期排序</option>
-                        <option value="依觀看數排序">依觀看數排序</option>
-                    </select>
+                <div class="mutisearch">
+                    <div class="muti-item">
+                        <div class="item-title">
+                            商品名稱
+                        </div>
+                        <input type="text" placeholder="搜尋商品" id="searchproduct">
+                    </div>
+                    <div class="muti-item">
+                        <div class="item-title">
+                            　　種類
+                        </div>
+                        <div class="category-select">
+                        </div>
+                    </div>
+                    <div class="muti-item">
+                        <div class="item-title" style="display: flex;justify-content: flex-end;align-items: center;">
+                            　　價格
+                        </div>
+                        <div class="price-select">
+                            <div class="tag" id="0_5">
+                                5元以下
+                            </div>
+                            <div class="tag" id="5_10">
+                                5 ~ 10 元
+                            </div>
+                            <div class="tag" id="10_30">
+                                10 ~ 20 元
+                            </div>
+                            <div class="tag" id="30_">
+                                30 元以上
+                            </div>
+                        </div>
+                    </div>
+                    <div class="muti-item">
+                        <div class="item-title">
+                            　　排序
+                        </div>
+                        <div class="sort-select">
+                            <div class="tag" id="pricedesc">
+                                價格由高至低
+                            </div>
+                            <div class="tag" id="reviewasc">
+                                評價由低至高
+                            </div>
+                        </div>
+                    </div>
+                    <div class="muti-item actionblock">
+                        <a href="productlist.html"><button class="resetbtn">清空</button></a>
+                    </div>
                 </div>
             </div>
             <div class="content">
-                <div class="category">
-                    <ul>
-                        <li class="ultitle">商品種類</li>
-                    </ul>
-                </div>
                 <div class="product">
 
                 </div>
             </div>
             <div class="page">
                 <ul>
-                    <li><span><i class="fa-solid fa-angle-left"></i></span></li>
-                    <li class="active"><span>1</span></li>
-                    <li><span><i class="fa-solid fa-angle-right"></i></span></li>
                 </ul>
             </div>
     </section>

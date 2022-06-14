@@ -33,6 +33,23 @@ function MutiSearch(url) {
         })
 }
 
+function MutiSearchRent(url) {
+    var token = getCookie('token');
+    return fetch(apidomain + '/mutisearchr?' + url, {
+        method: 'GET',
+        headers: {
+            'Authorization': token,
+        }
+    })
+        .then(res => res.json())
+        .then(res => {
+            return res;
+        })
+        .catch(e => {
+            console.error('Error:', error)
+        })
+}
+
 function GetRecomment(id, state) {
     var token = getCookie('token');
     return fetch(apidomain + '/product/' + id + '/' + state, {

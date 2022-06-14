@@ -11,7 +11,10 @@ async function geturl() {
                 id = ary[i].split('=')[1];
                 pageid = id;
                 await GetSingle(id).then(r => productdata = r);
-                console.log(productdata);
+                await GetRecomment(id, 1).then(r => recommend = r);
+                if (recommend && recommend.data) {
+                    recommend = recommend.data;
+                }
                 loadingpage();
                 getscore();
                 createtag();
@@ -20,6 +23,7 @@ async function geturl() {
                 product_img_info();
                 setaddandminus();
                 cartbtn();
+                loadrecommend();
             }
         }
     }
@@ -214,3 +218,63 @@ function cartbtn() {
 
 }
 geturl();
+
+function loadrecommend() {
+
+    let productblock = document.querySelector('.product');
+    productblock.innerHTML = ``;
+    if (recommend) {
+        document.querySelector('.forrecommend').innerHTML = `
+                <h2>其他人也購買了</h2>
+            `;
+    }
+    for (i = 0; i < 5 && i < recommend.length; i++) {
+        if (recommend) {
+
+            let nowdata = recommend[i];
+            let div = document.createElement('div');
+            div.classList.add('item');
+            div.innerHTML = `
+                        <a href="product.html?id=${nowdata.ProductId}">
+                            <img src="${(nowdata.Image != null) ? "http://localhost:8080/images/Products/" + nowdata.Image[0].Image : "https://imagepng.org/wp-content/uploads/2019/08/google-chrome-icon-1.png"}"
+                                alt="" width="250px" height="250px">
+                        </a>
+                        <div class="detail">
+                            <div class="p-title">${nowdata.Name}</div>
+                            <div class="p-category">            
+                                <div class="p-price">${nowdata.RentPrice} NT</div>                
+                                <span class="cart add ${(nowdata.InCart == 0) ? '' : 'hidden'}">
+                                    <i class="fa-solid fa-cart-arrow-down"></i>                                  
+                                </span>
+                                <span class="cart2 remove ${(nowdata.InCart != 0) ? '' : 'hidden'}">                                
+                                    <i class="fa-solid fa-cart-arrow-down"></i> 
+                                </span>
+                            </div>
+                           
+                        </div>
+            `;
+            let add = div.querySelector('.add');
+            let remove = div.querySelector('.remove');
+            add.addEventListener('click', async function () {
+                await AddtoCart(nowdata.ProductId, 1, 'Buy');
+
+                var incart;
+                await InCart(nowdata.ProductId).then(r => incart = r);
+                if (incart) {
+                    add.classList.toggle('hidden');
+                    remove.classList.toggle('hidden');
+                }
+            })
+            remove.addEventListener('click', async function () {
+                await DeleteCartItem(nowdata.ProductId);
+                var incart;
+                await InCart(nowdata.ProductId).then(r => incart = r);
+                if (!incart) {
+                    add.classList.toggle('hidden');
+                    remove.classList.toggle('hidden');
+                }
+            })
+            productblock.appendChild(div);
+        }
+    }
+}

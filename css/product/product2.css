@@ -154,7 +154,7 @@ body>section>.title span a:hover {
     color: white;
     background-color: #727272;
     cursor: pointer;
-    
+
 }
 
 .hidden {
@@ -405,6 +405,27 @@ body>section>.title span a:hover {
 .cart:hover {
     color: rgb(255, 255, 255);
     background-color: #ff5e00;
+    transition: all .5s ease;
+}
+
+
+.cart2 {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 30px;
+    height: 30px;
+    border-radius: 100%;
+    color: rgb(255, 255, 255);
+    background-color: #ff5e00;
+    font-size: 14px;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.cart2:hover {
+    color: rgb(158, 158, 158);
+    background-color: #dfdfdf;
     transition: all .5s ease;
 }
 
