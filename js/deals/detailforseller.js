@@ -57,6 +57,7 @@ async function listinit() {
                             break;
                         }
                         case "完成交易": {
+                            document.querySelector('.form').classList.remove('hidden');
                             tr.querySelector('.cancel').classList.add('hidden');
                             break;
                         }
