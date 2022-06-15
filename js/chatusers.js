@@ -354,11 +354,11 @@ var interval2;
 var isrefreshuserlist = false;
 var isrefreshsellerlist = true;
 function BindChatInterval() {
-    intervalID = setInterval("RefreshChat()", 500);
+    intervalID = setInterval("RefreshChat()", 1000);
 }
 
 function BindListInterval(type) {
-    interval2 = setInterval("RefreshChat()", 500);
+    interval2 = setInterval("RefreshChat()", 1000);
 }
 
 async function DynamicChat() {
