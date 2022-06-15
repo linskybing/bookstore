@@ -391,7 +391,7 @@ function senddata3(itemindex) {
                     document.querySelector('.modal .formerror').innerHTML = '';
                     document.querySelector('.modal').classList.toggle('hidden');
                 }, 5000);
-                window.location.reload();
+                //window.location.reload();
             }
             else {
                 document.querySelector('.modal .formerror').innerHTML = '標籤名稱不可重複';

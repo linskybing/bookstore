@@ -85,6 +85,23 @@ function RecordForChart() {
         })
 }
 
+function RecordForRentChart() {
+    return fetch(apidomain + '/dealrforchartr', {
+        method: 'GET',
+        headers: {
+            'Authorization': token,
+        }
+    })
+        .then(res => res.json())
+        .then(res => {
+            return res;
+        })
+        .catch(e => {
+            console.error('Error:', error)
+        })
+}
+
+
 // category
 
 function PATCHETag(id, data) {

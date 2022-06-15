@@ -12,7 +12,7 @@ const MaxCount = 7;
 initchart();
 async function initchart() {
   // 獲取資料  
-  await RecordForChart().then(r => tagdetail = r);
+  await RecordForRentChart().then(r => tagdetail = r);
   console.log(tagdetail);
 
   //tagdetail.length;
@@ -233,7 +233,7 @@ function fetchPolorDataCount() {
         let start = new Date(document.getElementById("date-start").value);
         let end = new Date(document.getElementById("date-end").value);
         let etime = new Date(e[i].Time);
-        if (etime <= end && etime >= start) total += e[i].Count;
+        if (etime <= end && etime >= start) total += 1;
       }
       data.push(total);
     }
