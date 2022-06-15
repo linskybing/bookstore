@@ -539,11 +539,7 @@ function modal_product_info() {
             <div class="formgroup">
                 <label class="label2" for="store">庫存</label>
                 <input type="text" id="store" value="${data[nowIndex].Inventory}">
-            </div>
-            <div class="formgroup">
-                <label class="label2" for="description">商品敘述</label>
-                <textarea id="description">${ntobr(data[nowIndex].Description)}</textarea>
-            </div> 
+            </div>          
             <div class="formgroup">
               <label class="label2" for="editrent">最大租借天數</label>
               <input type="text" id="editrent" value="${data[nowIndex].MaxRent}">
@@ -552,6 +548,10 @@ function modal_product_info() {
               <label class="label2" for="rentprice">租借價格(天)&nbsp;</label>
               <input type="text" id="rentprice" value="${data[nowIndex].RentPrice}">
             </div>
+            <div class="formgroup">
+              <label class="label2" for="description">商品敘述</label>
+              <textarea id="description">${ntobr(data[nowIndex].Description)}</textarea>
+            </div> 
         `;
     modal_product_event();
   });

@@ -204,7 +204,7 @@ async function getproduct() {
         productcount = productlist.length;
         templist = productlist;
         templist2 = productlist;
-        tempcount = productcount;        
+        tempcount = productcount;
         paging();
     }
 
@@ -434,44 +434,28 @@ function pageproduct(templist) {
 //     })
 //     paging();
 // }
-// bindsearch();
-// function bindsearch() {
-//     let input = document.getElementById('searchproduct');
-//     input.addEventListener('keyup', function () {
-//         let text = this.value;
-//         searchproduct(text);
-//     })
-// }
+bindsearch();
+function bindsearch() {
+    let input = document.getElementById('searchproduct');
+    input.addEventListener('keyup', function () {
+        let text = this.value;
+        searchproduct(text);
+    })
+}
 
-// function searchproduct(search) {
-//     nowpage = 1;
-//     templist = templist2;
-//     var temp = [];
-//     for (i = 0; i < templist.length; i++) {
-//         if (templist[i].Name.search(search) >= 0) {
-//             temp.push(templist[i]);
-//         }
-//     }
-//     templist = temp;
-//     tempcount = temp.length;
-//     let option = document.querySelectorAll('option');
-//     option.forEach(e => {
-//         if (e.selected) {
-//             switch (e.value) {
-//                 case "依價格高到低排序":
-//                     sortbyprice('DESC');
-//                     paging();
-//                     break;
-//                 case "依價格低到高排序":
-//                     sortbyprice('ASC');
-//                     paging();
-//                 case "依日期排序":
-//                 case "依觀看數排序":
-//             }
-//         }
-//     })
-//     paging();
-// }
+function searchproduct(search) {
+    nowpage = 1;
+    templist = templist2;
+    var temp = [];
+    for (i = 0; i < templist.length; i++) {
+        if (templist[i].Name.search(search) >= 0) {
+            temp.push(templist[i]);
+        }
+    }
+    templist = temp;
+    tempcount = temp.length;
+    paging();
+}
 
 
 // setoption()
