@@ -70,10 +70,12 @@ function loadrole() {
             item.querySelector('.insert').addEventListener('click', function (e) {
                 let element = e.target;
                 let index = document.querySelectorAll('.insert i');
+
                 for (j = 0; j < index.length; j++) {
                     if (index[j] == element) {
                         let value = index[j].parentElement.parentElement.querySelector('input').value;
                         displaymodal(value);
+                        break;
                     }
                 }
             })
@@ -226,7 +228,7 @@ function permissionArray(data) {
 }
 
 
-async function displaymodal(itemindex) {
+function displaymodal(itemindex) {
     var array = permissionArray(role[itemindex].Data);
     modal.classList.remove('hidden');
     modal.innerHTML = `
@@ -478,7 +480,6 @@ function senddata3() {
                     document.querySelector('.modal .formerror').classList.remove('succece');
                     document.querySelector('.modal .formerror').innerHTML = '';
                     document.querySelector('.modal').classList.toggle('hidden');
-                    window.location.reload();
                 }, 2000);
             }
             else {
